@@ -7,8 +7,8 @@
     <ProjectGuid>{A66C7084-8B59-4C0E-9C5F-DF1BD89852C2}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Selkie.Services.Lines.Example.Client</RootNamespace>
-    <AssemblyName>Selkie.Services.Lines.Example.Client</AssemblyName>
+    <RootNamespace>Selkie.Services.Lines.Console.Client</RootNamespace>
+    <AssemblyName>Selkie.Services.Lines.Console.Client</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>

@@ -22,14 +22,12 @@ namespace Selkie.Services.Lines.Tests.Handlers.XUnit
         public void StartSubscribesToMessageTest([NotNull] [Frozen] IBus bus,
                                                  [NotNull] TestSelkieBaseHandler sut)
         {
-            string subscriptionId = sut.GetType()
-                                       .ToString();
+            string subscriptionId = sut.GetType().ToString();
 
             sut.Start();
 
-            bus.Received()
-               .SubscribeAsync(subscriptionId,
-                               Arg.Any <Func <TestMessage, Task>>());
+            bus.Received().SubscribeAsync(subscriptionId,
+                                          Arg.Any <Func <TestMessage, Task>>());
         }
 
         [Theory]

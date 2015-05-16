@@ -2,12 +2,13 @@
 using Castle.MicroKernel.Registration;
 using Selkie.Windsor;
 
-namespace Selkie.Services.Lines.Example.Client
+namespace Selkie.Services.Lines.Console.Client
 {
     [ExcludeFromCodeCoverage]
     //ncrunch: no coverage start
-    public class Installer : BasicConsoleInstaller,
-                             IWindsorInstaller
+    public class Installer
+        : BasicConsoleInstaller,
+          IWindsorInstaller
     {
     }
 }

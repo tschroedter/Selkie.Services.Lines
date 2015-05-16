@@ -9,169 +9,242 @@
 //      the code is regenerated.
 //  </auto-generated>
 // ------------------------------------------------------------------------------
+
 #region Designer generated code
+
+using TechTalk.SpecFlow;
+
 #pragma warning disable
+
 namespace Selkie.Services.Lines.Specflow
 {
-    using TechTalk.SpecFlow;
-    
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("ServiceLines")]
     public partial class ServiceLinesFeature
     {
-        
+        [NUnit.Framework.SetUpAttribute()]
+        public virtual void TestInitialize()
+        {
+        }
+
+        [NUnit.Framework.TearDownAttribute()]
+        public virtual void ScenarioTearDown()
+        {
+            testRunner.OnScenarioEnd();
+        }
+
         private static TechTalk.SpecFlow.ITestRunner testRunner;
-        
-#line 1 "ServiceLines.feature"
-#line hidden
-        
+
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ServiceLines", "", ProgrammingLanguage.CSharp, ((string[])(null)));
+            var featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"),
+                                                                "ServiceLines",
+                                                                "",
+                                                                ProgrammingLanguage.CSharp,
+                                                                ( ( string[] ) ( null ) ));
             testRunner.OnFeatureStart(featureInfo);
         }
-        
+
         [NUnit.Framework.TestFixtureTearDownAttribute()]
         public virtual void FeatureTearDown()
         {
             testRunner.OnFeatureEnd();
             testRunner = null;
         }
-        
-        [NUnit.Framework.SetUpAttribute()]
-        public virtual void TestInitialize()
-        {
-        }
-        
-        [NUnit.Framework.TearDownAttribute()]
-        public virtual void ScenarioTearDown()
-        {
-            testRunner.OnScenarioEnd();
-        }
-        
+
         public virtual void ScenarioSetup(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
             testRunner.OnScenarioStart(scenarioInfo);
         }
-        
+
         public virtual void ScenarioCleanup()
         {
             testRunner.CollectScenarioErrors();
         }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Ping LineService")]
-        public virtual void PingLineService()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Ping LineService", ((string[])(null)));
-#line 3
-this.ScenarioSetup(scenarioInfo);
-#line 4
- testRunner.Given("Service is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 5
- testRunner.And("Did not receive ping response message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 6
- testRunner.When("I send a ping message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 7
- testRunner.Then("the result should be a ping response message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Stop LineService")]
-        public virtual void StopLineService()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Stop LineService", ((string[])(null)));
-#line 9
-this.ScenarioSetup(scenarioInfo);
-#line 10
- testRunner.Given("Service is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 11
- testRunner.And("Did not receive ping response message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 12
- testRunner.When("I send a stop message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 13
- testRunner.Then("the result should be service not running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Stopping LineService sends message")]
-        public virtual void StoppingLineServiceSendsMessage()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Stopping LineService sends message", ((string[])(null)));
-#line 15
-this.ScenarioSetup(scenarioInfo);
-#line 16
- testRunner.Given("Service is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 17
- testRunner.When("I send a stop message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 18
- testRunner.Then("the result should be that I received a ServiceStoppedMessage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Started LineService sends message")]
-        public virtual void StartedLineServiceSendsMessage()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Started LineService sends message", ((string[])(null)));
-#line 20
-this.ScenarioSetup(scenarioInfo);
-#line 21
- testRunner.Given("Service is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 22
- testRunner.Then("the result should be that I received a ServiceStartedMessage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("TestLine message request and response")]
-        public virtual void TestLineMessageRequestAndResponse()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("TestLine message request and response", ((string[])(null)));
-#line 24
-this.ScenarioSetup(scenarioInfo);
-#line 25
- testRunner.Given("Service is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 26
- testRunner.And("Did not a receive a TestLineResponseMessage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 27
- testRunner.When("I send a TestLineRequestMessage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 28
- testRunner.Then("the result should be that I received a TestLineResponseMessage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("LineValidation request and response")]
         public virtual void LineValidationRequestAndResponse()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("LineValidation request and response", ((string[])(null)));
+            var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("LineValidation request and response",
+                                                                  ( ( string[] ) ( null ) ));
 #line 30
-this.ScenarioSetup(scenarioInfo);
+            this.ScenarioSetup(scenarioInfo);
 #line 31
- testRunner.Given("Service is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+            testRunner.Given("Service is running",
+                             ( ( string ) ( null ) ),
+                             ( ( TechTalk.SpecFlow.Table ) ( null ) ),
+                             "Given ");
 #line 32
- testRunner.And("Did not a receive a LineValidationResponseMessage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("Did not a receive a LineValidationResponseMessage",
+                           ( ( string ) ( null ) ),
+                           ( ( TechTalk.SpecFlow.Table ) ( null ) ),
+                           "And ");
 #line 33
- testRunner.When("I send a LineValidationRequestMessage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+            testRunner.When("I send a LineValidationRequestMessage",
+                            ( ( string ) ( null ) ),
+                            ( ( TechTalk.SpecFlow.Table ) ( null ) ),
+                            "When ");
 #line 34
- testRunner.Then("the result should be that I received a LineValidationResponseMessage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+            testRunner.Then("the result should be that I received a LineValidationResponseMessage",
+                            ( ( string ) ( null ) ),
+                            ( ( TechTalk.SpecFlow.Table ) ( null ) ),
+                            "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Ping LineService")]
+        public virtual void PingLineService()
+        {
+            var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Ping LineService",
+                                                                  ( ( string[] ) ( null ) ));
+#line 3
+            this.ScenarioSetup(scenarioInfo);
+#line 4
+            testRunner.Given("Service is running",
+                             ( ( string ) ( null ) ),
+                             ( ( TechTalk.SpecFlow.Table ) ( null ) ),
+                             "Given ");
+#line 5
+            testRunner.And("Did not receive ping response message",
+                           ( ( string ) ( null ) ),
+                           ( ( TechTalk.SpecFlow.Table ) ( null ) ),
+                           "And ");
+#line 6
+            testRunner.When("I send a ping message",
+                            ( ( string ) ( null ) ),
+                            ( ( TechTalk.SpecFlow.Table ) ( null ) ),
+                            "When ");
+#line 7
+            testRunner.Then("the result should be a ping response message",
+                            ( ( string ) ( null ) ),
+                            ( ( TechTalk.SpecFlow.Table ) ( null ) ),
+                            "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Started LineService sends message")]
+        public virtual void StartedLineServiceSendsMessage()
+        {
+            var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Started LineService sends message",
+                                                                  ( ( string[] ) ( null ) ));
+#line 20
+            this.ScenarioSetup(scenarioInfo);
+#line 21
+            testRunner.Given("Service is running",
+                             ( ( string ) ( null ) ),
+                             ( ( TechTalk.SpecFlow.Table ) ( null ) ),
+                             "Given ");
+#line 22
+            testRunner.Then("the result should be that I received a ServiceStartedMessage",
+                            ( ( string ) ( null ) ),
+                            ( ( TechTalk.SpecFlow.Table ) ( null ) ),
+                            "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Stop LineService")]
+        public virtual void StopLineService()
+        {
+            var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Stop LineService",
+                                                                  ( ( string[] ) ( null ) ));
+#line 9
+            this.ScenarioSetup(scenarioInfo);
+#line 10
+            testRunner.Given("Service is running",
+                             ( ( string ) ( null ) ),
+                             ( ( TechTalk.SpecFlow.Table ) ( null ) ),
+                             "Given ");
+#line 11
+            testRunner.And("Did not receive ping response message",
+                           ( ( string ) ( null ) ),
+                           ( ( TechTalk.SpecFlow.Table ) ( null ) ),
+                           "And ");
+#line 12
+            testRunner.When("I send a stop message",
+                            ( ( string ) ( null ) ),
+                            ( ( TechTalk.SpecFlow.Table ) ( null ) ),
+                            "When ");
+#line 13
+            testRunner.Then("the result should be service not running",
+                            ( ( string ) ( null ) ),
+                            ( ( TechTalk.SpecFlow.Table ) ( null ) ),
+                            "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Stopping LineService sends message")]
+        public virtual void StoppingLineServiceSendsMessage()
+        {
+            var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Stopping LineService sends message",
+                                                                  ( ( string[] ) ( null ) ));
+#line 15
+            this.ScenarioSetup(scenarioInfo);
+#line 16
+            testRunner.Given("Service is running",
+                             ( ( string ) ( null ) ),
+                             ( ( TechTalk.SpecFlow.Table ) ( null ) ),
+                             "Given ");
+#line 17
+            testRunner.When("I send a stop message",
+                            ( ( string ) ( null ) ),
+                            ( ( TechTalk.SpecFlow.Table ) ( null ) ),
+                            "When ");
+#line 18
+            testRunner.Then("the result should be that I received a ServiceStoppedMessage",
+                            ( ( string ) ( null ) ),
+                            ( ( TechTalk.SpecFlow.Table ) ( null ) ),
+                            "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("TestLine message request and response")]
+        public virtual void TestLineMessageRequestAndResponse()
+        {
+            var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("TestLine message request and response",
+                                                                  ( ( string[] ) ( null ) ));
+#line 24
+            this.ScenarioSetup(scenarioInfo);
+#line 25
+            testRunner.Given("Service is running",
+                             ( ( string ) ( null ) ),
+                             ( ( TechTalk.SpecFlow.Table ) ( null ) ),
+                             "Given ");
+#line 26
+            testRunner.And("Did not a receive a TestLineResponseMessage",
+                           ( ( string ) ( null ) ),
+                           ( ( TechTalk.SpecFlow.Table ) ( null ) ),
+                           "And ");
+#line 27
+            testRunner.When("I send a TestLineRequestMessage",
+                            ( ( string ) ( null ) ),
+                            ( ( TechTalk.SpecFlow.Table ) ( null ) ),
+                            "When ");
+#line 28
+            testRunner.Then("the result should be that I received a TestLineResponseMessage",
+                            ( ( string ) ( null ) ),
+                            ( ( TechTalk.SpecFlow.Table ) ( null ) ),
+                            "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
     }
 }
+
 #pragma warning restore
+
 #endregion

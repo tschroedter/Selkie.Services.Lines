@@ -23,8 +23,7 @@ namespace Selkie.Services.Lines.Handlers
             m_Bus = bus;
             m_Manager = manager;
 
-            m_Logger.Info("Created handler for <{0}>!".Inject(GetType()
-                                                                  .FullName));
+            m_Logger.Info("Created handler for <{0}>!".Inject(GetType().FullName));
         }
 
         [NotNull]
@@ -59,8 +58,7 @@ namespace Selkie.Services.Lines.Handlers
             m_Logger.Info("Subscribing to message <{0}>...".Inject(typeof ( T )));
 
             m_Bus.SubscribeHandlerAsync <T>(m_Logger,
-                                            GetType()
-                                                .FullName,
+                                            GetType().FullName,
                                             Handle);
         }
 

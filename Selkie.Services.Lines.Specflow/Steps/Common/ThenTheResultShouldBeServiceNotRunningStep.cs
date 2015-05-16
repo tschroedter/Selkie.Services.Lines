@@ -9,10 +9,10 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
         [Then(@"the result should be service not running")]
         public override void Do()
         {
-            SleepWaitAndDo(() => ( (Process) ScenarioContext.Current["ExeProcess"] ).HasExited,
+            SleepWaitAndDo(() => ( ( Process ) ScenarioContext.Current [ "ExeProcess" ] ).HasExited,
                            DoNothing);
 
-            Assert.True(( (Process) ScenarioContext.Current["ExeProcess"] ).HasExited,
+            Assert.True(( ( Process ) ScenarioContext.Current [ "ExeProcess" ] ).HasExited,
                         "Process didn't exited!");
         }
     }

@@ -6,7 +6,7 @@ using EasyNetQ;
 using Selkie.Services.Common;
 using ISelkieConsole = Selkie.Common.ISelkieConsole;
 
-namespace Selkie.Services.Lines.Example.Client
+namespace Selkie.Services.Lines.Console.Client
 {
     [ExcludeFromCodeCoverage]
     //ncrunch: no coverage start
@@ -19,7 +19,7 @@ namespace Selkie.Services.Lines.Example.Client
 
         private static void Main()
         {
-            WindsorContainer container = new WindsorContainer();
+            var container = new WindsorContainer();
             container.Install(FromAssembly.This());
 
             s_Bus = container.Resolve <IBus>();
@@ -47,11 +47,13 @@ namespace Selkie.Services.Lines.Example.Client
 
         private static void CallService()
         {
-            LineServiceTestClient client = new LineServiceTestClient(s_Bus,
-                                                                     s_Logger,
-                                                                     s_Console);
+            var client = new LineServiceTestClient(s_Bus,
+                                                   s_Logger,
+                                                   s_Console);
 
             client.RequestTestLines();
+
+            client.StopService();
         }
     }
 }

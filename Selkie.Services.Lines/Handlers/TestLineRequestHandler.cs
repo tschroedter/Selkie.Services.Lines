@@ -11,8 +11,9 @@ using Selkie.Windsor;
 namespace Selkie.Services.Lines.Handlers
 {
     [ProjectComponent(Lifestyle.Startable)]
-    public sealed class TestLineRequestHandler : BaseHandler <TestLineRequestMessage>,
-                                                 ITestLineRequestHandler
+    public sealed class TestLineRequestHandler
+        : BaseHandler <TestLineRequestMessage>,
+          ITestLineRequestHandler
     {
         public TestLineRequestHandler([NotNull] ILogger logger,
                                       [NotNull] IBus bus,
@@ -31,10 +32,10 @@ namespace Selkie.Services.Lines.Handlers
 
             LineDto[] dtos = lineDtos.ToArray();
 
-            TestLineResponseMessage reply = new TestLineResponseMessage
-                                            {
-                                                LineDtos = dtos
-                                            };
+            var reply = new TestLineResponseMessage
+                        {
+                            LineDtos = dtos
+                        };
 
             Bus.PublishAsync(reply);
         }

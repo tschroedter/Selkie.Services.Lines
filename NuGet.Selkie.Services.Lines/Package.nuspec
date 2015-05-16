@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<package >
+
+<package>
   <metadata>
     <id>Selkie.Services.Lines</id>
     <version>1.0.0</version>
@@ -7,23 +8,23 @@
     <authors>Thomas Schroedter</authors>
     <owners>Thomas Schroedter</owners>
     <description>
-      This package contains the Selkie Lines service.
+      This package contains the Lines service.
     </description>
     <releaseNotes>
     </releaseNotes>
     <summary>
-      This package contains the Selkie Lines service.
+      This package contains the Lines service.
     </summary>
     <language>en-US</language>
     <projectUrl>https://nuget.org/packages/Selkie.Services.Lines</projectUrl>
     <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
-    <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <licenseUrl>https://github.com/tschroedter/Selkie.Services.Lines/blob/master/LICENSE</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
     <copyright>Copyright Thomas Schroedter 2015</copyright>
     <dependencies>
-        <group targetFramework="net40">
-          <dependency id="log4net" version="1.2.10" />
-        </group>
+      <group targetFramework="net40">
+        <dependency id="log4net" version="1.2.10" />
+      </group>
     </dependencies>
     <references></references>
     <tags>Selkie</tags>

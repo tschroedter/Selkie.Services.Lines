@@ -7,8 +7,8 @@
     <ProjectGuid>{9DE00DD8-006C-4CC1-8E51-28FA169D7201}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Selkie.Services.Lines.Example</RootNamespace>
-    <AssemblyName>Selkie.Services.Lines.Example</AssemblyName>
+    <RootNamespace>Selkie.Services.Lines.Console</RootNamespace>
+    <AssemblyName>Selkie.Services.Lines.Console</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -119,6 +119,7 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Selkie.Services.Lines.Console.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Selkie.Services.Lines\Selkie.Services.Lines.csproj">

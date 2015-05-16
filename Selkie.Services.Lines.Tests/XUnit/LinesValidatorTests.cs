@@ -18,7 +18,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         public void ValidateReturnsFalseForEmptyTest([NotNull] LinesValidator sut)
         {
             // assemble
-            LineDto[] lines = new LineDto[0];
+            var lines = new LineDto[0];
 
             // act
             // assert
@@ -30,9 +30,10 @@ namespace Selkie.Services.Lines.Tests.XUnit
         public void ValidateReturnsFalseForOneLineTest([NotNull] LinesValidator sut)
         {
             // assemble
-            LineDto[] lines = {
-                                  new LineDto()
-                              };
+            LineDto[] lines =
+            {
+                new LineDto()
+            };
 
             // act
             // assert
@@ -50,21 +51,22 @@ namespace Selkie.Services.Lines.Tests.XUnit
                                      bool result)
         {
             // assemble
-            LineDto one = new LineDto
-                          {
-                              Id = firstId
-                          };
-            LineDto two = new LineDto
-                          {
-                              Id = secondId
-                          };
+            var one = new LineDto
+                      {
+                          Id = firstId
+                      };
+            var two = new LineDto
+                      {
+                          Id = secondId
+                      };
 
-            LineDto[] lines = {
-                                  one,
-                                  two
-                              };
+            LineDto[] lines =
+            {
+                one,
+                two
+            };
 
-            LinesValidator sut = new LinesValidator();
+            var sut = new LinesValidator();
 
             // act
             // assert
@@ -83,18 +85,19 @@ namespace Selkie.Services.Lines.Tests.XUnit
                                       bool result)
         {
             // assemble
-            ILine one = Substitute.For <ILine>();
+            var one = Substitute.For <ILine>();
             one.Id.Returns(firstId);
 
-            ILine two = Substitute.For <ILine>();
+            var two = Substitute.For <ILine>();
             two.Id.Returns(secondId);
 
-            ILine[] lines = {
-                                one,
-                                two
-                            };
+            ILine[] lines =
+            {
+                one,
+                two
+            };
 
-            LinesValidator sut = new LinesValidator();
+            var sut = new LinesValidator();
 
             // act
             // assert

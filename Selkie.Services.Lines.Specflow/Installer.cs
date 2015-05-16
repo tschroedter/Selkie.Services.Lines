@@ -6,10 +6,9 @@ namespace Selkie.Services.Lines.Specflow
 {
     [ExcludeFromCodeCoverage]
     //ncrunch: no coverage start
-    public class Installer : BasicConsoleInstaller,
-                             IWindsorInstaller
+    public class Installer
+        : BasicConsoleInstaller,
+          IWindsorInstaller
     {
     }
-
-    
 }

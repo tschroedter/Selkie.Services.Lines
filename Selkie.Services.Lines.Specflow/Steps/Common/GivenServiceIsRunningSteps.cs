@@ -17,7 +17,6 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
     public sealed class GivenServiceIsRunningStep : IDisposable
     {
         private static readonly TimeSpan SleepTime = TimeSpan.FromSeconds(1.0);
-
         private IWindsorContainer m_Container;
         private ServiceHandlers m_ServiceHandlers;
         private SpecFlowService m_SpecFlowService;
@@ -34,8 +33,8 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
             m_Container = new WindsorContainer();
             m_Container.Install(FromAssembly.This());
 
-            ScenarioContext.Current["ILogger"] = m_Container.Resolve <ILogger>();
-            ScenarioContext.Current["IBus"] = m_Container.Resolve <IBus>(); // todo create ISelkieBus
+            ScenarioContext.Current [ "ILogger" ] = m_Container.Resolve <ILogger>();
+            ScenarioContext.Current [ "IBus" ] = m_Container.Resolve <IBus>(); // todo create ISelkieBus
 
             m_SpecFlowService = new SpecFlowService();
             m_SpecFlowService.DeleteQueues();
@@ -48,7 +47,7 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
         [AfterScenario]
         public void AfterScenario()
         {
-            bool isExited = (bool) ScenarioContext.Current["IsExited"];
+            var isExited = ( bool ) ScenarioContext.Current [ "IsExited" ];
 
             if ( !isExited )
             {
@@ -59,31 +58,31 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
         [Given(@"Service is running")]
         public void Do()
         {
-            ScenarioContext.Current["IsReceivedPingResponse"] = false;
+            ScenarioContext.Current [ "IsReceivedPingResponse" ] = false;
 
-            SleepWaitAndDo(() => (bool) ScenarioContext.Current["IsReceivedPingResponse"],
+            SleepWaitAndDo(() => ( bool ) ScenarioContext.Current [ "IsReceivedPingResponse" ],
                            WhenISendAPingMessage);
 
-            Assert.True((bool) ScenarioContext.Current["IsReceivedPingResponse"],
+            Assert.True(( bool ) ScenarioContext.Current [ "IsReceivedPingResponse" ],
                         "Didn't receive ping response!");
         }
 
         private void WhenISendAPingMessage()
         {
-            IBus bus = (IBus) ScenarioContext.Current["IBus"];
+            var bus = ( IBus ) ScenarioContext.Current [ "IBus" ];
 
             bus.PublishAsync(new PingRequestMessage());
         }
 
         // todo duplicated code in BaseStep
-        public void SleepWaitAndDo([NotNull] Func<bool> breakIfTrue,
+        public void SleepWaitAndDo([NotNull] Func <bool> breakIfTrue,
                                    [NotNull] Action doSomething)
         {
-            for (int i = 0; i < 10; i++)
+            for ( var i = 0 ; i < 10 ; i++ )
             {
                 Thread.Sleep(SleepTime);
 
-                if (breakIfTrue())
+                if ( breakIfTrue() )
                 {
                     break;
                 }

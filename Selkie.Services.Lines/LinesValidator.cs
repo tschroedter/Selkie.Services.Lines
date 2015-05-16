@@ -33,7 +33,7 @@ namespace Selkie.Services.Lines
                 return false;
             }
 
-            int expectedId = 0;
+            var expectedId = 0;
 
             return array.All(id => expectedId++ == id);
         }

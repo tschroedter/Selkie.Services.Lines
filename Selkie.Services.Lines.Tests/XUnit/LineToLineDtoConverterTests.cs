@@ -123,10 +123,10 @@ namespace Selkie.Services.Lines.Tests.XUnit
         [Fact]
         public void X1RoundtripForFromLineTest()
         {
-            LineDto dto = new LineDto
-                          {
-                              X1 = 1.0
-                          };
+            var dto = new LineDto
+                      {
+                          X1 = 1.0
+                      };
             Assert.Equal(1.0,
                          dto.X1);
 
@@ -260,7 +260,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
 
             Assert.NotNull(m_Dto.RunDirection);
             Assert.NotNull(actual.RunDirection);
-            Assert.True(String.Compare(m_Dto.RunDirection,
+            Assert.True(string.Compare(m_Dto.RunDirection,
                                        actual.RunDirection.ToString(),
                                        StringComparison.InvariantCulture) == 0);
         }

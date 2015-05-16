@@ -10,10 +10,10 @@ namespace Selkie.Services.Lines.Specflow.Steps
         [When(@"I send a LineValidationRequestMessage")]
         public override void Do()
         {
-            LineValidationRequestMessage request = new LineValidationRequestMessage
-                                                   {
-                                                       LineDtos = new LineDto[0]
-                                                   };
+            var request = new LineValidationRequestMessage
+                          {
+                              LineDtos = new LineDto[0]
+                          };
 
             Bus.PublishAsync(request);
         }

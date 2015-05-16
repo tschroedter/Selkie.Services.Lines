@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 using Selkie.Geometry;
 using Selkie.Geometry.Shapes;
 using Selkie.Services.Lines.Common.Dto;
 
-namespace Selkie.Services.Lines
+namespace Selkie.Services.Lines.Console.Client
 {
+    [ExcludeFromCodeCoverage]
+    //ncrunch: no coverage start
     public class LineToLineDtoConverter
     {
         [NotNull]

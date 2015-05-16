@@ -8,8 +8,9 @@ using Selkie.Windsor;
 namespace Selkie.Services.Lines
 {
     [ProjectComponent(Lifestyle.Singleton)]
-    public class Service : BaseService,
-                           IService
+    public class Service
+        : BaseService,
+          IService
     {
         public const string ServiceName = "Lines Service";
 
@@ -25,20 +26,20 @@ namespace Selkie.Services.Lines
 
         protected override void ServiceStart()
         {
-            ServiceStartedResponseMessage message = new ServiceStartedResponseMessage
-                                                    {
-                                                        ServiceName = ServiceName
-                                                    };
+            var message = new ServiceStartedResponseMessage
+                          {
+                              ServiceName = ServiceName
+                          };
 
             Bus.Publish(message);
         }
 
         protected override void ServiceStop()
         {
-            ServiceStoppedResponseMessage message = new ServiceStoppedResponseMessage
-                                                    {
-                                                        ServiceName = ServiceName
-                                                    };
+            var message = new ServiceStoppedResponseMessage
+                          {
+                              ServiceName = ServiceName
+                          };
 
             Bus.Publish(message);
         }

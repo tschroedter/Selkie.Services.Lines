@@ -7,11 +7,12 @@ using JetBrains.Annotations;
 using Selkie.Common;
 using Selkie.EasyNetQ.Extensions;
 using Selkie.Geometry.Shapes;
+using Selkie.Services.Common.Messages;
 using Selkie.Services.Lines.Common;
 using Selkie.Services.Lines.Common.Messages;
 using Selkie.Windsor.Extensions;
 
-namespace Selkie.Services.Lines.Example.Client
+namespace Selkie.Services.Lines.Console.Client
 {
     [ExcludeFromCodeCoverage]
     //ncrunch: no coverage start
@@ -28,8 +29,7 @@ namespace Selkie.Services.Lines.Example.Client
             m_Console = console;
 
             m_Bus.SubscribeHandlerAsync <TestLineResponseMessage>(logger,
-                                                                  GetType()
-                                                                      .ToString(),
+                                                                  GetType().ToString(),
                                                                   TestLineResponseHandler);
         }
 
@@ -37,15 +37,16 @@ namespace Selkie.Services.Lines.Example.Client
         {
             m_Console.WriteLine("Request <TestLineRequestMessage>...");
 
-            TestLineType.Type[] types = {
-                                            TestLineType.Type.CreateTestLines,
-                                            TestLineType.Type.CreateParallelLines
-                                        };
+            TestLineType.Type[] types =
+            {
+                TestLineType.Type.CreateTestLines,
+                TestLineType.Type.CreateParallelLines
+            };
 
-            TestLineRequestMessage request = new TestLineRequestMessage
-                                             {
-                                                 Types = types
-                                             };
+            var request = new TestLineRequestMessage
+                          {
+                              Types = types
+                          };
 
             m_Bus.PublishAsync(request);
             m_Bus.Publish(request);
@@ -67,6 +68,15 @@ namespace Selkie.Services.Lines.Example.Client
                                                                status,
                                                                line));
             }
+        }
+
+        public void StopService()
+        {
+            m_Bus.PublishAsync(new StopServiceRequestMessage
+                               {
+                                   IsStopAllServices = false,
+                                   ServiceName = "Lines Service"
+                               });
         }
     }
 

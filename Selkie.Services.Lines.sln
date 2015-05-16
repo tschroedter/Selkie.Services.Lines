@@ -10,15 +10,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{6A012F
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selkie.Services.Lines.Example.Client", "Selkie.Services.Lines.Example.Client\Selkie.Services.Lines.Example.Client.csproj", "{A66C7084-8B59-4C0E-9C5F-DF1BD89852C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selkie.Services.Lines.Console", "Selkie.Services.Lines.Console\Selkie.Services.Lines.Console.csproj", "{9DE00DD8-006C-4CC1-8E51-28FA169D7201}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selkie.Services.Lines.Console.Client", "Selkie.Services.Lines.Console.Client\Selkie.Services.Lines.Console.Client.csproj", "{A66C7084-8B59-4C0E-9C5F-DF1BD89852C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selkie.Services.Lines.Tests", "Selkie.Services.Lines.Tests\Selkie.Services.Lines.Tests.csproj", "{ECF5F9E5-8735-49AE-BD2D-6FAABD7C6BD0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selkie.Services.Lines.Specflow", "Selkie.Services.Lines.Specflow\Selkie.Services.Lines.Specflow.csproj", "{F5C2E97D-BFC8-4057-B3A2-BAA4136BA38F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuGet.Selkie.Services.Lines", "NuGet.Selkie.Services.Lines\NuGet.Selkie.Services.Lines.csproj", "{0451BAEF-DF2E-4B98-8644-94EE9415E389}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selkie.Services.Lines.Example", "Selkie.Services.Lines.Example\Selkie.Services.Lines.Example.csproj", "{9DE00DD8-006C-4CC1-8E51-28FA169D7201}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +30,10 @@ Global
 		{7B37E070-5D8D-4982-8986-8904F71165EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B37E070-5D8D-4982-8986-8904F71165EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B37E070-5D8D-4982-8986-8904F71165EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DE00DD8-006C-4CC1-8E51-28FA169D7201}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DE00DD8-006C-4CC1-8E51-28FA169D7201}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DE00DD8-006C-4CC1-8E51-28FA169D7201}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DE00DD8-006C-4CC1-8E51-28FA169D7201}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A66C7084-8B59-4C0E-9C5F-DF1BD89852C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A66C7084-8B59-4C0E-9C5F-DF1BD89852C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A66C7084-8B59-4C0E-9C5F-DF1BD89852C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -46,10 +50,6 @@ Global
 		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9DE00DD8-006C-4CC1-8E51-28FA169D7201}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9DE00DD8-006C-4CC1-8E51-28FA169D7201}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9DE00DD8-006C-4CC1-8E51-28FA169D7201}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9DE00DD8-006C-4CC1-8E51-28FA169D7201}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

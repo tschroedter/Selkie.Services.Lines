@@ -10,14 +10,15 @@ namespace Selkie.Services.Lines.Specflow.Steps
         [When(@"I send a TestLineRequestMessage")]
         public override void Do()
         {
-            TestLineType.Type[] types = {
-                                            TestLineType.Type.CreateLines
-                                        };
+            TestLineType.Type[] types =
+            {
+                TestLineType.Type.CreateLines
+            };
 
-            TestLineRequestMessage response = new TestLineRequestMessage
-                                              {
-                                                  Types = types
-                                              };
+            var response = new TestLineRequestMessage
+                           {
+                               Types = types
+                           };
 
             Bus.PublishAsync(response);
         }

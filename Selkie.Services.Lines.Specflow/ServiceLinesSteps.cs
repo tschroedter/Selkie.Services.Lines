@@ -4,6 +4,7 @@ using Selkie.Services.Lines.Common.Messages;
 using TechTalk.SpecFlow;
 
 // ReSharper disable once CheckNamespace
+
 namespace Selkie.Services.Lines.Specflow.Steps.Common
 {
     public partial class ServiceHandlers
@@ -11,24 +12,22 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
         public void SubscribeOther()
         {
             m_Bus.SubscribeHandlerAsync <TestLineResponseMessage>(m_Logger,
-                                                                  GetType()
-                                                                      .FullName,
+                                                                  GetType().FullName,
                                                                   TestLineResponseHandler);
 
             m_Bus.SubscribeHandlerAsync <LineValidationResponseMessage>(m_Logger,
-                                                                        GetType()
-                                                                            .FullName,
+                                                                        GetType().FullName,
                                                                         LineValidationResponseHandler);
         }
 
         private void TestLineResponseHandler([NotNull] TestLineResponseMessage message)
         {
-            ScenarioContext.Current["IsReceivedTestLineResponse"] = true;
+            ScenarioContext.Current [ "IsReceivedTestLineResponse" ] = true;
         }
 
         private void LineValidationResponseHandler([NotNull] LineValidationResponseMessage message)
         {
-            ScenarioContext.Current["IsReceivedLineValidationResponse"] = true;
+            ScenarioContext.Current [ "IsReceivedLineValidationResponse" ] = true;
         }
     }
 }

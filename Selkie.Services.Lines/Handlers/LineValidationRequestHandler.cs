@@ -7,8 +7,9 @@ using Selkie.Windsor;
 namespace Selkie.Services.Lines.Handlers
 {
     [ProjectComponent(Lifestyle.Startable)]
-    public sealed class LineValidationRequestHandler : BaseHandler <LineValidationRequestMessage>,
-                                                       ILineValidationRequestHandler
+    public sealed class LineValidationRequestHandler
+        : BaseHandler <LineValidationRequestMessage>,
+          ILineValidationRequestHandler
     {
         public LineValidationRequestHandler([NotNull] ILogger logger,
                                             [NotNull] IBus bus,
@@ -25,11 +26,11 @@ namespace Selkie.Services.Lines.Handlers
 
             bool isValid = Manager.ValidateDtos(message.LineDtos);
 
-            LineValidationResponseMessage response = new LineValidationResponseMessage
-                                                     {
-                                                         LineDtos = message.LineDtos,
-                                                         AreValid = isValid
-                                                     };
+            var response = new LineValidationResponseMessage
+                           {
+                               LineDtos = message.LineDtos,
+                               AreValid = isValid
+                           };
 
             Bus.PublishAsync(response);
         }

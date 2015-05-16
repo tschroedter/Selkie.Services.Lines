@@ -22,8 +22,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             sut.Start();
 
-            bus.Received()
-               .Publish(Arg.Is <ServiceStartedResponseMessage>(x => x.ServiceName == Service.ServiceName));
+            bus.Received().Publish(Arg.Is <ServiceStartedResponseMessage>(x => x.ServiceName == Service.ServiceName));
         }
 
         [Theory]
@@ -33,8 +32,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             sut.Stop();
 
-            bus.Received()
-               .Publish(Arg.Is <ServiceStoppedResponseMessage>(x => x.ServiceName == Service.ServiceName));
+            bus.Received().Publish(Arg.Is <ServiceStoppedResponseMessage>(x => x.ServiceName == Service.ServiceName));
         }
 
         [Theory]
@@ -44,12 +42,10 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             sut.Initialize();
 
-            string subscriptionId = sut.GetType()
-                                       .ToString();
+            string subscriptionId = sut.GetType().ToString();
 
-            bus.Received()
-               .SubscribeAsync(subscriptionId,
-                               Arg.Any <Func <PingRequestMessage, Task>>());
+            bus.Received().SubscribeAsync(subscriptionId,
+                                          Arg.Any <Func <PingRequestMessage, Task>>());
         }
     }
 }

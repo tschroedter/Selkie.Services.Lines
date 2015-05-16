@@ -8,7 +8,7 @@ namespace Selkie.Services.Lines.Specflow.Steps
         [Given(@"Did not a receive a TestLineResponseMessage")]
         public override void Do()
         {
-            ScenarioContext.Current["IsReceivedTestLineResponse"] = false;
+            ScenarioContext.Current [ "IsReceivedTestLineResponse" ] = false;
         }
     }
 }

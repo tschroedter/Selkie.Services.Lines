@@ -21,29 +21,29 @@ namespace Selkie.Services.Lines
 
         public List <ILine> CreateLines(int id)
         {
-            Point line1StartPoint = new Point(100.0,
-                                              100.0);
-            Point line1EndPoint = new Point(200.0,
+            var line1StartPoint = new Point(100.0,
                                             100.0);
-            Line line1 = new Line(0,
-                                  line1StartPoint,
-                                  line1EndPoint);
+            var line1EndPoint = new Point(200.0,
+                                          100.0);
+            var line1 = new Line(0,
+                                 line1StartPoint,
+                                 line1EndPoint);
 
-            Point line2StartPoint = new Point(120.0,
-                                              80.0);
-            Point line2EndPoint = new Point(180.0,
+            var line2StartPoint = new Point(120.0,
                                             80.0);
-            Line line2 = new Line(1,
-                                  line2StartPoint,
-                                  line2EndPoint);
+            var line2EndPoint = new Point(180.0,
+                                          80.0);
+            var line2 = new Line(1,
+                                 line2StartPoint,
+                                 line2EndPoint);
 
-            Point line3StartPoint = new Point(120.0,
-                                              120.0);
-            Point line3EndPoint = new Point(180.0,
+            var line3StartPoint = new Point(120.0,
                                             120.0);
-            Line line3 = new Line(2,
-                                  line3StartPoint,
-                                  line3EndPoint);
+            var line3EndPoint = new Point(180.0,
+                                          120.0);
+            var line3 = new Line(2,
+                                 line3StartPoint,
+                                 line3EndPoint);
 
             return new List <ILine>
                    {
@@ -55,21 +55,21 @@ namespace Selkie.Services.Lines
 
         public List <ILine> CreateFixedParallelLines(int id)
         {
-            Point line1StartPoint = new Point(100.0,
-                                              0.0);
-            Point line1EndPoint = new Point(200.0,
+            var line1StartPoint = new Point(100.0,
                                             0.0);
-            Line line1 = new Line(id++,
-                                  line1StartPoint,
-                                  line1EndPoint);
+            var line1EndPoint = new Point(200.0,
+                                          0.0);
+            var line1 = new Line(id++,
+                                 line1StartPoint,
+                                 line1EndPoint);
 
-            Point line2StartPoint = new Point(100.0,
-                                              60.0);
-            Point line2EndPoint = new Point(200.0,
+            var line2StartPoint = new Point(100.0,
                                             60.0);
-            Line line2 = new Line(id,
-                                  line2StartPoint,
-                                  line2EndPoint);
+            var line2EndPoint = new Point(200.0,
+                                          60.0);
+            var line2 = new Line(id,
+                                 line2StartPoint,
+                                 line2EndPoint);
 
             //            var line2 = new Line(id++, line2StartPoint, line2EndPoint);
 
@@ -83,11 +83,11 @@ namespace Selkie.Services.Lines
             //
             //            var list = new List<ILine> {line1, line2, line3, line4};
 
-            List <ILine> list = new List <ILine>
-                                {
-                                    line1,
-                                    line2
-                                };
+            var list = new List <ILine>
+                       {
+                           line1,
+                           line2
+                       };
 
             return list;
         }
@@ -100,18 +100,18 @@ namespace Selkie.Services.Lines
                                                 double x2 = 300.0,
                                                 double y2 = 0.0)
         {
-            List <ILine> lines = new List <ILine>();
+            var lines = new List <ILine>();
 
-            for ( int i = 0; i < numberOfLines; i++ )
+            for ( var i = 0 ; i < numberOfLines ; i++ )
             {
-                Point startPoint = new Point(x1,
-                                             y1);
-                Point endPoint = new Point(x2,
-                                           y2);
+                var startPoint = new Point(x1,
+                                           y1);
+                var endPoint = new Point(x2,
+                                         y2);
 
-                Line line = new Line(id++,
-                                     startPoint,
-                                     endPoint);
+                var line = new Line(id++,
+                                    startPoint,
+                                    endPoint);
 
                 lines.Add(line);
 
@@ -130,14 +130,14 @@ namespace Selkie.Services.Lines
                                                               double x2 = 300.0,
                                                               double y2 = 0.0)
         {
-            List <ILine> lines = new List <ILine>();
+            var lines = new List <ILine>();
 
-            for ( int i = 0; i < numberOfLines; i++ )
+            for ( var i = 0 ; i < numberOfLines ; i++ )
             {
-                Point startPoint = new Point(x1,
-                                             y1);
-                Point endPoint = new Point(x2,
-                                           y2);
+                var startPoint = new Point(x1,
+                                           y1);
+                var endPoint = new Point(x2,
+                                         y2);
 
                 ILine line = i % 2 == 0
                                  ? new Line(id++,
@@ -164,18 +164,18 @@ namespace Selkie.Services.Lines
                                                        double x2 = 300.0,
                                                        double y2 = 0.0)
         {
-            List <ILine> lines = new List <ILine>();
+            var lines = new List <ILine>();
 
-            for ( int i = 0; i < numberOfLines; i++ )
+            for ( var i = 0 ; i < numberOfLines ; i++ )
             {
-                Point startPoint = new Point(x2,
-                                             y2);
-                Point endPoint = new Point(x1,
-                                           y1);
+                var startPoint = new Point(x2,
+                                           y2);
+                var endPoint = new Point(x1,
+                                         y1);
 
-                Line line = new Line(id++,
-                                     startPoint,
-                                     endPoint);
+                var line = new Line(id++,
+                                    startPoint,
+                                    endPoint);
 
                 lines.Add(line);
 
@@ -190,45 +190,45 @@ namespace Selkie.Services.Lines
         public List <ILine> CreateBox(int numberOfLines,
                                       int id = 0)
         {
-            List <ILine> lines = new List <ILine>();
-            Point offset = new Point(1000.0,
-                                     1000.0);
+            var lines = new List <ILine>();
+            var offset = new Point(1000.0,
+                                   1000.0);
 
-            for ( int i = 0; i < numberOfLines; i++ )
+            for ( var i = 0 ; i < numberOfLines ; i++ )
             {
                 double delta = 30.0 * i;
 
-                Point line1StartPoint = new Point(offset.X + 0.0 - delta,
-                                                  offset.Y + 0.0 - delta);
-                Point line1EndPoint = new Point(offset.X + 60.0 + delta,
+                var line1StartPoint = new Point(offset.X + 0.0 - delta,
                                                 offset.Y + 0.0 - delta);
-                Line line1 = new Line(id++,
-                                      line1StartPoint,
-                                      line1EndPoint);
+                var line1EndPoint = new Point(offset.X + 60.0 + delta,
+                                              offset.Y + 0.0 - delta);
+                var line1 = new Line(id++,
+                                     line1StartPoint,
+                                     line1EndPoint);
 
-                Point line2StartPoint = new Point(offset.X + 0.0 - delta,
-                                                  offset.Y + 30.0 - delta);
-                Point line2EndPoint = new Point(offset.X + 0.0 - delta,
-                                                offset.Y + 60.0 + delta);
-                Line line2 = new Line(id++,
-                                      line2StartPoint,
-                                      line2EndPoint);
-
-                Point line3StartPoint = new Point(offset.X + 0.0 - delta,
-                                                  offset.Y + 90.0 + delta);
-                Point line3EndPoint = new Point(offset.X + 60.0 + delta,
-                                                offset.Y + 90.0 + delta);
-                Line line3 = new Line(id++,
-                                      line3StartPoint,
-                                      line3EndPoint);
-
-                Point line4StartPoint = new Point(offset.X + 60.0 + delta,
-                                                  offset.Y + 60.0 + delta);
-                Point line4EndPoint = new Point(offset.X + 60.0 + delta,
+                var line2StartPoint = new Point(offset.X + 0.0 - delta,
                                                 offset.Y + 30.0 - delta);
-                Line line4 = new Line(id++,
-                                      line4StartPoint,
-                                      line4EndPoint);
+                var line2EndPoint = new Point(offset.X + 0.0 - delta,
+                                              offset.Y + 60.0 + delta);
+                var line2 = new Line(id++,
+                                     line2StartPoint,
+                                     line2EndPoint);
+
+                var line3StartPoint = new Point(offset.X + 0.0 - delta,
+                                                offset.Y + 90.0 + delta);
+                var line3EndPoint = new Point(offset.X + 60.0 + delta,
+                                              offset.Y + 90.0 + delta);
+                var line3 = new Line(id++,
+                                     line3StartPoint,
+                                     line3EndPoint);
+
+                var line4StartPoint = new Point(offset.X + 60.0 + delta,
+                                                offset.Y + 60.0 + delta);
+                var line4EndPoint = new Point(offset.X + 60.0 + delta,
+                                              offset.Y + 30.0 - delta);
+                var line4 = new Line(id++,
+                                     line4StartPoint,
+                                     line4EndPoint);
 
                 lines.AddRange(new[]
                                {
@@ -243,21 +243,21 @@ namespace Selkie.Services.Lines
 
         public List <ILine> CreateCross(int id = 0)
         {
-            Point line1StartPoint = new Point(0.0,
-                                              150.0);
-            Point line1EndPoint = new Point(300.0,
+            var line1StartPoint = new Point(0.0,
                                             150.0);
-            Line line1 = new Line(id++,
-                                  line1StartPoint,
-                                  line1EndPoint);
+            var line1EndPoint = new Point(300.0,
+                                          150.0);
+            var line1 = new Line(id++,
+                                 line1StartPoint,
+                                 line1EndPoint);
 
-            Point line2StartPoint = new Point(150.0,
-                                              0.0);
-            Point line2EndPoint = new Point(150.0,
-                                            300.0);
-            Line line2 = new Line(id,
-                                  line2StartPoint,
-                                  line2EndPoint);
+            var line2StartPoint = new Point(150.0,
+                                            0.0);
+            var line2EndPoint = new Point(150.0,
+                                          300.0);
+            var line2 = new Line(id,
+                                 line2StartPoint,
+                                 line2EndPoint);
 
             return new List <ILine>
                    {
@@ -268,23 +268,23 @@ namespace Selkie.Services.Lines
 
         public List <ILine> CreateCrossForwardReverse(int id = 0)
         {
-            Point line1StartPoint = new Point(0.0,
-                                              150.0);
-            Point line1EndPoint = new Point(300.0,
+            var line1StartPoint = new Point(0.0,
                                             150.0);
-            Line line1 = new Line(id++,
-                                  line1StartPoint,
-                                  line1EndPoint,
-                                  Constants.LineDirection.Forward);
+            var line1EndPoint = new Point(300.0,
+                                          150.0);
+            var line1 = new Line(id++,
+                                 line1StartPoint,
+                                 line1EndPoint,
+                                 Constants.LineDirection.Forward);
 
-            Point line2StartPoint = new Point(150.0,
-                                              0.0);
-            Point line2EndPoint = new Point(150.0,
-                                            300.0);
-            Line line2 = new Line(id,
-                                  line2StartPoint,
-                                  line2EndPoint,
-                                  Constants.LineDirection.Reverse);
+            var line2StartPoint = new Point(150.0,
+                                            0.0);
+            var line2EndPoint = new Point(150.0,
+                                          300.0);
+            var line2 = new Line(id,
+                                 line2StartPoint,
+                                 line2EndPoint,
+                                 Constants.LineDirection.Reverse);
 
             return new List <ILine>
                    {
@@ -296,7 +296,7 @@ namespace Selkie.Services.Lines
         public List <ILine> CreateParallelCrossLinesInCorner(int numberOfLines,
                                                              int id = 0)
         {
-            List <ILine> lines = new List <ILine>();
+            var lines = new List <ILine>();
 
             List <ILine> swCorner = CreateParallelCrossLines(numberOfLines,
                                                              id);
@@ -343,36 +343,36 @@ namespace Selkie.Services.Lines
                                                      double x2 = 30.0,
                                                      double y2 = 0)
         {
-            List <ILine> lines = new List <ILine>();
+            var lines = new List <ILine>();
             const double distanceBetweenLines = 30.0;
             double length = ( numberOfLines + 1 ) * distanceBetweenLines;
 
-            for ( int i = 0; i < numberOfLines; i++ )
+            for ( var i = 0 ; i < numberOfLines ; i++ )
             {
                 double offset = distanceBetweenLines * i;
 
-                Point lineStartPoint = new Point(x1,
-                                                 y1 + offset);
-                Point lineEndPoint = new Point(x1 + length,
+                var lineStartPoint = new Point(x1,
                                                y1 + offset);
-                Line line = new Line(idCount++,
-                                     lineStartPoint,
-                                     lineEndPoint);
+                var lineEndPoint = new Point(x1 + length,
+                                             y1 + offset);
+                var line = new Line(idCount++,
+                                    lineStartPoint,
+                                    lineEndPoint);
 
                 lines.Add(line);
             }
 
-            for ( int i = 0; i < numberOfLines; i++ )
+            for ( var i = 0 ; i < numberOfLines ; i++ )
             {
                 double offset = distanceBetweenLines * i;
 
-                Point line2StartPoint = new Point(x2 + offset,
-                                                  y2);
-                Point line2EndPoint = new Point(x2 + offset,
-                                                y2 + length);
-                Line line2 = new Line(idCount++,
-                                      line2StartPoint,
-                                      line2EndPoint);
+                var line2StartPoint = new Point(x2 + offset,
+                                                y2);
+                var line2EndPoint = new Point(x2 + offset,
+                                              y2 + length);
+                var line2 = new Line(idCount++,
+                                     line2StartPoint,
+                                     line2EndPoint);
 
                 lines.Add(line2);
             }
@@ -388,11 +388,11 @@ namespace Selkie.Services.Lines
                                                                    double x2 = 30.0,
                                                                    double y2 = 0)
         {
-            List <ILine> lines = new List <ILine>();
+            var lines = new List <ILine>();
             const double distanceBetweenLines = 30.0;
             double length = ( numberOfLines + 1 ) * distanceBetweenLines;
 
-            for ( int i = 0; i < numberOfLines; i++, idCount++ )
+            for ( var i = 0 ; i < numberOfLines ; i++, idCount++ )
             {
                 CreateParallelCrossLineTypeOne(idCount,
                                                x1,
@@ -403,7 +403,7 @@ namespace Selkie.Services.Lines
                                                lines);
             }
 
-            for ( int i = 0; i < numberOfLines; i++, idCount++ )
+            for ( var i = 0 ; i < numberOfLines ; i++, idCount++ )
             {
                 CreateParallelCrossLineTypeTwo(idCount,
                                                x2,
@@ -422,21 +422,21 @@ namespace Selkie.Services.Lines
         public List <ILine> CreateLinesInRowHorizontal(int numberOfLines,
                                                        int id = 0)
         {
-            List <ILine> lines = new List <ILine>();
+            var lines = new List <ILine>();
             const double distanceBetweenLines = 60.0;
             const double length = 30.0;
 
-            for ( int i = 0; i < numberOfLines; i++ )
+            for ( var i = 0 ; i < numberOfLines ; i++ )
             {
                 double offset = distanceBetweenLines * i;
 
-                Point startPoint = new Point(30.0 + offset,
-                                             0.0);
-                Point endPoint = new Point(30.0 + offset + length,
+                var startPoint = new Point(30.0 + offset,
                                            0.0);
-                Line line = new Line(id++,
-                                     startPoint,
-                                     endPoint);
+                var endPoint = new Point(30.0 + offset + length,
+                                         0.0);
+                var line = new Line(id++,
+                                    startPoint,
+                                    endPoint);
 
                 lines.Add(line);
             }
@@ -447,25 +447,25 @@ namespace Selkie.Services.Lines
         public List <ILine> CreateRandomLines(int numberOfLines,
                                               int id = 0)
         {
-            List <ILine> lines = new List <ILine>();
+            var lines = new List <ILine>();
 
-            Random random = new Random();
+            var random = new Random();
 
-            for ( int i = 0; i < numberOfLines; i++ )
+            for ( var i = 0 ; i < numberOfLines ; i++ )
             {
-                Point startPoint = new Point(random.Next(MinXValue,
-                                                         MaxXValue),
-                                             random.Next(MinYValue,
-                                                         MaxYValue));
-
-                Point endPoint = new Point(random.Next(MinXValue,
+                var startPoint = new Point(random.Next(MinXValue,
                                                        MaxXValue),
                                            random.Next(MinYValue,
                                                        MaxYValue));
 
-                Line line = new Line(id++,
-                                     startPoint,
-                                     endPoint);
+                var endPoint = new Point(random.Next(MinXValue,
+                                                     MaxXValue),
+                                         random.Next(MinYValue,
+                                                     MaxYValue));
+
+                var line = new Line(id++,
+                                    startPoint,
+                                    endPoint);
 
                 lines.Add(line);
             }
@@ -476,19 +476,19 @@ namespace Selkie.Services.Lines
         public List <ILine> Create45DegreeLines(int numberOfLines,
                                                 int id = 0)
         {
-            List <ILine> lines = new List <ILine>();
+            var lines = new List <ILine>();
 
-            for ( int i = 0; i < numberOfLines; i++ )
+            for ( var i = 0 ; i < numberOfLines ; i++ )
             {
-                Point startPoint = new Point(100 + 60 * i,
-                                             500);
+                var startPoint = new Point(100 + 60 * i,
+                                           500);
 
-                Point endPoint = new Point(160 + 60 * i,
-                                           560);
+                var endPoint = new Point(160 + 60 * i,
+                                         560);
 
-                Line line = new Line(id++,
-                                     startPoint,
-                                     endPoint);
+                var line = new Line(id++,
+                                    startPoint,
+                                    endPoint);
 
                 lines.Add(line);
             }
@@ -498,18 +498,18 @@ namespace Selkie.Services.Lines
 
         public List <ILine> CreateTestLines(int maxId)
         {
-            List <ILine> lines = new List <ILine>();
+            var lines = new List <ILine>();
 
-            Line line1 = new Line(maxId++,
-                                  new Point(150,
-                                            610),
-                                  new Point(350,
-                                            610));
-            Line line2 = new Line(maxId,
-                                  new Point(350,
-                                            520),
-                                  new Point(150,
-                                            520));
+            var line1 = new Line(maxId++,
+                                 new Point(150,
+                                           610),
+                                 new Point(350,
+                                           610));
+            var line2 = new Line(maxId,
+                                 new Point(350,
+                                           520),
+                                 new Point(150,
+                                           520));
 
             lines.Add(line1);
             lines.Add(line2);
@@ -519,18 +519,18 @@ namespace Selkie.Services.Lines
 
         public List <ILine> CreateTestLinesVertical(int maxId)
         {
-            List <ILine> lines = new List <ILine>();
+            var lines = new List <ILine>();
 
-            Line line1 = new Line(maxId++,
-                                  new Point(200,
-                                            800),
-                                  new Point(200,
-                                            600));
-            Line line2 = new Line(maxId,
-                                  new Point(260,
-                                            800),
-                                  new Point(260,
-                                            600));
+            var line1 = new Line(maxId++,
+                                 new Point(200,
+                                           800),
+                                 new Point(200,
+                                           600));
+            var line2 = new Line(maxId,
+                                 new Point(260,
+                                           800),
+                                 new Point(260,
+                                           600));
 
             lines.Add(line1);
             lines.Add(line2);
@@ -549,17 +549,17 @@ namespace Selkie.Services.Lines
         {
             double offset = distanceBetweenLines * i;
 
-            Point line2StartPoint = new Point(x2 + offset,
-                                              y2);
-            Point line2EndPoint = new Point(x2 + offset,
-                                            y2 + length);
+            var line2StartPoint = new Point(x2 + offset,
+                                            y2);
+            var line2EndPoint = new Point(x2 + offset,
+                                          y2 + length);
             Constants.LineDirection direction = i % 2 == 0
                                                     ? Constants.LineDirection.Forward
                                                     : Constants.LineDirection.Reverse;
 
-            Line line2 = new Line(idCount,
-                                  line2StartPoint,
-                                  line2EndPoint);
+            var line2 = new Line(idCount,
+                                 line2StartPoint,
+                                 line2EndPoint);
 
             if ( direction == Constants.LineDirection.Reverse )
             {
@@ -580,17 +580,17 @@ namespace Selkie.Services.Lines
         {
             double offset = distanceBetweenLines * i;
 
-            Point lineStartPoint = new Point(x1,
-                                             y1 + offset);
-            Point lineEndPoint = new Point(x1 + length,
+            var lineStartPoint = new Point(x1,
                                            y1 + offset);
+            var lineEndPoint = new Point(x1 + length,
+                                         y1 + offset);
             Constants.LineDirection direction = i % 2 == 0
                                                     ? Constants.LineDirection.Forward
                                                     : Constants.LineDirection.Reverse;
 
-            Line line = new Line(idCount,
-                                 lineStartPoint,
-                                 lineEndPoint);
+            var line = new Line(idCount,
+                                lineStartPoint,
+                                lineEndPoint);
 
             if ( direction == Constants.LineDirection.Reverse )
             {

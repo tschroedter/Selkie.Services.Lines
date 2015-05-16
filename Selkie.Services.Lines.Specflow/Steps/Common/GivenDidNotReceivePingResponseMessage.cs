@@ -7,7 +7,7 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
         [Given(@"Did not receive ping response message")]
         public override void Do()
         {
-            ScenarioContext.Current["IsReceivedPingResponse"] = false;
+            ScenarioContext.Current [ "IsReceivedPingResponse" ] = false;
         }
     }
 }

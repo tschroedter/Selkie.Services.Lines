@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using Castle.Windsor.Installer;
 using Selkie.Services.Common;
 
-namespace Selkie.Services.Lines.Example
+namespace Selkie.Services.Lines.Console
 {
     [ExcludeFromCodeCoverage]
     //ncrunch: no coverage start

@@ -20,7 +20,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
 
         public LinesSourceManagerTests()
         {
-            ILogger logger = Substitute.For <ILogger>();
+            var logger = Substitute.For <ILogger>();
             m_Creator = Substitute.For <ITestLineCreator>();
             m_Validator = Substitute.For <ILinesValidator>();
 
@@ -32,21 +32,19 @@ namespace Selkie.Services.Lines.Tests.XUnit
         [Fact]
         public void GetTestLinesCallsGetTestLinesForTypeTest()
         {
-            List <ILine> lines = new List <ILine>
-                                 {
-                                     Substitute.For <ILine>()
-                                 };
+            var lines = new List <ILine>
+                        {
+                            Substitute.For <ILine>()
+                        };
 
-            m_Creator.CreateLines(-1)
-                     .ReturnsForAnyArgs(lines);
+            m_Creator.CreateLines(-1).ReturnsForAnyArgs(lines);
 
             m_Sut.GetTestLines(new[]
                                {
                                    TestLineType.Type.CreateLines
                                });
 
-            m_Creator.Received()
-                     .CreateLines(0);
+            m_Creator.Received().CreateLines(0);
         }
 
         [Fact]
@@ -54,8 +52,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             m_Sut.GetTestLinesForType(TestLineType.Type.CreateTestLinesVertical);
 
-            m_Creator.Received()
-                     .CreateTestLinesVertical(0);
+            m_Creator.Received().CreateTestLinesVertical(0);
         }
 
         [Fact]
@@ -63,8 +60,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             m_Sut.GetTestLinesForType(TestLineType.Type.CreateParallelCrossLinesInCorner);
 
-            m_Creator.Received()
-                     .CreateParallelCrossLinesInCorner(0);
+            m_Creator.Received().CreateParallelCrossLinesInCorner(0);
         }
 
         [Fact]
@@ -72,8 +68,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             m_Sut.GetTestLinesForType(TestLineType.Type.Create45DegreeLines);
 
-            m_Creator.Received()
-                     .Create45DegreeLines(0);
+            m_Creator.Received().Create45DegreeLines(0);
         }
 
         [Fact]
@@ -81,8 +76,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             m_Sut.GetTestLinesForType(TestLineType.Type.CreateBox);
 
-            m_Creator.Received()
-                     .CreateBox(0);
+            m_Creator.Received().CreateBox(0);
         }
 
         [Fact]
@@ -90,8 +84,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             m_Sut.GetTestLinesForType(TestLineType.Type.CreateCrossForwardReverse);
 
-            m_Creator.Received()
-                     .CreateCrossForwardReverse();
+            m_Creator.Received().CreateCrossForwardReverse();
         }
 
         [Fact]
@@ -99,8 +92,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             m_Sut.GetTestLinesForType(TestLineType.Type.CreateCross);
 
-            m_Creator.Received()
-                     .CreateCross();
+            m_Creator.Received().CreateCross();
         }
 
         [Fact]
@@ -108,8 +100,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             m_Sut.GetTestLinesForType(TestLineType.Type.CreateFixedParallelLines);
 
-            m_Creator.Received()
-                     .CreateFixedParallelLines(0);
+            m_Creator.Received().CreateFixedParallelLines(0);
         }
 
         [Fact]
@@ -117,8 +108,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             m_Sut.GetTestLinesForType(TestLineType.Type.CreateLines);
 
-            m_Creator.Received()
-                     .CreateLines(0);
+            m_Creator.Received().CreateLines(0);
         }
 
         [Fact]
@@ -127,8 +117,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
             m_Sut.GetTestLinesForType(TestLineType.Type.CreateLines,
                                       123);
 
-            m_Creator.Received()
-                     .CreateLines(123);
+            m_Creator.Received().CreateLines(123);
         }
 
         [Fact]
@@ -136,8 +125,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             m_Sut.GetTestLinesForType(TestLineType.Type.CreateLinesInRowHorizontal);
 
-            m_Creator.Received()
-                     .CreateLinesInRowHorizontal(0);
+            m_Creator.Received().CreateLinesInRowHorizontal(0);
         }
 
         [Fact]
@@ -145,8 +133,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             m_Sut.GetTestLinesForType(TestLineType.Type.CreateParallelCrossLinesForwardReverse);
 
-            m_Creator.Received()
-                     .CreateParallelCrossLinesForwardReverse(0);
+            m_Creator.Received().CreateParallelCrossLinesForwardReverse(0);
         }
 
         [Fact]
@@ -154,8 +141,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             m_Sut.GetTestLinesForType(TestLineType.Type.CreateParallelCrossLines);
 
-            m_Creator.Received()
-                     .CreateParallelCrossLines(0);
+            m_Creator.Received().CreateParallelCrossLines(0);
         }
 
         [Fact]
@@ -163,9 +149,8 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             m_Sut.GetTestLinesForType(TestLineType.Type.CreateParallelLinesForwardReverse);
 
-            m_Creator.Received()
-                     .CreateParallelLinesForwardReverse(10,
-                                                        0);
+            m_Creator.Received().CreateParallelLinesForwardReverse(10,
+                                                                   0);
         }
 
         [Fact]
@@ -173,9 +158,8 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             m_Sut.GetTestLinesForType(TestLineType.Type.CreateParallelLinesReverse);
 
-            m_Creator.Received()
-                     .CreateParallelLinesReverse(10,
-                                                 0);
+            m_Creator.Received().CreateParallelLinesReverse(10,
+                                                            0);
         }
 
         [Fact]
@@ -183,9 +167,8 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             m_Sut.GetTestLinesForType(TestLineType.Type.CreateParallelLines);
 
-            m_Creator.Received()
-                     .CreateParallelLines(10,
-                                          0);
+            m_Creator.Received().CreateParallelLines(10,
+                                                     0);
         }
 
         [Fact]
@@ -193,8 +176,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             m_Sut.GetTestLinesForType(TestLineType.Type.CreateRandomLines);
 
-            m_Creator.Received()
-                     .CreateRandomLines(0);
+            m_Creator.Received().CreateRandomLines(0);
         }
 
         [Fact]
@@ -202,24 +184,21 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             m_Sut.GetTestLinesForType(TestLineType.Type.CreateTestLines);
 
-            m_Creator.Received()
-                     .CreateTestLines(0);
+            m_Creator.Received().CreateTestLines(0);
         }
 
         [Fact]
         public void GetTestLinesReturnsEmptyLinesForInvalidLinesTest()
         {
-            List <ILine> linesOne = new List <ILine>
-                                    {
-                                        Substitute.For <ILine>()
-                                    };
+            var linesOne = new List <ILine>
+                           {
+                               Substitute.For <ILine>()
+                           };
 
-            m_Creator.CreateLines(-1)
-                     .ReturnsForAnyArgs(linesOne);
+            m_Creator.CreateLines(-1).ReturnsForAnyArgs(linesOne);
 
             // ReSharper disable once MaximumChainedReferences
-            m_Validator.ValidateLines(Arg.Any <ILine[]>())
-                       .ReturnsForAnyArgs(false);
+            m_Validator.ValidateLines(Arg.Any <ILine[]>()).ReturnsForAnyArgs(false);
 
             IEnumerable <ILine> actual = m_Sut.GetTestLines(new[]
                                                             {
@@ -233,16 +212,14 @@ namespace Selkie.Services.Lines.Tests.XUnit
         [Fact]
         public void GetTestLinesReturnsLinesForOneTypeTest()
         {
-            List <ILine> lines = new List <ILine>
-                                 {
-                                     Substitute.For <ILine>()
-                                 };
+            var lines = new List <ILine>
+                        {
+                            Substitute.For <ILine>()
+                        };
 
-            m_Creator.CreateLines(-1)
-                     .ReturnsForAnyArgs(lines);
+            m_Creator.CreateLines(-1).ReturnsForAnyArgs(lines);
             // ReSharper disable once MaximumChainedReferences
-            m_Validator.ValidateLines(Arg.Any <ILine[]>())
-                       .ReturnsForAnyArgs(true);
+            m_Validator.ValidateLines(Arg.Any <ILine[]>()).ReturnsForAnyArgs(true);
 
             IEnumerable <ILine> actual = m_Sut.GetTestLines(new[]
                                                             {
@@ -256,22 +233,19 @@ namespace Selkie.Services.Lines.Tests.XUnit
         [Fact]
         public void GetTestLinesReturnsLinesForTwoTypesTest()
         {
-            List <ILine> linesOne = new List <ILine>
-                                    {
-                                        Substitute.For <ILine>()
-                                    };
-            List <ILine> linesTwo = new List <ILine>
-                                    {
-                                        Substitute.For <ILine>()
-                                    };
+            var linesOne = new List <ILine>
+                           {
+                               Substitute.For <ILine>()
+                           };
+            var linesTwo = new List <ILine>
+                           {
+                               Substitute.For <ILine>()
+                           };
 
-            m_Creator.CreateLines(-1)
-                     .ReturnsForAnyArgs(linesOne);
-            m_Creator.CreateBox(-1)
-                     .ReturnsForAnyArgs(linesTwo);
+            m_Creator.CreateLines(-1).ReturnsForAnyArgs(linesOne);
+            m_Creator.CreateBox(-1).ReturnsForAnyArgs(linesTwo);
             // ReSharper disable once MaximumChainedReferences
-            m_Validator.ValidateLines(Arg.Any <ILine[]>())
-                       .ReturnsForAnyArgs(true);
+            m_Validator.ValidateLines(Arg.Any <ILine[]>()).ReturnsForAnyArgs(true);
 
             IEnumerable <ILine> actual = m_Sut.GetTestLines(new[]
                                                             {
@@ -286,12 +260,11 @@ namespace Selkie.Services.Lines.Tests.XUnit
         [Fact]
         public void ValidateDtosCallsValidatorTest()
         {
-            LineDto[] lineDtos = new LineDto[0];
+            var lineDtos = new LineDto[0];
 
             m_Sut.ValidateDtos(lineDtos);
 
-            m_Validator.Received()
-                       .ValidateDtos(lineDtos);
+            m_Validator.Received().ValidateDtos(lineDtos);
         }
     }
 }

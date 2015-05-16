@@ -17,7 +17,8 @@ namespace Selkie.Services.Lines
                                                   IConfigurationStore store)
         {
             // ReSharper disable MaximumChainedReferences
-            container.Register(Classes.FromThisAssembly()
+            container.Register(
+                               Classes.FromThisAssembly()
                                       .BasedOn <IService>()
                                       .WithServiceFromInterface(typeof ( IService ))
                                       .Configure(c => c.LifeStyle.Is(LifestyleType.Transient)));

@@ -14,25 +14,22 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
 
         public ServiceHandlers()
         {
-            m_Logger = (ILogger) ScenarioContext.Current["ILogger"];
-            m_Bus = (IBus) ScenarioContext.Current["IBus"];
+            m_Logger = ( ILogger ) ScenarioContext.Current [ "ILogger" ];
+            m_Bus = ( IBus ) ScenarioContext.Current [ "IBus" ];
         }
 
         public void Subscribe()
         {
             m_Bus.SubscribeHandlerAsync <PingResponseMessage>(m_Logger,
-                                                              GetType()
-                                                                  .FullName,
+                                                              GetType().FullName,
                                                               PingResponseHandler);
 
             m_Bus.SubscribeHandlerAsync <ServiceStartedResponseMessage>(m_Logger,
-                                                                        GetType()
-                                                                            .FullName,
+                                                                        GetType().FullName,
                                                                         ServiceStartedResponseHandler);
 
             m_Bus.SubscribeHandlerAsync <ServiceStoppedResponseMessage>(m_Logger,
-                                                                        GetType()
-                                                                            .FullName,
+                                                                        GetType().FullName,
                                                                         ServiceStoppedResponseHandler);
 
             SubscribeOther();
@@ -42,7 +39,7 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
         {
             if ( message.ServiceName == Helper.ServiceName )
             {
-                ScenarioContext.Current["IsReceivedServiceStoppedResponse"] = true;
+                ScenarioContext.Current [ "IsReceivedServiceStoppedResponse" ] = true;
             }
         }
 
@@ -50,13 +47,13 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
         {
             if ( message.ServiceName == Helper.ServiceName )
             {
-                ScenarioContext.Current["IsReceivedServiceStartedResponse"] = true;
+                ScenarioContext.Current [ "IsReceivedServiceStartedResponse" ] = true;
             }
         }
 
         private void PingResponseHandler([NotNull] PingResponseMessage message)
         {
-            ScenarioContext.Current["IsReceivedPingResponse"] = true;
+            ScenarioContext.Current [ "IsReceivedPingResponse" ] = true;
         }
     }
 }

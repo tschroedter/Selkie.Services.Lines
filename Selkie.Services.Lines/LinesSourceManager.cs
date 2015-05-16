@@ -29,8 +29,7 @@ namespace Selkie.Services.Lines
 
         public IEnumerable <ILine> GetTestLines(IEnumerable <TestLineType.Type> types)
         {
-            ILine[] lines = GetAllRequestedTestLines(types)
-                .ToArray();
+            ILine[] lines = GetAllRequestedTestLines(types).ToArray();
 
             if ( !m_Validator.ValidateLines(lines) )
             {
@@ -50,14 +49,13 @@ namespace Selkie.Services.Lines
         [NotNull]
         private IEnumerable <ILine> GetAllRequestedTestLines([NotNull] IEnumerable <TestLineType.Type> types)
         {
-            List <ILine> lines = new List <ILine>();
+            var lines = new List <ILine>();
 
             foreach ( TestLineType.Type type in types )
             {
                 // ReSharper disable MaximumChainedReferences
                 int maxId = lines.Any()
-                                ? lines.Select(x => x.Id)
-                                       .Max() + 1
+                                ? lines.Select(x => x.Id).Max() + 1
                                 : 0;
                 // ReSharper restore MaximumChainedReferences
 
@@ -77,58 +75,58 @@ namespace Selkie.Services.Lines
         {
             switch ( type )
             {
-                case TestLineType.Type.CreateLines :
+                case TestLineType.Type.CreateLines:
                     return m_Creator.CreateLines(maxId);
 
-                case TestLineType.Type.CreateFixedParallelLines :
+                case TestLineType.Type.CreateFixedParallelLines:
                     return m_Creator.CreateFixedParallelLines(maxId);
 
-                case TestLineType.Type.CreateParallelLines :
+                case TestLineType.Type.CreateParallelLines:
                     return m_Creator.CreateParallelLines(10,
                                                          maxId);
 
-                case TestLineType.Type.CreateParallelLinesForwardReverse :
+                case TestLineType.Type.CreateParallelLinesForwardReverse:
                     return m_Creator.CreateParallelLinesForwardReverse(10,
                                                                        maxId);
 
-                case TestLineType.Type.CreateParallelLinesReverse :
+                case TestLineType.Type.CreateParallelLinesReverse:
                     return m_Creator.CreateParallelLinesReverse(10,
                                                                 maxId);
 
-                case TestLineType.Type.CreateBox :
+                case TestLineType.Type.CreateBox:
                     return m_Creator.CreateBox(maxId);
 
-                case TestLineType.Type.CreateCross :
+                case TestLineType.Type.CreateCross:
                     return m_Creator.CreateCross(maxId);
 
-                case TestLineType.Type.CreateCrossForwardReverse :
+                case TestLineType.Type.CreateCrossForwardReverse:
                     return m_Creator.CreateCrossForwardReverse(maxId);
 
-                case TestLineType.Type.CreateParallelCrossLinesInCorner :
+                case TestLineType.Type.CreateParallelCrossLinesInCorner:
                     return m_Creator.CreateParallelCrossLinesInCorner(maxId);
 
-                case TestLineType.Type.CreateParallelCrossLines :
+                case TestLineType.Type.CreateParallelCrossLines:
                     return m_Creator.CreateParallelCrossLines(maxId);
 
-                case TestLineType.Type.CreateParallelCrossLinesForwardReverse :
+                case TestLineType.Type.CreateParallelCrossLinesForwardReverse:
                     return m_Creator.CreateParallelCrossLinesForwardReverse(maxId);
 
-                case TestLineType.Type.CreateLinesInRowHorizontal :
+                case TestLineType.Type.CreateLinesInRowHorizontal:
                     return m_Creator.CreateLinesInRowHorizontal(maxId);
 
-                case TestLineType.Type.CreateRandomLines :
+                case TestLineType.Type.CreateRandomLines:
                     return m_Creator.CreateRandomLines(maxId);
 
-                case TestLineType.Type.Create45DegreeLines :
+                case TestLineType.Type.Create45DegreeLines:
                     return m_Creator.Create45DegreeLines(maxId);
 
-                case TestLineType.Type.CreateTestLines :
+                case TestLineType.Type.CreateTestLines:
                     return m_Creator.CreateTestLines(maxId);
 
-                case TestLineType.Type.CreateTestLinesVertical :
+                case TestLineType.Type.CreateTestLinesVertical:
                     return m_Creator.CreateTestLinesVertical(maxId);
 
-                default :
+                default:
                     throw new ArgumentException("Unknown type '{0}'!".Inject(type));
             }
         }

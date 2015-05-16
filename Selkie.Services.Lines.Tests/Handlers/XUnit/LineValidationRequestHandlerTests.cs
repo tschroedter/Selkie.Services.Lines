@@ -30,8 +30,7 @@ namespace Selkie.Services.Lines.Tests.Handlers.XUnit
 
             sut.Handle(request);
 
-            manager.Received()
-                   .ValidateDtos(Arg.Any <IEnumerable <LineDto>>());
+            manager.Received().ValidateDtos(Arg.Any <IEnumerable <LineDto>>());
         }
 
         [Theory]
@@ -48,27 +47,26 @@ namespace Selkie.Services.Lines.Tests.Handlers.XUnit
 
             sut.Handle(request);
 
-            bus.Received()
-               .PublishAsync(Arg.Any <LineValidationResponseMessage>());
+            bus.Received().PublishAsync(Arg.Any <LineValidationResponseMessage>());
         }
 
         [NotNull]
         private LineValidationRequestMessage CreateRequestMessage([NotNull] IEnumerable <int> ids)
         {
-            List <LineDto> lines = new List <LineDto>();
+            var lines = new List <LineDto>();
 
             foreach ( int id in ids )
             {
-                LineDto line = Substitute.For <LineDto>();
+                var line = Substitute.For <LineDto>();
                 line.Id = id;
 
                 lines.Add(line);
             }
 
-            LineValidationRequestMessage request = new LineValidationRequestMessage
-                                                   {
-                                                       LineDtos = lines.ToArray()
-                                                   };
+            var request = new LineValidationRequestMessage
+                          {
+                              LineDtos = lines.ToArray()
+                          };
 
             return request;
         }

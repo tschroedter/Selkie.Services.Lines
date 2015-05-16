@@ -14,7 +14,7 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
 
         protected BaseStep()
         {
-            m_Bus = (IBus) ScenarioContext.Current["IBus"];
+            m_Bus = ( IBus ) ScenarioContext.Current [ "IBus" ];
         }
 
         protected IBus Bus
@@ -28,7 +28,7 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
         public void SleepWaitAndDo([NotNull] Func <bool> breakIfTrue,
                                    [NotNull] Action doSomething)
         {
-            for ( int i = 0; i < 10; i++ )
+            for ( var i = 0 ; i < 10 ; i++ )
             {
                 Thread.Sleep(SleepTime);
 

@@ -9,12 +9,12 @@ namespace Selkie.Services.Lines.Specflow.Steps
         [Then(@"the result should be that I received a LineValidationResponseMessage")]
         public override void Do()
         {
-            WhenISendALineValidationRequestMessageStep step = new WhenISendALineValidationRequestMessageStep();
+            var step = new WhenISendALineValidationRequestMessageStep();
 
-            SleepWaitAndDo(() => (bool) ScenarioContext.Current["IsReceivedLineValidationResponse"],
+            SleepWaitAndDo(() => ( bool ) ScenarioContext.Current [ "IsReceivedLineValidationResponse" ],
                            step.Do);
 
-            if ( !(bool) ScenarioContext.Current["IsReceivedLineValidationResponse"] )
+            if ( !( bool ) ScenarioContext.Current [ "IsReceivedLineValidationResponse" ] )
             {
                 Assert.Fail("Did not receive LineValidationResponseMessage!");
             }

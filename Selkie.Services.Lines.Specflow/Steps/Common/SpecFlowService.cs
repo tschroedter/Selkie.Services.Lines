@@ -26,8 +26,8 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
                 throw new InstanceNotFoundException("Could not start service!");
             }
 
-            ScenarioContext.Current["ExeProcess"] = m_ExeProcess;
-            ScenarioContext.Current["IsExited"] = false;
+            ScenarioContext.Current [ "ExeProcess" ] = m_ExeProcess;
+            ScenarioContext.Current [ "IsExited" ] = false;
 
             m_ExeProcess.Exited += ExeProcessOnExited;
         }
@@ -35,15 +35,15 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
         [CanBeNull]
         private Process StartService()
         {
-            ProcessStartInfo startInfo = new ProcessStartInfo
-                                         {
-                                             WorkingDirectory = Helper.WorkingFolder,
-                                             CreateNoWindow = false,
-                                             UseShellExecute = false,
-                                             FileName = Helper.FilenName,
-                                             WindowStyle = ProcessWindowStyle.Normal,
-                                             Arguments = ""
-                                         };
+            var startInfo = new ProcessStartInfo
+                            {
+                                WorkingDirectory = Helper.WorkingFolder,
+                                CreateNoWindow = false,
+                                UseShellExecute = false,
+                                FileName = Helper.FilenName,
+                                WindowStyle = ProcessWindowStyle.Normal,
+                                Arguments = ""
+                            };
 
             Process lineService = Process.Start(startInfo);
 
@@ -53,14 +53,14 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
         private void ExeProcessOnExited([NotNull] object sender,
                                         [NotNull] EventArgs eventArgs)
         {
-            ScenarioContext.Current["IsExited"] = true;
+            ScenarioContext.Current [ "IsExited" ] = true;
         }
 
         public void KillAndWaitForExit()
         {
             try
             {
-                Process exeProcess = (Process) ScenarioContext.Current["ExeProcess"];
+                var exeProcess = ( Process ) ScenarioContext.Current [ "ExeProcess" ];
 
                 exeProcess.Kill();
                 exeProcess.WaitForExit(2000);
@@ -76,9 +76,9 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
 
         public void DeleteQueues()
         {
-            ManagementClient client = new ManagementClient("http://localhost",
-                                                           "selkieAdmin",
-                                                           "selkieAdmin");
+            var client = new ManagementClient("http://localhost",
+                                              "selkieAdmin",
+                                              "selkieAdmin");
 
             foreach ( Queue queue in client.GetQueues() )
             {

@@ -16,9 +16,9 @@ namespace Selkie.Services.Lines.Tests.XUnit
         public InstallerTests()
         {
             m_Container = Substitute.For <IWindsorContainer>();
-            IConfigurationStore store = Substitute.For <IConfigurationStore>();
+            var store = Substitute.For <IConfigurationStore>();
 
-            Installer sut = new Installer();
+            var sut = new Installer();
 
             sut.Install(m_Container,
                         store);
@@ -27,8 +27,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         [Fact]
         public void InstallRegistersIServiceTest()
         {
-            m_Container.Received()
-                       .Register(Arg.Any <IRegistration[]>());
+            m_Container.Received().Register(Arg.Any <IRegistration[]>());
         }
     }
 }
