@@ -60,7 +60,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             m_Sut.GetTestLinesForType(TestLineType.Type.CreateParallelCrossLinesInCorner);
 
-            m_Creator.Received().CreateParallelCrossLinesInCorner(0);
+            m_Creator.Received().CreateParallelCrossLinesInCorner(LinesSourceManager.NumberOfLines);
         }
 
         [Fact]
@@ -68,7 +68,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             m_Sut.GetTestLinesForType(TestLineType.Type.Create45DegreeLines);
 
-            m_Creator.Received().Create45DegreeLines(0);
+            m_Creator.Received().Create45DegreeLines(LinesSourceManager.NumberOfLines);
         }
 
         [Fact]
@@ -76,7 +76,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             m_Sut.GetTestLinesForType(TestLineType.Type.CreateBox);
 
-            m_Creator.Received().CreateBox(0);
+            m_Creator.Received().CreateBox(LinesSourceManager.NumberOfLines);
         }
 
         [Fact]
@@ -125,7 +125,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             m_Sut.GetTestLinesForType(TestLineType.Type.CreateLinesInRowHorizontal);
 
-            m_Creator.Received().CreateLinesInRowHorizontal(0);
+            m_Creator.Received().CreateLinesInRowHorizontal(LinesSourceManager.NumberOfLines);
         }
 
         [Fact]
@@ -133,7 +133,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             m_Sut.GetTestLinesForType(TestLineType.Type.CreateParallelCrossLinesForwardReverse);
 
-            m_Creator.Received().CreateParallelCrossLinesForwardReverse(0);
+            m_Creator.Received().CreateParallelCrossLinesForwardReverse(LinesSourceManager.NumberOfLines);
         }
 
         [Fact]
@@ -141,7 +141,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             m_Sut.GetTestLinesForType(TestLineType.Type.CreateParallelCrossLines);
 
-            m_Creator.Received().CreateParallelCrossLines(0);
+            m_Creator.Received().CreateParallelCrossLines(LinesSourceManager.NumberOfLines);
         }
 
         [Fact]
@@ -149,7 +149,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             m_Sut.GetTestLinesForType(TestLineType.Type.CreateParallelLinesForwardReverse);
 
-            m_Creator.Received().CreateParallelLinesForwardReverse(10,
+            m_Creator.Received().CreateParallelLinesForwardReverse(LinesSourceManager.NumberOfLines,
                                                                    0);
         }
 
@@ -176,7 +176,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         {
             m_Sut.GetTestLinesForType(TestLineType.Type.CreateRandomLines);
 
-            m_Creator.Received().CreateRandomLines(0);
+            m_Creator.Received().CreateRandomLines(LinesSourceManager.NumberOfLines);
         }
 
         [Fact]

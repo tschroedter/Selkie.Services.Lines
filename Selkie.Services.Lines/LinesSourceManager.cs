@@ -14,6 +14,8 @@ namespace Selkie.Services.Lines
     [ProjectComponent(Lifestyle.Singleton)]
     public class LinesSourceManager : ILinesSourceManager
     {
+        internal const int NumberOfLines = 10;
+
         private readonly ITestLineCreator m_Creator;
         private readonly ILogger m_Logger;
         private readonly ILinesValidator m_Validator;
@@ -69,6 +71,7 @@ namespace Selkie.Services.Lines
         }
 
         // ReSharper disable once MethodTooLong
+        // todo replace with table
         [NotNull]
         internal IEnumerable <ILine> GetTestLinesForType(TestLineType.Type type,
                                                          int maxId = 0)
@@ -82,19 +85,20 @@ namespace Selkie.Services.Lines
                     return m_Creator.CreateFixedParallelLines(maxId);
 
                 case TestLineType.Type.CreateParallelLines:
-                    return m_Creator.CreateParallelLines(10,
+                    return m_Creator.CreateParallelLines(NumberOfLines,
                                                          maxId);
 
                 case TestLineType.Type.CreateParallelLinesForwardReverse:
-                    return m_Creator.CreateParallelLinesForwardReverse(10,
+                    return m_Creator.CreateParallelLinesForwardReverse(NumberOfLines,
                                                                        maxId);
 
                 case TestLineType.Type.CreateParallelLinesReverse:
-                    return m_Creator.CreateParallelLinesReverse(10,
+                    return m_Creator.CreateParallelLinesReverse(NumberOfLines,
                                                                 maxId);
 
                 case TestLineType.Type.CreateBox:
-                    return m_Creator.CreateBox(maxId);
+                    return m_Creator.CreateBox(NumberOfLines,
+                                               maxId);
 
                 case TestLineType.Type.CreateCross:
                     return m_Creator.CreateCross(maxId);
@@ -103,22 +107,28 @@ namespace Selkie.Services.Lines
                     return m_Creator.CreateCrossForwardReverse(maxId);
 
                 case TestLineType.Type.CreateParallelCrossLinesInCorner:
-                    return m_Creator.CreateParallelCrossLinesInCorner(maxId);
+                    return m_Creator.CreateParallelCrossLinesInCorner(NumberOfLines,
+                                                                      maxId);
 
                 case TestLineType.Type.CreateParallelCrossLines:
-                    return m_Creator.CreateParallelCrossLines(maxId);
+                    return m_Creator.CreateParallelCrossLines(NumberOfLines,
+                                                              maxId);
 
                 case TestLineType.Type.CreateParallelCrossLinesForwardReverse:
-                    return m_Creator.CreateParallelCrossLinesForwardReverse(maxId);
+                    return m_Creator.CreateParallelCrossLinesForwardReverse(NumberOfLines,
+                                                                            maxId);
 
                 case TestLineType.Type.CreateLinesInRowHorizontal:
-                    return m_Creator.CreateLinesInRowHorizontal(maxId);
+                    return m_Creator.CreateLinesInRowHorizontal(NumberOfLines,
+                                                                maxId);
 
                 case TestLineType.Type.CreateRandomLines:
-                    return m_Creator.CreateRandomLines(maxId);
+                    return m_Creator.CreateRandomLines(NumberOfLines,
+                                                       maxId);
 
                 case TestLineType.Type.Create45DegreeLines:
-                    return m_Creator.Create45DegreeLines(maxId);
+                    return m_Creator.Create45DegreeLines(NumberOfLines,
+                                                         maxId);
 
                 case TestLineType.Type.CreateTestLines:
                     return m_Creator.CreateTestLines(maxId);

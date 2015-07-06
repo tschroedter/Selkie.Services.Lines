@@ -10,32 +10,62 @@ namespace Selkie.Services.Lines
     [ProjectComponent(Lifestyle.Transient)]
     public class LinesValidator : ILinesValidator
     {
+        private readonly ILinesValidatorLogger m_Logger;
+
+        public LinesValidator([NotNull] ILinesValidatorLogger logger)
+        {
+            m_Logger = logger;
+        }
+
         public bool ValidateDtos(IEnumerable <LineDto> lineDtos)
         {
-            IEnumerable <int> array = lineDtos.Select(x => x.Id);
+            IEnumerable <LineDto> array = lineDtos as LineDto[] ?? lineDtos.ToArray();
+            IEnumerable <int> ids = array.Select(x => x.Id);
 
-            return ValidateIds(array);
+            bool validateDtos = ValidateIds(ids);
+
+            m_Logger.LogLineDtos(validateDtos,
+                                 array);
+
+            return validateDtos;
         }
 
         public bool ValidateLines(IEnumerable <ILine> lines)
         {
-            IEnumerable <int> array = lines.Select(x => x.Id);
+            IEnumerable <ILine> array = lines as ILine[] ?? lines.ToArray();
+            IEnumerable <int> ids = array.Select(x => x.Id);
 
-            return ValidateIds(array);
+            bool validateLines = ValidateIds(ids);
+
+            m_Logger.LogLines(validateLines, array);
+
+            return validateLines;
         }
 
-        private static bool ValidateIds([NotNull] IEnumerable <int> ids)
+        private bool ValidateIds([NotNull] IEnumerable <int> ids)
         {
             int[] array = ids.ToArray();
 
             if ( array.Length <= 1 )
             {
+                m_Logger.LogIdsAreEmpty();
+
                 return false;
             }
 
+            bool validateIds = Validate(array);
+
+            m_Logger.LogValidateStatus(validateIds);
+
+            return validateIds;
+        }
+
+        private bool Validate(int[] array)
+        {
             var expectedId = 0;
 
-            return array.All(id => expectedId++ == id);
+            bool validateIds = array.All(id => expectedId++ == id);
+            return validateIds;
         }
     }
 }
