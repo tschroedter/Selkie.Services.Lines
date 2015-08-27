@@ -1,5 +1,4 @@
 ﻿using JetBrains.Annotations;
-using Selkie.EasyNetQ.Extensions;
 using Selkie.Services.Lines.Common.Messages;
 using TechTalk.SpecFlow;
 
@@ -11,13 +10,11 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
     {
         public void SubscribeOther()
         {
-            m_Bus.SubscribeHandlerAsync <TestLineResponseMessage>(m_Logger,
-                                                                  GetType().FullName,
-                                                                  TestLineResponseHandler);
+            m_Bus.SubscribeAsync <TestLineResponseMessage>(GetType().FullName,
+                                                           TestLineResponseHandler);
 
-            m_Bus.SubscribeHandlerAsync <LineValidationResponseMessage>(m_Logger,
-                                                                        GetType().FullName,
-                                                                        LineValidationResponseHandler);
+            m_Bus.SubscribeAsync <LineValidationResponseMessage>(GetType().FullName,
+                                                                 LineValidationResponseHandler);
         }
 
         private void TestLineResponseHandler([NotNull] TestLineResponseMessage message)

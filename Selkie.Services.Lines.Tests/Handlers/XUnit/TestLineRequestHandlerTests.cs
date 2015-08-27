@@ -1,9 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Castle.Core.Logging;
-using EasyNetQ;
 using JetBrains.Annotations;
 using NSubstitute;
+using Selkie.EasyNetQ;
 using Selkie.Geometry.Shapes;
 using Selkie.Services.Lines.Common;
 using Selkie.Services.Lines.Common.Messages;
@@ -12,7 +11,6 @@ using Xunit;
 
 namespace Selkie.Services.Lines.Tests.Handlers.XUnit
 {
-    // todo better way to exclude from coverage
     [ExcludeFromCodeCoverage]
     //ncrunch: no coverage start
     public class TestLineRequestHandlerTests
@@ -20,13 +18,11 @@ namespace Selkie.Services.Lines.Tests.Handlers.XUnit
         [Fact]
         public void HandleSendsReplyTest()
         {
-            var logger = Substitute.For <ILogger>();
             var manager = Substitute.For <ILinesSourceManager>();
-            var bus = Substitute.For <IBus>();
+            var bus = Substitute.For <ISelkieBus>();
 
             Line[] lines = SetupManager(manager);
-            TestLineRequestHandler sut = CreateServiceUnderTest(logger,
-                                                                bus,
+            TestLineRequestHandler sut = CreateServiceUnderTest(bus,
                                                                 manager);
 
             TestLineRequestMessage message = CreateMessage();
@@ -37,12 +33,10 @@ namespace Selkie.Services.Lines.Tests.Handlers.XUnit
             bus.Received().PublishAsync(Arg.Is <TestLineResponseMessage>(x => x.LineDtos.Count() == lines.Count()));
         }
 
-        private TestLineRequestHandler CreateServiceUnderTest([NotNull] ILogger logger,
-                                                              [NotNull] IBus bus,
+        private TestLineRequestHandler CreateServiceUnderTest([NotNull] ISelkieBus bus,
                                                               [NotNull] ILinesSourceManager manager)
         {
-            var sut = new TestLineRequestHandler(logger,
-                                                 bus,
+            var sut = new TestLineRequestHandler(bus,
                                                  manager);
 
             return sut;

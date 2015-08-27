@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using EasyNetQ;
 using JetBrains.Annotations;
 using NSubstitute;
 using Ploeh.AutoFixture.Xunit;
+using Selkie.EasyNetQ;
 using Selkie.Services.Lines.Common.Dto;
 using Selkie.Services.Lines.Common.Messages;
 using Selkie.Services.Lines.Handlers;
@@ -19,7 +19,7 @@ namespace Selkie.Services.Lines.Tests.Handlers.XUnit
         [Theory]
         [AutoNSubstituteData]
         public void LineValidationRequestHandlerCallsManagerTest([NotNull] [Frozen] ILinesSourceManager manager,
-                                                                 [NotNull] [Frozen] IBus bus,
+                                                                 [NotNull] [Frozen] ISelkieBus bus,
                                                                  [NotNull] LineValidationRequestHandler sut)
         {
             LineValidationRequestMessage request = CreateRequestMessage(new[]
@@ -36,7 +36,7 @@ namespace Selkie.Services.Lines.Tests.Handlers.XUnit
         [Theory]
         [AutoNSubstituteData]
         public void LineValidationRequestHandlerSendsMessageTest([NotNull] [Frozen] ILinesSourceManager manager,
-                                                                 [NotNull] [Frozen] IBus bus,
+                                                                 [NotNull] [Frozen] ISelkieBus bus,
                                                                  [NotNull] LineValidationRequestHandler sut)
         {
             LineValidationRequestMessage request = CreateRequestMessage(new[]

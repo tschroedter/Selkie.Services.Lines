@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Castle.Core.Logging;
 using JetBrains.Annotations;
 using Selkie.Geometry.Shapes;
 using Selkie.Services.Lines.Common;
@@ -15,12 +14,11 @@ namespace Selkie.Services.Lines
     public class LinesSourceManager : ILinesSourceManager
     {
         internal const int NumberOfLines = 10;
-
         private readonly ITestLineCreator m_Creator;
-        private readonly ILogger m_Logger;
+        private readonly ISelkieLogger m_Logger;
         private readonly ILinesValidator m_Validator;
 
-        public LinesSourceManager([NotNull] ILogger logger,
+        public LinesSourceManager([NotNull] ISelkieLogger logger,
                                   [NotNull] ITestLineCreator creator,
                                   [NotNull] ILinesValidator validator)
         {

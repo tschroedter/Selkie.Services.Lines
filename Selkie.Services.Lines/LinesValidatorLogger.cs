@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Castle.Core.Logging;
 using JetBrains.Annotations;
 using Selkie.Geometry.Shapes;
 using Selkie.Services.Lines.Common.Dto;
@@ -11,9 +10,9 @@ namespace Selkie.Services.Lines
     [ProjectComponent(Lifestyle.Transient)]
     public class LinesValidatorLogger : ILinesValidatorLogger
     {
-        private readonly ILogger m_Logger;
+        private readonly ISelkieLogger m_Logger;
 
-        public LinesValidatorLogger([NotNull] ILogger logger)
+        public LinesValidatorLogger([NotNull] ISelkieLogger logger)
         {
             m_Logger = logger;
         }

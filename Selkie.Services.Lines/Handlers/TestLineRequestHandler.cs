@@ -1,32 +1,29 @@
 using System.Collections.Generic;
 using System.Linq;
-using Castle.Core.Logging;
-using EasyNetQ;
 using JetBrains.Annotations;
+using Selkie.EasyNetQ;
 using Selkie.Geometry.Shapes;
 using Selkie.Services.Lines.Common.Dto;
 using Selkie.Services.Lines.Common.Messages;
-using Selkie.Windsor;
 
 namespace Selkie.Services.Lines.Handlers
 {
-    [ProjectComponent(Lifestyle.Startable)]
     public sealed class TestLineRequestHandler
-        : BaseHandler <TestLineRequestMessage>,
-          ITestLineRequestHandler
+        : SelkieMessageHandler <TestLineRequestMessage>
     {
-        public TestLineRequestHandler([NotNull] ILogger logger,
-                                      [NotNull] IBus bus,
+        private readonly ISelkieBus m_Bus;
+        private readonly ILinesSourceManager m_Manager;
+
+        public TestLineRequestHandler([NotNull] ISelkieBus bus,
                                       [NotNull] ILinesSourceManager manager)
-            : base(logger,
-                   bus,
-                   manager)
         {
+            m_Bus = bus;
+            m_Manager = manager;
         }
 
-        internal override void Handle(TestLineRequestMessage message)
+        public override void Handle(TestLineRequestMessage message)
         {
-            IEnumerable <ILine> lines = Manager.GetTestLines(message.Types);
+            IEnumerable <ILine> lines = m_Manager.GetTestLines(message.Types);
 
             IEnumerable <LineDto> lineDtos = lines.Select(LineToLineDtoConverter.ConvertFrom);
 
@@ -37,7 +34,7 @@ namespace Selkie.Services.Lines.Handlers
                             LineDtos = dtos
                         };
 
-            Bus.PublishAsync(reply);
+            m_Bus.PublishAsync(reply);
         }
     }
 }

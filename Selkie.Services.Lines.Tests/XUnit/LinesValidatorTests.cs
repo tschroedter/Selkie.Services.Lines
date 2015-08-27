@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Castle.Core.Logging;
 using JetBrains.Annotations;
 using NSubstitute;
 using Selkie.Geometry.Shapes;
 using Selkie.Services.Lines.Common.Dto;
+using Selkie.Windsor;
 using Selkie.XUnit.Extensions;
 using Xunit;
 using Xunit.Extensions;
@@ -67,7 +67,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
                 two
             };
 
-            var logger = new LinesValidatorLogger(Substitute.For<ILogger>());
+            var logger = new LinesValidatorLogger(Substitute.For <ISelkieLogger>());
 
             var sut = new LinesValidator(logger);
 
@@ -100,7 +100,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
                 two
             };
 
-            var logger = new LinesValidatorLogger(Substitute.For<ILogger>());
+            var logger = new LinesValidatorLogger(Substitute.For <ISelkieLogger>());
 
             var sut = new LinesValidator(logger);
 

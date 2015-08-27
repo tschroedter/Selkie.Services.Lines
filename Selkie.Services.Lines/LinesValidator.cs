@@ -37,7 +37,8 @@ namespace Selkie.Services.Lines
 
             bool validateLines = ValidateIds(ids);
 
-            m_Logger.LogLines(validateLines, array);
+            m_Logger.LogLines(validateLines,
+                              array);
 
             return validateLines;
         }

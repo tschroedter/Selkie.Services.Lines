@@ -1,30 +1,25 @@
-using Castle.Core.Logging;
-using EasyNetQ;
 using JetBrains.Annotations;
+using Selkie.EasyNetQ;
 using Selkie.Services.Lines.Common.Messages;
-using Selkie.Windsor;
 
 namespace Selkie.Services.Lines.Handlers
 {
-    [ProjectComponent(Lifestyle.Startable)]
     public sealed class LineValidationRequestHandler
-        : BaseHandler <LineValidationRequestMessage>,
-          ILineValidationRequestHandler
+        : SelkieMessageHandler <LineValidationRequestMessage>
     {
-        public LineValidationRequestHandler([NotNull] ILogger logger,
-                                            [NotNull] IBus bus,
+        private readonly ISelkieBus m_Bus;
+        private readonly ILinesSourceManager m_Manager;
+
+        public LineValidationRequestHandler([NotNull] ISelkieBus bus,
                                             [NotNull] ILinesSourceManager manager)
-            : base(logger,
-                   bus,
-                   manager)
         {
+            m_Bus = bus;
+            m_Manager = manager;
         }
 
-        internal override void Handle(LineValidationRequestMessage message)
+        public override void Handle(LineValidationRequestMessage message)
         {
-            Logger.Debug("LineValidationRequestMessage was called!");
-
-            bool isValid = Manager.ValidateDtos(message.LineDtos);
+            bool isValid = m_Manager.ValidateDtos(message.LineDtos);
 
             var response = new LineValidationResponseMessage
                            {
@@ -32,7 +27,7 @@ namespace Selkie.Services.Lines.Handlers
                                AreValid = isValid
                            };
 
-            Bus.PublishAsync(response);
+            m_Bus.PublishAsync(response);
         }
     }
 }

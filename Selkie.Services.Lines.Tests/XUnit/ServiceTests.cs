@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
-using EasyNetQ;
 using JetBrains.Annotations;
 using NSubstitute;
 using Ploeh.AutoFixture.Xunit;
+using Selkie.EasyNetQ;
 using Selkie.Services.Common.Messages;
 using Selkie.XUnit.Extensions;
 using Xunit.Extensions;
@@ -17,7 +16,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
     {
         [Theory]
         [AutoNSubstituteData]
-        public void ServiceStartSendsMessageTest([NotNull] [Frozen] IBus bus,
+        public void ServiceStartSendsMessageTest([NotNull] [Frozen] ISelkieBus bus,
                                                  [NotNull] Service sut)
         {
             sut.Start();
@@ -27,7 +26,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
 
         [Theory]
         [AutoNSubstituteData]
-        public void ServiceStopSendsMessageTest([NotNull] [Frozen] IBus bus,
+        public void ServiceStopSendsMessageTest([NotNull] [Frozen] ISelkieBus bus,
                                                 [NotNull] Service sut)
         {
             sut.Stop();
@@ -37,7 +36,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
 
         [Theory]
         [AutoNSubstituteData]
-        public void ServiceInitializeSubscribesToPingRequestMessageTest([NotNull] [Frozen] IBus bus,
+        public void ServiceInitializeSubscribesToPingRequestMessageTest([NotNull] [Frozen] ISelkieBus bus,
                                                                         [NotNull] Service sut)
         {
             sut.Initialize();
@@ -45,7 +44,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
             string subscriptionId = sut.GetType().ToString();
 
             bus.Received().SubscribeAsync(subscriptionId,
-                                          Arg.Any <Func <PingRequestMessage, Task>>());
+                                          Arg.Any <Action <PingRequestMessage>>());
         }
     }
 }

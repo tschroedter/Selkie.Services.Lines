@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Castle.Core.Logging;
-using EasyNetQ;
 using JetBrains.Annotations;
 using Selkie.Common;
-using Selkie.EasyNetQ.Extensions;
+using Selkie.EasyNetQ;
 using Selkie.Geometry.Shapes;
 using Selkie.Services.Common.Messages;
 using Selkie.Services.Lines.Common;
@@ -18,19 +16,17 @@ namespace Selkie.Services.Lines.Console.Client
     //ncrunch: no coverage start
     public class LineServiceTestClient : ILineServiceTestClient
     {
-        private readonly IBus m_Bus;
+        private readonly ISelkieBus m_Bus;
         private readonly ISelkieConsole m_Console;
 
-        public LineServiceTestClient([NotNull] IBus bus,
-                                     [NotNull] ILogger logger,
+        public LineServiceTestClient([NotNull] ISelkieBus bus,
                                      [NotNull] ISelkieConsole console)
         {
             m_Bus = bus;
             m_Console = console;
 
-            m_Bus.SubscribeHandlerAsync <TestLineResponseMessage>(logger,
-                                                                  GetType().ToString(),
-                                                                  TestLineResponseHandler);
+            m_Bus.SubscribeAsync <TestLineResponseMessage>(GetType().ToString(),
+                                                           TestLineResponseHandler);
         }
 
         public void RequestTestLines()

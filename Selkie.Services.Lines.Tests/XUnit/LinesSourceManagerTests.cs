@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Castle.Core.Logging;
 using NSubstitute;
 using Selkie.Geometry.Shapes;
 using Selkie.Services.Lines.Common;
 using Selkie.Services.Lines.Common.Dto;
+using Selkie.Windsor;
 using Xunit;
 
 namespace Selkie.Services.Lines.Tests.XUnit
@@ -20,7 +20,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
 
         public LinesSourceManagerTests()
         {
-            var logger = Substitute.For <ILogger>();
+            var logger = Substitute.For <ISelkieLogger>();
             m_Creator = Substitute.For <ITestLineCreator>();
             m_Validator = Substitute.For <ILinesValidator>();
 
