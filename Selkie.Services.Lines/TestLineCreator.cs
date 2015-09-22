@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Castle.Core;
 using JetBrains.Annotations;
+using Selkie.Aop.Aspects;
 using Selkie.Geometry;
 using Selkie.Geometry.Shapes;
 using Selkie.Windsor;
@@ -10,8 +12,9 @@ using Selkie.Windsor;
 namespace Selkie.Services.Lines
 {
     [ExcludeFromCodeCoverage]
-    [ProjectComponent(Lifestyle.Transient)]
     //ncrunch: no coverage start
+    [Interceptor(typeof(LogAspect))]
+    [ProjectComponent(Lifestyle.Transient)]
     public class TestLineCreator : ITestLineCreator
     {
         private const int MinXValue = -100;

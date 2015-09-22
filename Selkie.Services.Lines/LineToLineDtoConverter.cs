@@ -1,11 +1,14 @@
 ﻿using System;
+using Castle.Core;
 using JetBrains.Annotations;
+using Selkie.Aop.Aspects;
 using Selkie.Geometry;
 using Selkie.Geometry.Shapes;
 using Selkie.Services.Lines.Common.Dto;
 
 namespace Selkie.Services.Lines
 {
+    [Interceptor(typeof(LogAspect))]
     public class LineToLineDtoConverter
     {
         [NotNull]

@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Castle.Core;
 using JetBrains.Annotations;
+using Selkie.Aop.Aspects;
 using Selkie.Geometry.Shapes;
 using Selkie.Services.Lines.Common.Dto;
 using Selkie.Windsor;
 
 namespace Selkie.Services.Lines
 {
+    [Interceptor(typeof(LogAspect))]
     [ProjectComponent(Lifestyle.Transient)]
     public class LinesValidator : ILinesValidator
     {

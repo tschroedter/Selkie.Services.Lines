@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using JetBrains.Annotations;
 using NSubstitute;
 using Selkie.EasyNetQ;
@@ -30,7 +29,7 @@ namespace Selkie.Services.Lines.Tests.Handlers.XUnit
             sut.Handle(message);
 
             // ReSharper disable once PossibleUnintendedReferenceComparison
-            bus.Received().PublishAsync(Arg.Is <TestLineResponseMessage>(x => x.LineDtos.Count() == lines.Count()));
+            bus.Received().PublishAsync(Arg.Is <TestLineResponseMessage>(x => x.LineDtos.Length == lines.Length));
         }
 
         private TestLineRequestHandler CreateServiceUnderTest([NotNull] ISelkieBus bus,

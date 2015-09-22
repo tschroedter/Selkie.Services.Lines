@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Castle.Core;
 using JetBrains.Annotations;
+using Selkie.Aop.Aspects;
 using Selkie.Geometry.Shapes;
 using Selkie.Services.Lines.Common;
 using Selkie.Services.Lines.Common.Dto;
@@ -10,6 +12,7 @@ using Selkie.Windsor.Extensions;
 
 namespace Selkie.Services.Lines
 {
+    [Interceptor(typeof(LogAspect))]
     [ProjectComponent(Lifestyle.Singleton)]
     public class LinesSourceManager : ILinesSourceManager
     {

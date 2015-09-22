@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using Castle.Core;
 using JetBrains.Annotations;
+using Selkie.Aop.Aspects;
 using Selkie.EasyNetQ;
 using Selkie.Geometry.Shapes;
 using Selkie.Services.Lines.Common.Dto;
@@ -8,7 +10,8 @@ using Selkie.Services.Lines.Common.Messages;
 
 namespace Selkie.Services.Lines.Handlers
 {
-    public sealed class TestLineRequestHandler
+    [Interceptor(typeof(MessageHandlerAspect))]
+    public class TestLineRequestHandler
         : SelkieMessageHandler <TestLineRequestMessage>
     {
         private readonly ISelkieBus m_Bus;

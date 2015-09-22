@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Castle.Core;
 using JetBrains.Annotations;
+using Selkie.Aop.Aspects;
 using Selkie.Geometry.Shapes;
 using Selkie.Services.Lines.Common.Dto;
 using Selkie.Windsor;
@@ -7,6 +9,7 @@ using Selkie.Windsor.Extensions;
 
 namespace Selkie.Services.Lines
 {
+    [Interceptor(typeof(LogAspect))]
     [ProjectComponent(Lifestyle.Transient)]
     public class LinesValidatorLogger : ILinesValidatorLogger
     {
