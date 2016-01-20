@@ -13,7 +13,7 @@ namespace Selkie.Services.Lines
 {
     [ExcludeFromCodeCoverage]
     //ncrunch: no coverage start
-    [Interceptor(typeof(LogAspect))]
+    [Interceptor(typeof ( LogAspect ))]
     [ProjectComponent(Lifestyle.Transient)]
     public class TestLineCreator : ITestLineCreator
     {

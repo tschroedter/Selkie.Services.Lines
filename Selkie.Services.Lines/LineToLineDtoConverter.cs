@@ -8,7 +8,7 @@ using Selkie.Services.Lines.Common.Dto;
 
 namespace Selkie.Services.Lines
 {
-    [Interceptor(typeof(LogAspect))]
+    [Interceptor(typeof ( LogAspect ))]
     public class LineToLineDtoConverter
     {
         [NotNull]

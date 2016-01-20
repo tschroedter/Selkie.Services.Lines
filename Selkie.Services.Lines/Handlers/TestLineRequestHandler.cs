@@ -10,7 +10,7 @@ using Selkie.Services.Lines.Common.Messages;
 
 namespace Selkie.Services.Lines.Handlers
 {
-    [Interceptor(typeof(MessageHandlerAspect))]
+    [Interceptor(typeof ( MessageHandlerAspect ))]
     public class TestLineRequestHandler
         : SelkieMessageHandler <TestLineRequestMessage>
     {

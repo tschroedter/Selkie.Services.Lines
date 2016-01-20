@@ -12,7 +12,7 @@ using Selkie.Windsor.Extensions;
 
 namespace Selkie.Services.Lines
 {
-    [Interceptor(typeof(LogAspect))]
+    [Interceptor(typeof ( LogAspect ))]
     [ProjectComponent(Lifestyle.Singleton)]
     public class LinesSourceManager : ILinesSourceManager
     {

@@ -9,7 +9,7 @@ using Selkie.Windsor;
 
 namespace Selkie.Services.Lines
 {
-    [Interceptor(typeof(LogAspect))]
+    [Interceptor(typeof ( LogAspect ))]
     [ProjectComponent(Lifestyle.Transient)]
     public class LinesValidator : ILinesValidator
     {
