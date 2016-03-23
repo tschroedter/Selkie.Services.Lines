@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{38085375-220F-47F1-A304-0F87585A3830}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{D8502A32-2117-430D-96DD-F9771498048E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Selkie.GeoJSON.Tests</RootNamespace>
-    <AssemblyName>Selkie.GeoJSON.Tests</AssemblyName>
+    <RootNamespace>Selkie.Services.Lines.Windows.Service</RootNamespace>
+    <AssemblyName>Selkie.Services.Lines.Windows.Service</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,12 +23,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Gears.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
@@ -46,8 +51,12 @@
       <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="GeoJSON.Net, Version=0.1.38.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\GeoJSON.Net.0.1.38\lib\GeoJSON.Net.dll</HintPath>
+    <Reference Include="EasyNetQ, Version=0.50.7.399, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EasyNetQ.0.50.7.399\lib\net40\EasyNetQ.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EasyNetQ.Management.Client, Version=0.47.12.38, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EasyNetQ.Management.Client.0.47.12.38\lib\net40\EasyNetQ.Management.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="JetBrains.Annotations, Version=10.0.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
@@ -62,61 +71,81 @@
       <HintPath>..\packages\NLog.4.1.0\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NSubstitute, Version=1.8.2.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
-      <HintPath>..\packages\NSubstitute.1.8.2.0\lib\net45\NSubstitute.dll</HintPath>
+    <Reference Include="RabbitMQ.Client, Version=3.5.4.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
+      <HintPath>..\packages\RabbitMQ.Client.3.5.4\lib\net40\RabbitMQ.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Ploeh.AutoFixture, Version=3.31.3.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoFixture.3.31.3\lib\net40\Ploeh.AutoFixture.dll</HintPath>
+    <Reference Include="Selkie.Aop, Version=0.6.19.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selkie.Aop.0.6.19.0\lib\net45\Selkie.Aop.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Ploeh.AutoFixture.AutoNSubstitute, Version=3.31.1.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoFixture.AutoNSubstitute.3.31.1\lib\net40\Ploeh.AutoFixture.AutoNSubstitute.dll</HintPath>
+    <Reference Include="Selkie.Common, Version=0.6.228.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selkie.Common.0.6.228.0\lib\net45\Selkie.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Ploeh.AutoFixture.Xunit, Version=3.31.0.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoFixture.Xunit.3.31.0\lib\net40\Ploeh.AutoFixture.Xunit.dll</HintPath>
+    <Reference Include="Selkie.EasyNetQ, Version=0.6.214.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selkie.EasyNetQ.0.6.214.0\lib\net45\Selkie.EasyNetQ.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Selkie.Services.Common, Version=0.6.174.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selkie.Services.Common.0.6.174.0\lib\net45\Selkie.Services.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Selkie.Windsor, Version=0.6.256.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Selkie.Windsor.0.6.256.0\lib\net45\Selkie.Windsor.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Selkie.XUnit.Extensions, Version=0.6.115.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Selkie.XUnit.Extensions.0.6.115.0\lib\net45\Selkie.XUnit.Extensions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
-    <Reference Include="xunit, Version=1.9.2.1705, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.1.9.2\lib\net20\xunit.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="xunit.extensions, Version=1.9.2.1705, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.extensions.1.9.2\lib\net20\xunit.extensions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Installer.cs" />
+    <Compile Include="LinesServiceMain.cs" />
+    <Compile Include="ProjectInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProjectInstaller.Designer.cs">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Service.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Service.Designer.cs">
+      <DependentUpon>Service.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XUnit\Importer\FeaturesValidatorTests.cs" />
-    <Compile Include="XUnit\Importer\FileReaderTests.cs" />
-    <Compile Include="XUnit\Importer\ImporterTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Selkie.GeoJSON\Selkie.GeoJSON.csproj">
-      <Project>{84d60908-ff5b-4fba-8323-57c107271333}</Project>
-      <Name>Selkie.GeoJSON</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
+    <None Include="App.config" />
+    <EmbeddedResource Include="Gears.ico" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ProjectInstaller.resx">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Selkie.Services.Lines\Selkie.Services.Lines.csproj">
+      <Project>{7b37e070-5d8d-4982-8986-8904f71165ea}</Project>
+      <Name>Selkie.Services.Lines</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

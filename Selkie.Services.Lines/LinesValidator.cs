@@ -64,7 +64,7 @@ namespace Selkie.Services.Lines
             return validateIds;
         }
 
-        private bool Validate(int[] array)
+        private bool Validate(IEnumerable <int> array)
         {
             var expectedId = 0;
 
