@@ -1,37 +1,45 @@
 ﻿using Castle.Core;
-using GeoJSON.Net.Feature;
 using JetBrains.Annotations;
+using NetTopologySuite.Features;
 using Selkie.Aop.Aspects;
+using Selkie.GeoJSON.Importer.Interfaces;
 using Selkie.Windsor;
 
-namespace Selkie.GeoJson.Importer
+namespace Selkie.GeoJSON.Importer
 {
     [Interceptor(typeof ( LogAspect ))]
     [ProjectComponent(Lifestyle.Transient)]
     public class Importer : IImporter
     {
-        private readonly IFeaturesValidator m_Converter;
-        private readonly IFileReader m_Reader;
+        private readonly IFeaturesValidator m_FeaturesValidator;
+        private readonly IFeaturesToLinesConverter m_FeaturesToLinesConverter;
+        private readonly IGeoJsonStringReader m_Reader;
 
-        public Importer([NotNull] IFileReader reader,
-                        [NotNull] IFeaturesValidator converter)
+        public Importer([NotNull] IGeoJsonStringReader reader,
+                        [NotNull] IFeaturesValidator featuresValidator,
+                        [NotNull] IFeaturesToLinesConverter featuresToLinesConverter)
         {
             m_Reader = reader;
-            m_Converter = converter;
+            m_FeaturesValidator = featuresValidator;
+            m_FeaturesToLinesConverter = featuresToLinesConverter;
         }
 
         public FeatureCollection Features
         {
             get
             {
-                return m_Converter.FeaturesValid;
+                return m_FeaturesValidator.Supported;
             }
         }
 
-        public void FromFile(string filename)
+        public void FromText(string filename)
         {
-            m_Converter.Features = m_Reader.Read(filename);
-            m_Converter.Validate();
+            FeatureCollection featureCollection = m_Reader.Read(filename);
+
+            m_FeaturesValidator.Features = featureCollection; // todo test
+            m_FeaturesValidator.Validate();
+
+
         }
     }
 }

@@ -1,63 +1,68 @@
-using GeoJSON.Net;
-using GeoJSON.Net.Feature;
+using System;
 using JetBrains.Annotations;
+using NetTopologySuite.Features;
+using NetTopologySuite.Geometries;
+using Selkie.GeoJSON.Importer.Interfaces;
 using Selkie.Windsor;
 using Selkie.Windsor.Extensions;
 
-namespace Selkie.GeoJson.Importer
+namespace Selkie.GeoJSON.Importer
 {
     [ProjectComponent(Lifestyle.Transient)]
-    public class FeaturesValidator : IFeaturesValidator
+    public class FeaturesValidator
+        : IFeaturesValidator
     {
         private readonly ISelkieLogger m_Logger;
 
-        public FeaturesValidator([NotNull] ISelkieLogger logger)
+        public FeaturesValidator([NotNull] ISelkieLogger logger,
+                                 [NotNull] FeatureCollection features,
+                                 [NotNull] FeatureCollection supported,
+                                 [NotNull] FeatureCollection unsupported)
         {
             m_Logger = logger;
 
-            Features = new FeatureCollection();
-            FeaturesValid = new FeatureCollection();
+            Features = features;
+            Supported = supported;
+            Unsupported = unsupported;
         }
+
+        public FeatureCollection Unsupported { get; set; }
 
         public FeatureCollection Features { get; set; }
 
-        public FeatureCollection FeaturesValid { get; set; }
+        public FeatureCollection Supported { get; set; }
 
         public void Validate()
         {
-            foreach ( Feature feature in Features.Features ) // todo name Features.Features
+            Supported.Features.Clear();
+            Unsupported.Features.Clear();
+
+            foreach ( IFeature feature in Features.Features )
             {
                 if ( IsFeatureSupported(feature) )
                 {
-                    FeaturesValid.Features.Add(feature);
+                    Supported.Add(feature);
+                }
+                else
+                {
+                    Unsupported.Add(feature);
                 }
             }
         }
 
-        private bool IsFeatureSupported(Feature feature)
+        private bool IsFeatureSupported(IFeature feature)
         {
-            GeoJSONObjectType geometryType = feature.Geometry.Type;
+            Type type = feature.Geometry.GetType();
 
-            switch ( geometryType )
+            if ( typeof ( LineString ) == type )
             {
-                case GeoJSONObjectType.LineString:
-                    m_Logger.Info("The GeoJSONObjectType '{0}' is supported!".Inject(geometryType));
-                    return true;
-                case GeoJSONObjectType.Point:
-                case GeoJSONObjectType.MultiPoint:
-                case GeoJSONObjectType.MultiLineString:
-                case GeoJSONObjectType.Polygon:
-                case GeoJSONObjectType.MultiPolygon:
-                case GeoJSONObjectType.GeometryCollection:
-                case GeoJSONObjectType.Feature:
-                case GeoJSONObjectType.FeatureCollection:
-                    m_Logger.Warn("The GeoJSONObjectType '{0}' is not supported!".Inject(geometryType));
-                    return false;
-
-                default:
-                    m_Logger.Error("Can't handle GeoJSONObjectType '{0}'!".Inject(geometryType));
-                    return false;
+                m_Logger.Info("The GeoJSONObjectType '{0}' is supported!".Inject(type));
+                return true;
             }
+
+            m_Logger.Warn("The GeoJSONObjectType '{0}' is not supported!".Inject(type));
+
+            return false;
         }
     }
 }
