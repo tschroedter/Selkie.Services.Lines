@@ -49,6 +49,8 @@ namespace Selkie.Services.Lines.Console.Client
 
             client.RequestTestLines();
 
+            client.RequestGeoJsonImportText();
+
             client.StopService();
         }
     }

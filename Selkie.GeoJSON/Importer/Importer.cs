@@ -1,8 +1,10 @@
-﻿using Castle.Core;
+﻿using System.Collections.Generic;
+using Castle.Core;
 using JetBrains.Annotations;
 using NetTopologySuite.Features;
 using Selkie.Aop.Aspects;
 using Selkie.GeoJSON.Importer.Interfaces;
+using Selkie.Geometry.Shapes;
 using Selkie.Windsor;
 
 namespace Selkie.GeoJSON.Importer
@@ -11,35 +13,44 @@ namespace Selkie.GeoJSON.Importer
     [ProjectComponent(Lifestyle.Transient)]
     public class Importer : IImporter
     {
-        private readonly IFeaturesValidator m_FeaturesValidator;
-        private readonly IFeaturesToLinesConverter m_FeaturesToLinesConverter;
+        private readonly IFeaturesToLinesConverter m_Converter;
         private readonly IGeoJsonStringReader m_Reader;
+        private readonly IFeaturesValidator m_Validator;
 
         public Importer([NotNull] IGeoJsonStringReader reader,
-                        [NotNull] IFeaturesValidator featuresValidator,
-                        [NotNull] IFeaturesToLinesConverter featuresToLinesConverter)
+                        [NotNull] IFeaturesValidator validator,
+                        [NotNull] IFeaturesToLinesConverter converter)
         {
             m_Reader = reader;
-            m_FeaturesValidator = featuresValidator;
-            m_FeaturesToLinesConverter = featuresToLinesConverter;
+            m_Validator = validator;
+            m_Converter = converter;
         }
 
-        public FeatureCollection Features
+        public FeatureCollection FeatureCollection
         {
             get
             {
-                return m_FeaturesValidator.Supported;
+                return m_Validator.Supported;
             }
         }
 
-        public void FromText(string filename)
+        public IEnumerable <ILine> Lines
         {
-            FeatureCollection featureCollection = m_Reader.Read(filename);
+            get
+            {
+                return m_Converter.Lines;
+            }
+        }
 
-            m_FeaturesValidator.Features = featureCollection; // todo test
-            m_FeaturesValidator.Validate();
+        public void FromText(string text)
+        {
+            FeatureCollection featureCollection = m_Reader.Read(text);
 
+            m_Validator.FeatureCollection = featureCollection;
+            m_Validator.Validate();
 
+            m_Converter.FeatureCollection = m_Validator.FeatureCollection;
+            m_Converter.Convert();
         }
     }
 }

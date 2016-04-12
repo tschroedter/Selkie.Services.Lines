@@ -5,7 +5,6 @@ using NetTopologySuite.Geometries;
 using Selkie.GeoJSON.Importer.Interfaces;
 using Selkie.Geometry.Shapes;
 using Selkie.Windsor;
-using Selkie.Windsor.Extensions;
 using Point = NetTopologySuite.Geometries.Point;
 
 namespace Selkie.GeoJSON.Importer
@@ -15,7 +14,6 @@ namespace Selkie.GeoJSON.Importer
     {
         private const int StartPointIndex = 0;
         private const int EndPointIndex = 1;
-        private const double Tolerance = 0.000001;
 
         internal Type CanConvertType = typeof ( LineString );
 
@@ -49,7 +47,7 @@ namespace Selkie.GeoJSON.Importer
             {
                 Line = Geometry.Shapes.Line.Unknown;
 
-                return; // todo maybe throw exception
+                return;
             }
 
             Line = ConvertFeatureToLine(id);
@@ -72,23 +70,7 @@ namespace Selkie.GeoJSON.Importer
                                 end.X,
                                 end.Y);
 
-            ValidateCreateLine(line,
-                               geometry);
-
             return line;
-        }
-
-        private void ValidateCreateLine(Line line,
-                                        IGeometry geometry)
-        {
-            if ( Math.Abs(line.Length - geometry.Length) > Tolerance )
-            {
-                throw new Exception("Length is for line is incorrect!" +
-                                    " - Expected: {0} Actual: {1}".Inject(geometry.Length,
-                                                                          Line.Length)
-                                    + Environment.NewLine + " Line: {0}".Inject(line.ToString())
-                                    + Environment.NewLine + " GeoJsonLine: {0}".Inject(geometry.ToString()));
-            }
         }
 
         private static Feature CreateFeaturePoint()

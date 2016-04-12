@@ -15,20 +15,20 @@ namespace Selkie.GeoJSON.Importer
         private readonly ISelkieLogger m_Logger;
 
         public FeaturesValidator([NotNull] ISelkieLogger logger,
-                                 [NotNull] FeatureCollection features,
+                                 [NotNull] FeatureCollection featureCollection,
                                  [NotNull] FeatureCollection supported,
                                  [NotNull] FeatureCollection unsupported)
         {
             m_Logger = logger;
 
-            Features = features;
+            FeatureCollection = featureCollection;
             Supported = supported;
             Unsupported = unsupported;
         }
 
         public FeatureCollection Unsupported { get; set; }
 
-        public FeatureCollection Features { get; set; }
+        public FeatureCollection FeatureCollection { get; set; }
 
         public FeatureCollection Supported { get; set; }
 
@@ -37,7 +37,7 @@ namespace Selkie.GeoJSON.Importer
             Supported.Features.Clear();
             Unsupported.Features.Clear();
 
-            foreach ( IFeature feature in Features.Features )
+            foreach ( IFeature feature in FeatureCollection.Features )
             {
                 if ( IsFeatureSupported(feature) )
                 {

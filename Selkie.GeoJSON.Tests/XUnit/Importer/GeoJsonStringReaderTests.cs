@@ -16,7 +16,25 @@ namespace Selkie.GeoJson.Tests.XUnit.Importer
     public sealed class GeoJsonStringReaderTests
     {
         private const string GeoJsonExample =
-            @"{""type"":""FeatureCollection"",""features"":[{""type"":""Feature"",""properties"":{},""geometry"":{""type"":""Polygon"",""coordinates"":[[[-2.537841796875,53.50111704294316],[-2.537841796875,54.226707764386695],[-1.0986328125,54.226707764386695],[-1.0986328125,53.50111704294316],[-2.537841796875,53.50111704294316]]]}},{""type"":""Feature"",""properties"":{},""geometry"":{""type"":""Polygon"",""coordinates"":[[[-2.724609375,52.34205163638784],[-2.724609375,53.08082737207479],[-0.9667968749999999,53.08082737207479],[-0.9667968749999999,52.34205163638784],[-2.724609375,52.34205163638784]]]}}]}";
+            "{" +
+            "  \"type\": \"FeatureCollection\"," +
+            "  \"features\": [" +
+            "    {" +
+            "      \"type\": \"Feature\"," +
+            "      \"geometry\": {" +
+            "        \"type\": \"LineString\", " +
+            "        \"coordinates\": [[0, 0], [0, 10]]" +
+            "      }" +
+            "    }," +
+            "    {" +
+            "      \"type\": \"Feature\"," +
+            "      \"geometry\": {" +
+            "        \"type\": \"LineString\", " +
+            "        \"coordinates\": [[10, 0], [10, 10]]" +
+            "      }" +
+            "    }," +
+            "  ]" +
+            "}";
 
         [Theory]
         [AutoNSubstituteData]

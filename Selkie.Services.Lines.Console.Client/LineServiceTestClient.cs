@@ -7,6 +7,7 @@ using Selkie.EasyNetQ;
 using Selkie.Geometry.Shapes;
 using Selkie.Services.Common.Messages;
 using Selkie.Services.Lines.Common;
+using Selkie.Services.Lines.Common.Dto;
 using Selkie.Services.Lines.Common.Messages;
 using Selkie.Windsor.Extensions;
 
@@ -16,6 +17,27 @@ namespace Selkie.Services.Lines.Console.Client
     //ncrunch: no coverage start
     public class LineServiceTestClient : ILineServiceTestClient
     {
+        private const string GeoJsonExample =
+            "{" +
+            "  \"type\": \"FeatureCollection\"," +
+            "  \"features\": [" +
+            "    {" +
+            "      \"type\": \"Feature\"," +
+            "      \"geometry\": {" +
+            "        \"type\": \"LineString\", " +
+            "        \"coordinates\": [[0, 0], [0, 10]]" +
+            "      }" +
+            "    }," +
+            "    {" +
+            "      \"type\": \"Feature\"," +
+            "      \"geometry\": {" +
+            "        \"type\": \"LineString\", " +
+            "        \"coordinates\": [[10, 0], [10, 10]]" +
+            "      }" +
+            "    }," +
+            "  ]" +
+            "}";
+
         private readonly ISelkieBus m_Bus;
         private readonly ISelkieConsole m_Console;
 
@@ -27,6 +49,9 @@ namespace Selkie.Services.Lines.Console.Client
 
             m_Bus.SubscribeAsync <TestLineResponseMessage>(GetType().ToString(),
                                                            TestLineResponseHandler);
+
+            m_Bus.SubscribeAsync <ImportGeoJsonTextResponseMessage>(GetType().ToString(),
+                                                                    ImportGeoJsonTextResponseHandler);
         }
 
         public void RequestTestLines()
@@ -48,11 +73,36 @@ namespace Selkie.Services.Lines.Console.Client
             m_Bus.Publish(request);
         }
 
+        public void RequestGeoJsonImportText()
+        {
+            m_Console.WriteLine("Request <ImportGeoJsonTextRequest>...");
+
+            var request = new ImportGeoJsonTextRequestMessage
+                          {
+                              Text = GeoJsonExample
+                          };
+
+            m_Bus.PublishAsync(request);
+            m_Bus.Publish(request);
+        }
+
         private void TestLineResponseHandler([NotNull] TestLineResponseMessage message)
         {
             m_Console.WriteLine("Received <TestLineResponse>...");
 
-            IEnumerable <ILine> lines = message.LineDtos.Select(LineToLineDtoConverter.ConvertToLine);
+            DisplayLineDtos(message.LineDtos);
+        }
+
+        private void ImportGeoJsonTextResponseHandler(ImportGeoJsonTextResponseMessage message)
+        {
+            m_Console.WriteLine("Received <ImportGeoJsonTextResponseMessage>...");
+
+            DisplayLineDtos(message.LineDtos);
+        }
+
+        private void DisplayLineDtos(IEnumerable <LineDto> lineDtos)
+        {
+            IEnumerable <ILine> lines = lineDtos.Select(LineToLineDtoConverter.ConvertToLine);
 
             foreach ( ILine line in lines )
             {

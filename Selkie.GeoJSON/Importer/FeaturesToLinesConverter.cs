@@ -5,7 +5,6 @@ using NetTopologySuite.Features;
 using Selkie.GeoJSON.Importer.Interfaces;
 using Selkie.Geometry.Shapes;
 using Selkie.Windsor;
-using Selkie.Windsor.Extensions;
 
 namespace Selkie.GeoJSON.Importer
 {
@@ -13,13 +12,10 @@ namespace Selkie.GeoJSON.Importer
     public class FeaturesToLinesConverter : IFeaturesToLinesConverter
     {
         private readonly IFeatureToLineConverter[] m_Converters;
-        private readonly ISelkieLogger m_Logger;
 
         public FeaturesToLinesConverter(
-            [NotNull] ISelkieLogger logger,
             [NotNull] IFeatureToLineConverter[] converters)
         {
-            m_Logger = logger;
             m_Converters = converters;
 
             FeatureCollection = new FeatureCollection();
@@ -39,17 +35,21 @@ namespace Selkie.GeoJSON.Importer
 
             foreach ( IFeature feature in FeatureCollection.Features )
             {
-                ConvertFeature(id++,
-                               feature,
-                               lines);
+                ILine line = ConvertFeature(id,
+                                            feature);
+
+                if ( !line.IsUnknown )
+                {
+                    lines.Add(line);
+                    id++;
+                }
             }
 
             Lines = lines;
         }
 
-        private void ConvertFeature(int id,
-                                    [NotNull] IFeature feature,
-                                    [NotNull] List <ILine> lines)
+        private ILine ConvertFeature(int id,
+                                     [NotNull] IFeature feature)
         {
             IFeatureToLineConverter converter = m_Converters.FirstOrDefault(x => x.CanConvert(feature));
 
@@ -58,12 +58,10 @@ namespace Selkie.GeoJSON.Importer
                 converter.Feature = feature;
                 converter.Convert(id);
 
-                lines.Add(converter.Line);
+                return converter.Line;
             }
-            else
-            {
-                m_Logger.Warn("Feature {0} is not supported!".Inject(feature));
-            }
+
+            return Line.Unknown;
         }
     }
 }

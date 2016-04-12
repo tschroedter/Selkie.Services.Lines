@@ -2,8 +2,10 @@
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+using NetTopologySuite.Features;
 using NetTopologySuite.IO;
 using Selkie.Common;
+using Selkie.GeoJSON.Importer.Interfaces;
 
 namespace Selkie.GeoJSON.Importer
 {
@@ -17,8 +19,15 @@ namespace Selkie.GeoJSON.Importer
             base.PreInstallComponents(container,
                                       store);
 
+            container.Register(Component.For <IFeatureToLineConverter>()
+                                        .ImplementedBy <LineStringToLineConverter>());
+
             container.Register(Component.For(typeof ( GeoJsonReader ))
                                         .ImplementedBy(typeof ( GeoJsonReader ))
+                                        .LifeStyle.Transient);
+
+            container.Register(Component.For(typeof ( FeatureCollection ))
+                                        .ImplementedBy(typeof ( FeatureCollection ))
                                         .LifeStyle.Transient);
         }
     }

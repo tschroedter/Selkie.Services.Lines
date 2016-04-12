@@ -41,7 +41,7 @@ namespace Selkie.GeoJson.Tests.XUnit.Importer
 
             testFeatures.Add(one);
             testFeatures.Add(two);
-            sut.Features = testFeatures;
+            sut.FeatureCollection = testFeatures;
 
             // Act
             sut.Validate();
@@ -70,7 +70,7 @@ namespace Selkie.GeoJson.Tests.XUnit.Importer
                                             unsupported);
 
             testFeatures.Add(expected);
-            sut.Features = testFeatures;
+            sut.FeatureCollection = testFeatures;
 
             // Act
             sut.Validate();
@@ -100,7 +100,7 @@ namespace Selkie.GeoJson.Tests.XUnit.Importer
 
             testFeatures.Add(one);
             testFeatures.Add(two);
-            sut.Features = testFeatures;
+            sut.FeatureCollection = testFeatures;
 
             // Act
             sut.Validate();
@@ -133,7 +133,7 @@ namespace Selkie.GeoJson.Tests.XUnit.Importer
                                             supported,
                                             unsupported)
                       {
-                          Features = testFeatures
+                          FeatureCollection = testFeatures
                       };
 
             // Act
@@ -167,7 +167,7 @@ namespace Selkie.GeoJson.Tests.XUnit.Importer
                                             supported,
                                             unsupported)
                       {
-                          Features = testFeatures
+                          FeatureCollection = testFeatures
                       };
 
             // Act
@@ -187,7 +187,7 @@ namespace Selkie.GeoJson.Tests.XUnit.Importer
             // Arrange
             // Act
             // Assert
-            Assert.NotNull(sut.Features);
+            Assert.NotNull(sut.FeatureCollection);
         }
 
         [Theory]
@@ -209,7 +209,7 @@ namespace Selkie.GeoJson.Tests.XUnit.Importer
             FeatureCollection features = CreateSelkie();
 
             features.Add(CreateFeatureLineString());
-            sut.Features = features;
+            sut.FeatureCollection = features;
 
             // Act
             sut.Validate();
@@ -227,7 +227,7 @@ namespace Selkie.GeoJson.Tests.XUnit.Importer
             FeatureCollection features = CreateSelkie();
 
             features.Add(CreateFeaturePoint());
-            sut.Features = features;
+            sut.FeatureCollection = features;
 
             // Act
             sut.Validate();
@@ -245,7 +245,7 @@ namespace Selkie.GeoJson.Tests.XUnit.Importer
             FeatureCollection features = CreateSelkie();
 
             features.Add(CreateFeatureMultiPoint());
-            sut.Features = features;
+            sut.FeatureCollection = features;
 
             // Act
             sut.Validate();
@@ -263,7 +263,7 @@ namespace Selkie.GeoJson.Tests.XUnit.Importer
             FeatureCollection features = CreateSelkie();
 
             features.Add(CreateFeatureMultiLineString());
-            sut.Features = features;
+            sut.FeatureCollection = features;
 
             // Act
             sut.Validate();
@@ -281,7 +281,7 @@ namespace Selkie.GeoJson.Tests.XUnit.Importer
             FeatureCollection features = CreateSelkie();
 
             features.Add(CreateFeaturePolygon());
-            sut.Features = features;
+            sut.FeatureCollection = features;
 
             // Act
             sut.Validate();
@@ -300,7 +300,7 @@ namespace Selkie.GeoJson.Tests.XUnit.Importer
             FeatureCollection features = CreateSelkie();
 
             features.Add(feature);
-            sut.Features = features;
+            sut.FeatureCollection = features;
 
             // Act
             sut.Validate();
@@ -318,7 +318,7 @@ namespace Selkie.GeoJson.Tests.XUnit.Importer
             FeatureCollection features = CreateSelkie();
 
             features.Add(CreateFeatureMultiPolygon());
-            sut.Features = features;
+            sut.FeatureCollection = features;
 
             // Act
             sut.Validate();

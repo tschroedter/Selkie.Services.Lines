@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using GeoAPI.Geometries;
 using JetBrains.Annotations;
 using NetTopologySuite.Features;
@@ -6,10 +7,12 @@ using NetTopologySuite.Geometries;
 using NSubstitute;
 using Selkie.GeoJSON.Importer;
 using Selkie.GeoJSON.Importer.Interfaces;
+using Selkie.Geometry.Shapes;
 using Selkie.Windsor;
 using Selkie.XUnit.Extensions;
 using Xunit;
 using Xunit.Extensions;
+using Point = NetTopologySuite.Geometries.Point;
 
 namespace Selkie.GeoJson.Tests.XUnit.Importer
 {
@@ -19,7 +22,6 @@ namespace Selkie.GeoJson.Tests.XUnit.Importer
         [Theory]
         [AutoNSubstituteData]
         public void Convert_CallsConvertersConvert_ForCanConvertReturnsTrue(
-            [NotNull] ISelkieLogger logger,
             [NotNull] IFeatureToLineConverter converter,
             [NotNull] IFeatureToLineConverter two)
         {
@@ -36,8 +38,7 @@ namespace Selkie.GeoJson.Tests.XUnit.Importer
             var featureCollection = new FeatureCollection();
             featureCollection.Features.Add(CreateFeaturePoint());
 
-            var sut = new FeaturesToLinesConverter(logger,
-                                                   converters)
+            var sut = new FeaturesToLinesConverter(converters)
                       {
                           FeatureCollection = featureCollection
                       };
@@ -53,7 +54,6 @@ namespace Selkie.GeoJson.Tests.XUnit.Importer
         [Theory]
         [AutoNSubstituteData]
         public void Convert_SetsFeatureInConverter_ForCanConvertReturnsTrue(
-            [NotNull] ISelkieLogger logger,
             [NotNull] IFeatureToLineConverter converter)
         {
             // Arrange
@@ -67,8 +67,7 @@ namespace Selkie.GeoJson.Tests.XUnit.Importer
             var featureCollection = new FeatureCollection();
             featureCollection.Features.Add(CreateFeaturePoint());
 
-            var sut = new FeaturesToLinesConverter(logger,
-                                                   converters)
+            var sut = new FeaturesToLinesConverter(converters)
                       {
                           FeatureCollection = featureCollection
                       };
@@ -81,14 +80,15 @@ namespace Selkie.GeoJson.Tests.XUnit.Importer
                          converter.Feature);
         }
 
-        /* todo
         [Theory]
         [AutoNSubstituteData]
-        public void Convert_SetsLine_ForConverterFound(
+        public void Convert_SetsLines_ForConvertersFound(
+            [NotNull] ISelkieLogger logger,
             [NotNull] IFeatureToLineConverter converter,
             [NotNull] ILine expected)
         {
             // Arrange
+            expected.IsUnknown.Returns(false);
             converter.CanConvert(Arg.Any <Feature>()).Returns(true);
             converter.Line.Returns(expected);
 
@@ -97,57 +97,73 @@ namespace Selkie.GeoJson.Tests.XUnit.Importer
                                  converter
                              };
 
-            var sut = new FeaturesToLinesConverter(converters);
+            var featureCollection = new FeatureCollection();
+            featureCollection.Features.Add(CreateLineStringFeature());
+
+            var sut = new FeaturesToLinesConverter(converters)
+                      {
+                          FeatureCollection = featureCollection
+                      };
 
             // Act
             sut.Convert();
 
             // Assert
-            Assert.Equal(expected,
-                         sut.Line);
+            Assert.Equal(1,
+                         sut.Lines.Count());
         }
 
         [Theory]
         [AutoNSubstituteData]
-        public void Convert_SetsLineToUnknown_ForNoConverterFound(
-            [NotNull] IFeatureToLineConverter converter,
-            [NotNull] ILine expected)
+        public void Convert_DoesNotAddUnknownLine_ForNoConverterFound(
+            [NotNull] ISelkieLogger logger,
+            [NotNull] IFeatureToLineConverter converter)
         {
             // Arrange
-            var converters = new IFeatureToLineConverter[0];
+            converter.CanConvert(Arg.Any <Feature>()).Returns(false);
 
-            var sut = new FeaturesToLinesConverter(converters);
+            var converters = new[]
+                             {
+                                 converter
+                             };
+
+            var featureCollection = new FeatureCollection();
+            featureCollection.Features.Add(CreateLineStringFeature());
+
+            var sut = new FeaturesToLinesConverter(converters)
+                      {
+                          FeatureCollection = featureCollection
+                      };
 
             // Act
             sut.Convert();
 
             // Assert
-            Assert.Equal(Line.Unknown,
-                         sut.Line);
+            Assert.Equal(0,
+                         sut.Lines.Count());
         }
 
         [Theory]
         [AutoNSubstituteData]
-        public void Feature_ReturnsDefaultValue_WhenCalled(
+        public void Lines_ReturnsDefaultValue_WhenCalled(
             [NotNull] FeaturesToLinesConverter sut)
         {
             // Arrange
             // Act
             // Assert
-            Assert.NotNull(sut.Feature);
+            Assert.NotNull(sut.Lines);
         }
 
         [Theory]
         [AutoNSubstituteData]
-        public void Line_ReturnsDefaultValue_WhenCalled(
+        public void FeatureCollection_ReturnsDefaultValue_WhenCalled(
             [NotNull] FeaturesToLinesConverter sut)
         {
             // Arrange
             // Act
             // Assert
-            Assert.NotNull(sut.Line);
+            Assert.NotNull(sut.FeatureCollection);
         }
-*/
 
         private static Feature CreateFeaturePoint()
         {
@@ -160,6 +176,30 @@ namespace Selkie.GeoJson.Tests.XUnit.Importer
 
             return new Feature(point,
                                attributesTable);
+        }
+
+        private static IFeature CreateLineStringFeature()
+        {
+            var start = new Coordinate(0.0,
+                                       1.0);
+
+            var end = new Coordinate(2.0,
+                                     3.0);
+
+            var coordinates = new[]
+                              {
+                                  start,
+                                  end
+                              };
+
+            var lineString = new LineString(coordinates);
+
+            var attributesTable = new AttributesTable();
+
+            var feature = new Feature(lineString,
+                                      attributesTable);
+
+            return feature;
         }
     }
 }

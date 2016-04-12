@@ -17,7 +17,7 @@ namespace Selkie.GeoJSON.Importer
 
         public FeatureCollection Read(string geoJsonText)
         {
-            var featureCollection = m_Reader.Read<FeatureCollection>(geoJsonText);
+            var featureCollection = m_Reader.Read <FeatureCollection>(geoJsonText);
 
             return featureCollection;
         }

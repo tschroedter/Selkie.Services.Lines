@@ -12,7 +12,7 @@ namespace Selkie.GeoJSON.Importer.Interfaces
         [NotNull]
         ILine Line { get; }
 
-        bool CanConvert([NotNull] IFeature feature);
         void Convert(int id);
+        bool CanConvert(IFeature feature);
     }
 }

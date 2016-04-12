@@ -74,16 +74,16 @@
       <HintPath>..\packages\Selkie.Common.0.6.228.0\lib\net45\Selkie.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Selkie.EasyNetQ, Version=0.6.214.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Selkie.EasyNetQ.0.6.214.0\lib\net45\Selkie.EasyNetQ.dll</HintPath>
+    <Reference Include="Selkie.EasyNetQ, Version=0.6.216.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selkie.EasyNetQ.0.6.216.0\lib\net45\Selkie.EasyNetQ.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Selkie.Services.Common, Version=0.6.174.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Selkie.Services.Common.0.6.174.0\lib\net45\Selkie.Services.Common.dll</HintPath>
+    <Reference Include="Selkie.Services.Common, Version=0.6.182.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selkie.Services.Common.0.6.182.0\lib\net45\Selkie.Services.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Selkie.Services.Lines.Common, Version=0.6.37.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Selkie.Services.Lines.Common.0.6.37.0\lib\net45\Selkie.Services.Lines.Common.dll</HintPath>
+    <Reference Include="Selkie.Services.Lines.Common, Version=0.6.38.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selkie.Services.Lines.Common.0.6.38.0\lib\net45\Selkie.Services.Lines.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Selkie.Windsor, Version=0.6.256.0, Culture=neutral, processorArchitecture=MSIL">
@@ -105,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Steps\Common\BaseStep.cs" />
+    <Compile Include="Steps\GivenDidNotAReceiveAImportGeoJsonTextResponseMessageStep.cs" />
     <Compile Include="Steps\GivenDidNotAReceiveATestLineResponseMessageStep.cs" />
     <Compile Include="Steps\GivenDidNotAReceiveALineValidationResponseMessageStep.cs" />
     <Compile Include="Installer.cs" />
@@ -127,7 +128,9 @@
     <Compile Include="Steps\Common\ThenTheResultShouldBeThatIReceivedAServiceStoppedMessageStep.cs" />
     <Compile Include="Steps\Common\WhenISendAPingMessageStep.cs" />
     <Compile Include="Steps\Common\WhenISendAStopMessageStep.cs" />
+    <Compile Include="Steps\ThenTheResultShouldBeThatIReceivedAImportGeoJsonTextResponseMessageStep.cs" />
     <Compile Include="Steps\ThenTheResultShouldBeThatIReceivedALineValidationResponseMessageStep.cs" />
+    <Compile Include="Steps\WhenISendAImportGeoJsonTextRequestMessageStep.cs" />
     <Compile Include="Steps\WhenISendALineValidationRequestMessageStep.cs" />
     <Compile Include="Steps\ThenTheResultShouldBeThatIReceivedATestLineResponseMessageStep.cs" />
     <Compile Include="Steps\WhenISendATestLineRequestMessageStep.cs" />

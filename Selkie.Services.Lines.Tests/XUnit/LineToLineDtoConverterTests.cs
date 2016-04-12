@@ -8,7 +8,6 @@ using Xunit;
 namespace Selkie.Services.Lines.Tests.XUnit
 {
     //ncrunch: no coverage start
-    // ReSharper disable once ClassTooBig
     [ExcludeFromCodeCoverage]
     public sealed class LineToLineDtoConverterTests
     {
@@ -26,7 +25,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
                                   true,
                                   Constants.LineDirection.Reverse);
 
-            m_DtoFromLine = LineToLineDtoConverter.ConvertFrom(line);
+            m_DtoFromLine = new LineToLineDtoConverter().ConvertFrom(line);
 
             m_Dto = new LineDto
                     {
@@ -216,7 +215,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         [Fact]
         public void X1RoundtripForConvertToLineTest()
         {
-            ILine actual = LineToLineDtoConverter.ConvertToLine(m_Dto);
+            ILine actual = new LineToLineDtoConverter().ConvertToLine(m_Dto);
 
             Assert.True(Math.Abs(m_Dto.X1 - actual.X1) < Tolerance);
         }
@@ -224,7 +223,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         [Fact]
         public void Y1RoundtripForConvertToLineTest()
         {
-            ILine actual = LineToLineDtoConverter.ConvertToLine(m_Dto);
+            ILine actual = new LineToLineDtoConverter().ConvertToLine(m_Dto);
 
             Assert.True(Math.Abs(m_Dto.Y1 - actual.Y1) < Tolerance);
         }
@@ -232,7 +231,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         [Fact]
         public void X2RoundtripForConvertToLineTest()
         {
-            ILine actual = LineToLineDtoConverter.ConvertToLine(m_Dto);
+            ILine actual = new LineToLineDtoConverter().ConvertToLine(m_Dto);
 
             Assert.True(Math.Abs(m_Dto.X2 - actual.X2) < Tolerance);
         }
@@ -240,7 +239,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         [Fact]
         public void Y2RoundtripForConvertToLineTest()
         {
-            ILine actual = LineToLineDtoConverter.ConvertToLine(m_Dto);
+            ILine actual = new LineToLineDtoConverter().ConvertToLine(m_Dto);
 
             Assert.True(Math.Abs(m_Dto.Y2 - actual.Y2) < Tolerance);
         }
@@ -248,7 +247,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         [Fact]
         public void IsUnknownRoundtripForConvertToLineTest()
         {
-            ILine actual = LineToLineDtoConverter.ConvertToLine(m_Dto);
+            ILine actual = new LineToLineDtoConverter().ConvertToLine(m_Dto);
 
             Assert.True(actual.IsUnknown);
         }
@@ -256,7 +255,7 @@ namespace Selkie.Services.Lines.Tests.XUnit
         [Fact]
         public void RunDirectionRoundtripForConvertToLineTest()
         {
-            ILine actual = LineToLineDtoConverter.ConvertToLine(m_Dto);
+            ILine actual = new LineToLineDtoConverter().ConvertToLine(m_Dto);
 
             Assert.NotNull(m_Dto.RunDirection);
             Assert.NotNull(actual.RunDirection);

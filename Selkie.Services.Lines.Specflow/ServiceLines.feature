@@ -33,3 +33,8 @@ Scenario: LineValidation request and response
 	When I send a LineValidationRequestMessage
 	Then the result should be that I received a LineValidationResponseMessage
 
+Scenario: ImportGeoJsonText message request and response
+	Given Service is running
+	And Did not a receive a ImportGeoJsonTextResponseMessage
+	When I send a ImportGeoJsonTextRequestMessage
+	Then the result should be that I received a ImportGeoJsonTextResponseMessage

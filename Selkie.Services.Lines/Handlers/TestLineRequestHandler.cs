@@ -15,22 +15,26 @@ namespace Selkie.Services.Lines.Handlers
         : SelkieMessageHandler <TestLineRequestMessage>
     {
         private readonly ISelkieBus m_Bus;
+        private readonly ILinesToLineDtosConverter m_Converter;
         private readonly ILinesSourceManager m_Manager;
 
         public TestLineRequestHandler([NotNull] ISelkieBus bus,
-                                      [NotNull] ILinesSourceManager manager)
+                                      [NotNull] ILinesSourceManager manager,
+                                      [NotNull] ILinesToLineDtosConverter converter)
         {
             m_Bus = bus;
             m_Manager = manager;
+            m_Converter = converter;
         }
 
         public override void Handle(TestLineRequestMessage message)
         {
             IEnumerable <ILine> lines = m_Manager.GetTestLines(message.Types);
 
-            IEnumerable <LineDto> lineDtos = lines.Select(LineToLineDtoConverter.ConvertFrom);
+            m_Converter.Lines = lines;
+            m_Converter.Convert();
 
-            LineDto[] dtos = lineDtos.ToArray();
+            LineDto[] dtos = m_Converter.LineDtos.ToArray();
 
             var reply = new TestLineResponseMessage
                         {

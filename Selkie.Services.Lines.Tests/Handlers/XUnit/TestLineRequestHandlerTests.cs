@@ -1,12 +1,17 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 using NSubstitute;
+using Ploeh.AutoFixture.Xunit;
 using Selkie.EasyNetQ;
 using Selkie.Geometry.Shapes;
 using Selkie.Services.Lines.Common;
+using Selkie.Services.Lines.Common.Dto;
 using Selkie.Services.Lines.Common.Messages;
 using Selkie.Services.Lines.Handlers;
+using Selkie.XUnit.Extensions;
 using Xunit;
+using Xunit.Extensions;
 
 namespace Selkie.Services.Lines.Tests.Handlers.XUnit
 {
@@ -14,65 +19,69 @@ namespace Selkie.Services.Lines.Tests.Handlers.XUnit
     //ncrunch: no coverage start
     public class TestLineRequestHandlerTests
     {
-        [Fact]
-        public void HandleSendsReplyTest()
+        [Theory]
+        [AutoNSubstituteData]
+        public void Handle_SendsReplyMessage_WhenCalled(
+            [NotNull, Frozen] ILinesSourceManager manager,
+            [NotNull, Frozen] ISelkieBus bus,
+            [NotNull, Frozen] ILinesToLineDtosConverter converter,
+            [NotNull] TestLineRequestMessage message,
+            [NotNull] TestLineRequestHandler sut)
         {
-            var manager = Substitute.For <ILinesSourceManager>();
-            var bus = Substitute.For <ISelkieBus>();
+            // Arrange
+            var expected = new[]
+                           {
+                               new LineDto(),
+                               new LineDto()
+                           };
 
-            Line[] lines = SetupManager(manager);
-            TestLineRequestHandler sut = CreateServiceUnderTest(bus,
-                                                                manager);
+            converter.LineDtos.Returns(expected);
 
-            TestLineRequestMessage message = CreateMessage();
-
+            // Act
             sut.Handle(message);
 
-            // ReSharper disable once PossibleUnintendedReferenceComparison
-            bus.Received().PublishAsync(Arg.Is <TestLineResponseMessage>(x => x.LineDtos.Length == lines.Length));
+            // Assert
+            bus.Received().PublishAsync(Arg.Is <TestLineResponseMessage>(x => x.LineDtos.Length == expected.Length));
         }
 
-        private TestLineRequestHandler CreateServiceUnderTest([NotNull] ISelkieBus bus,
-                                                              [NotNull] ILinesSourceManager manager)
+        [Theory]
+        [AutoNSubstituteData]
+        public void Handle_SetsLines_WhenCalled(
+            [NotNull, Frozen] ILinesSourceManager manager,
+            [NotNull, Frozen] ILinesToLineDtosConverter converter,
+            [NotNull] TestLineRequestMessage message,
+            [NotNull] TestLineRequestHandler sut)
         {
-            var sut = new TestLineRequestHandler(bus,
-                                                 manager);
+            // Arrange
+            var expected = new[]
+                           {
+                               Substitute.For <ILine>(),
+                               Substitute.For <ILine>()
+                           };
 
-            return sut;
+            manager.GetTestLines(Arg.Any <IEnumerable <TestLineType.Type>>()).Returns(expected);
+
+            // Act
+            sut.Handle(message);
+
+            // Assert
+            Assert.Equal(expected,
+                         converter.Lines);
         }
 
-        private static TestLineRequestMessage CreateMessage()
+        [Theory]
+        [AutoNSubstituteData]
+        public void Handle_CallsConvert_WhenCalled(
+            [NotNull, Frozen] ILinesToLineDtosConverter converter,
+            [NotNull] TestLineRequestMessage message,
+            [NotNull] TestLineRequestHandler sut)
         {
-            TestLineType.Type[] availableTestLineses =
-            {
-                TestLineType.Type.CreateTestLines
-            };
-            var message = new TestLineRequestMessage
-                          {
-                              Types = availableTestLineses
-                          };
-            return message;
-        }
+            // Arrange
+            // Act
+            sut.Handle(message);
 
-        private static Line[] SetupManager(ILinesSourceManager manager)
-        {
-            Line[] lines =
-            {
-                new Line(0,
-                         1.0,
-                         2.0,
-                         3.0,
-                         4.0)
-            };
-            TestLineType.Type[] types =
-            {
-                TestLineType.Type.CreateTestLines
-            };
-
-            // ReSharper disable once MaximumChainedReferences
-            manager.GetTestLines(types).ReturnsForAnyArgs(lines);
-
-            return lines;
+            // Assert
+            converter.Received().Convert();
         }
     }
 }

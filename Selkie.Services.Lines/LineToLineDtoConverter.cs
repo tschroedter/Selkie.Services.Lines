@@ -5,14 +5,16 @@ using Selkie.Aop.Aspects;
 using Selkie.Geometry;
 using Selkie.Geometry.Shapes;
 using Selkie.Services.Lines.Common.Dto;
+using Selkie.Windsor;
 
 namespace Selkie.Services.Lines
 {
     [Interceptor(typeof ( LogAspect ))]
-    public class LineToLineDtoConverter
+    [ProjectComponent(Lifestyle.Transient)]
+    public class LineToLineDtoConverter : ILineToLineDtoConverter
     {
         [NotNull]
-        public static LineDto ConvertFrom([NotNull] ILine line)
+        public LineDto ConvertFrom(ILine line)
         {
             var dto = new LineDto
                       {
@@ -29,7 +31,7 @@ namespace Selkie.Services.Lines
         }
 
         [NotNull]
-        public static ILine ConvertToLine([NotNull] LineDto dto)
+        public ILine ConvertToLine(LineDto dto)
         {
             Constants.LineDirection direction;
 
