@@ -20,7 +20,7 @@ namespace Selkie.Services.Lines.Tests.Handlers.XUnit
         [AutoNSubstituteData]
         public void LineValidationRequestHandlerCallsManagerTest([NotNull] [Frozen] ILinesSourceManager manager,
                                                                  [NotNull] [Frozen] ISelkieBus bus,
-                                                                 [NotNull] LineValidationRequestHandler sut)
+                                                                 [NotNull] LineValidationRequestHandlerAsync sut)
         {
             LineValidationRequestMessage request = CreateRequestMessage(new[]
                                                                         {
@@ -37,7 +37,7 @@ namespace Selkie.Services.Lines.Tests.Handlers.XUnit
         [AutoNSubstituteData]
         public void LineValidationRequestHandlerSendsMessageTest([NotNull] [Frozen] ILinesSourceManager manager,
                                                                  [NotNull] [Frozen] ISelkieBus bus,
-                                                                 [NotNull] LineValidationRequestHandler sut)
+                                                                 [NotNull] LineValidationRequestHandlerAsync sut)
         {
             LineValidationRequestMessage request = CreateRequestMessage(new[]
                                                                         {

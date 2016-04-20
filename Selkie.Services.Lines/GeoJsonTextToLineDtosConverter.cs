@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using Selkie.GeoJSON.Importer.Interfaces;
 using Selkie.Geometry.Shapes;
 using Selkie.Services.Lines.Common.Dto;
+using Selkie.Services.Lines.GeoJson.Importer.Interfaces;
 using Selkie.Windsor;
 
 namespace Selkie.Services.Lines

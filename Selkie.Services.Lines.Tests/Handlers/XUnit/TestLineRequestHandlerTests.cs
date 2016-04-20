@@ -26,7 +26,7 @@ namespace Selkie.Services.Lines.Tests.Handlers.XUnit
             [NotNull, Frozen] ISelkieBus bus,
             [NotNull, Frozen] ILinesToLineDtosConverter converter,
             [NotNull] TestLineRequestMessage message,
-            [NotNull] TestLineRequestHandler sut)
+            [NotNull] TestLineRequestHandlerAsync sut)
         {
             // Arrange
             var expected = new[]
@@ -50,7 +50,7 @@ namespace Selkie.Services.Lines.Tests.Handlers.XUnit
             [NotNull, Frozen] ILinesSourceManager manager,
             [NotNull, Frozen] ILinesToLineDtosConverter converter,
             [NotNull] TestLineRequestMessage message,
-            [NotNull] TestLineRequestHandler sut)
+            [NotNull] TestLineRequestHandlerAsync sut)
         {
             // Arrange
             var expected = new[]
@@ -74,7 +74,7 @@ namespace Selkie.Services.Lines.Tests.Handlers.XUnit
         public void Handle_CallsConvert_WhenCalled(
             [NotNull, Frozen] ILinesToLineDtosConverter converter,
             [NotNull] TestLineRequestMessage message,
-            [NotNull] TestLineRequestHandler sut)
+            [NotNull] TestLineRequestHandlerAsync sut)
         {
             // Arrange
             // Act

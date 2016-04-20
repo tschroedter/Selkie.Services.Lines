@@ -20,7 +20,7 @@ namespace Selkie.Services.Lines.Tests.Handlers.XUnit
         public void Handle_SetsGeoJsonText_WhenCalled(
             [NotNull, Frozen] IGeoJsonTextToLineDtosConverter converter,
             [NotNull] ImportGeoJsonTextRequestMessage message,
-            [NotNull] ImportGeoJsonTextRequestHandler sut)
+            [NotNull] ImportGeoJsonTextRequestHandlerAsync sut)
         {
             // Arrange
             // Act
@@ -36,7 +36,7 @@ namespace Selkie.Services.Lines.Tests.Handlers.XUnit
         public void Handle_CallsConvert_WhenCalled(
             [NotNull, Frozen] IGeoJsonTextToLineDtosConverter converter,
             [NotNull] ImportGeoJsonTextRequestMessage message,
-            [NotNull] ImportGeoJsonTextRequestHandler sut)
+            [NotNull] ImportGeoJsonTextRequestHandlerAsync sut)
         {
             // Arrange
             // Act
@@ -52,7 +52,7 @@ namespace Selkie.Services.Lines.Tests.Handlers.XUnit
             [NotNull, Frozen] ISelkieBus bus,
             [NotNull, Frozen] IGeoJsonTextToLineDtosConverter converter,
             [NotNull] ImportGeoJsonTextRequestMessage message,
-            [NotNull] ImportGeoJsonTextRequestHandler sut)
+            [NotNull] ImportGeoJsonTextRequestHandlerAsync sut)
         {
             // Arrange
             var expected = new[]
