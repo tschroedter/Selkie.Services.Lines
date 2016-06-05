@@ -19,24 +19,52 @@ namespace Selkie.Services.Lines.Tests.XUnit
     {
         [Theory]
         [AutoNSubstituteData]
-        public void GeoJsonText_ReturnsDefaultValue_WhenCalled(
+        public void Convert_CallsImportFromFile_WhenCalled(
+            [NotNull, Frozen] IImporter importer,
+            [NotNull, Frozen] ILinesToLineDtosConverter converter,
+            [NotNull, Frozen] ILinesValidator validator,
             [NotNull] GeoJsonTextToLineDtosConverter sut)
         {
             // Arrange
+            IEnumerable <ILine> lines = CreateLines().ToArray();
+            importer.Lines.Returns(lines);
+
+            IEnumerable <LineDto> lineDtos = CreateLineDtos();
+            converter.LineDtos.Returns(lineDtos);
+
+            validator.ValidateLines(Arg.Any <IEnumerable <ILine>>()).Returns(true);
+
+            sut.GeoJsonText = "Text";
+
             // Act
+            sut.Convert();
+
             // Assert
-            Assert.NotNull(sut.GeoJsonText);
+            importer.Received().FromText("Text");
         }
 
         [Theory]
         [AutoNSubstituteData]
-        public void LineDtos_ReturnsDefaultValue_WhenCalled(
+        public void Convert_CallsValidate_WhenCalled(
+            [NotNull, Frozen] IImporter importer,
+            [NotNull, Frozen] ILinesToLineDtosConverter converter,
+            [NotNull, Frozen] ILinesValidator validator,
             [NotNull] GeoJsonTextToLineDtosConverter sut)
         {
             // Arrange
+            IEnumerable <ILine> lines = CreateLines().ToArray();
+            importer.Lines.Returns(lines);
+
+            IEnumerable <LineDto> lineDtos = CreateLineDtos();
+            converter.LineDtos.Returns(lineDtos);
+
+            validator.ValidateLines(Arg.Any <IEnumerable <ILine>>()).Returns(true);
+
             // Act
+            sut.Convert();
+
             // Assert
-            Assert.NotNull(sut.LineDtos);
+            validator.Received().ValidateLines(Arg.Is <IEnumerable <ILine>>(x => x.Count() == lines.Count()));
         }
 
         [Theory]
@@ -66,56 +94,6 @@ namespace Selkie.Services.Lines.Tests.XUnit
 
         [Theory]
         [AutoNSubstituteData]
-        public void Convert_CallsValidate_WhenCalled(
-            [NotNull, Frozen] IImporter importer,
-            [NotNull, Frozen] ILinesToLineDtosConverter converter,
-            [NotNull, Frozen] ILinesValidator validator,
-            [NotNull] GeoJsonTextToLineDtosConverter sut)
-        {
-            // Arrange
-            IEnumerable <ILine> lines = CreateLines().ToArray();
-            importer.Lines.Returns(lines);
-
-            IEnumerable <LineDto> lineDtos = CreateLineDtos();
-            converter.LineDtos.Returns(lineDtos);
-
-            validator.ValidateLines(Arg.Any <IEnumerable <ILine>>()).Returns(true);
-
-            // Act
-            sut.Convert();
-
-            // Assert
-            validator.Received().ValidateLines(Arg.Is <IEnumerable <ILine>>(x => x.Count() == lines.Count()));
-        }
-
-        [Theory]
-        [AutoNSubstituteData]
-        public void Convert_CallsImportFromFile_WhenCalled(
-            [NotNull, Frozen] IImporter importer,
-            [NotNull, Frozen] ILinesToLineDtosConverter converter,
-            [NotNull, Frozen] ILinesValidator validator,
-            [NotNull] GeoJsonTextToLineDtosConverter sut)
-        {
-            // Arrange
-            IEnumerable <ILine> lines = CreateLines().ToArray();
-            importer.Lines.Returns(lines);
-
-            IEnumerable <LineDto> lineDtos = CreateLineDtos();
-            converter.LineDtos.Returns(lineDtos);
-
-            validator.ValidateLines(Arg.Any <IEnumerable <ILine>>()).Returns(true);
-
-            sut.GeoJsonText = "Text";
-
-            // Act
-            sut.Convert();
-
-            // Assert
-            importer.Received().FromText("Text");
-        }
-
-        [Theory]
-        [AutoNSubstituteData]
         public void Convert_ThrowsException_ForInvalidLines(
             [NotNull, Frozen] IImporter importer,
             [NotNull, Frozen] ILinesToLineDtosConverter converter,
@@ -136,6 +114,39 @@ namespace Selkie.Services.Lines.Tests.XUnit
             Assert.Throws <ArgumentException>(() => sut.Convert());
         }
 
+        [Theory]
+        [AutoNSubstituteData]
+        public void GeoJsonText_ReturnsDefaultValue_WhenCalled(
+            [NotNull] GeoJsonTextToLineDtosConverter sut)
+        {
+            // Arrange
+            // Act
+            // Assert
+            Assert.NotNull(sut.GeoJsonText);
+        }
+
+        [Theory]
+        [AutoNSubstituteData]
+        public void LineDtos_ReturnsDefaultValue_WhenCalled(
+            [NotNull] GeoJsonTextToLineDtosConverter sut)
+        {
+            // Arrange
+            // Act
+            // Assert
+            Assert.NotNull(sut.LineDtos);
+        }
+
+        private IEnumerable <LineDto> CreateLineDtos()
+        {
+            var dtos = new[]
+                       {
+                           new LineDto(),
+                           new LineDto()
+                       };
+
+            return dtos;
+        }
+
         private IEnumerable <ILine> CreateLines()
         {
             var one = Substitute.For <ILine>();
@@ -151,17 +162,6 @@ namespace Selkie.Services.Lines.Tests.XUnit
                         };
 
             return lines;
-        }
-
-        private IEnumerable <LineDto> CreateLineDtos()
-        {
-            var dtos = new[]
-                       {
-                           new LineDto(),
-                           new LineDto()
-                       };
-
-            return dtos;
         }
     }
 }

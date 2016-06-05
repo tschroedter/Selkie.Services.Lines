@@ -11,8 +11,6 @@ namespace Selkie.Services.Lines.GeoJson.Importer
     [ProjectComponent(Lifestyle.Transient)]
     public class FeaturesToLinesConverter : IFeaturesToLinesConverter
     {
-        private readonly IFeatureToLineConverter[] m_Converters;
-
         public FeaturesToLinesConverter(
             [NotNull] IFeatureToLineConverter[] converters)
         {
@@ -21,6 +19,8 @@ namespace Selkie.Services.Lines.GeoJson.Importer
             FeatureCollection = new FeatureCollection();
             Lines = new ILine[0];
         }
+
+        private readonly IFeatureToLineConverter[] m_Converters;
 
         [NotNull]
         public FeatureCollection FeatureCollection { get; set; }
@@ -38,11 +38,13 @@ namespace Selkie.Services.Lines.GeoJson.Importer
                 ILine line = ConvertFeature(id,
                                             feature);
 
-                if ( !line.IsUnknown )
+                if ( line.IsUnknown )
                 {
-                    lines.Add(line);
-                    id++;
+                    continue;
                 }
+
+                lines.Add(line);
+                id++;
             }
 
             Lines = lines;
@@ -53,15 +55,15 @@ namespace Selkie.Services.Lines.GeoJson.Importer
         {
             IFeatureToLineConverter converter = m_Converters.FirstOrDefault(x => x.CanConvert(feature));
 
-            if ( converter != null )
+            if ( converter == null )
             {
-                converter.Feature = feature;
-                converter.Convert(id);
-
-                return converter.Line;
+                return Line.Unknown;
             }
 
-            return Line.Unknown;
+            converter.Feature = feature;
+            converter.Convert(id);
+
+            return converter.Line;
         }
     }
 }

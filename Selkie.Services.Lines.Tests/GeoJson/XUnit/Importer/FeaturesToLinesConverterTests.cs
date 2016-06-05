@@ -53,6 +53,36 @@ namespace Selkie.Services.Lines.Tests.GeoJson.XUnit.Importer
 
         [Theory]
         [AutoNSubstituteData]
+        public void Convert_DoesNotAddUnknownLine_ForNoConverterFound(
+            [NotNull] ISelkieLogger logger,
+            [NotNull] IFeatureToLineConverter converter)
+        {
+            // Arrange
+            converter.CanConvert(Arg.Any <Feature>()).Returns(false);
+
+            var converters = new[]
+                             {
+                                 converter
+                             };
+
+            var featureCollection = new FeatureCollection();
+            featureCollection.Features.Add(CreateLineStringFeature());
+
+            var sut = new FeaturesToLinesConverter(converters)
+                      {
+                          FeatureCollection = featureCollection
+                      };
+
+            // Act
+            sut.Convert();
+
+            // Assert
+            Assert.Equal(0,
+                         sut.Lines.Count());
+        }
+
+        [Theory]
+        [AutoNSubstituteData]
         public void Convert_SetsFeatureInConverter_ForCanConvertReturnsTrue(
             [NotNull] IFeatureToLineConverter converter)
         {
@@ -115,32 +145,13 @@ namespace Selkie.Services.Lines.Tests.GeoJson.XUnit.Importer
 
         [Theory]
         [AutoNSubstituteData]
-        public void Convert_DoesNotAddUnknownLine_ForNoConverterFound(
-            [NotNull] ISelkieLogger logger,
-            [NotNull] IFeatureToLineConverter converter)
+        public void FeatureCollection_ReturnsDefaultValue_WhenCalled(
+            [NotNull] FeaturesToLinesConverter sut)
         {
             // Arrange
-            converter.CanConvert(Arg.Any <Feature>()).Returns(false);
-
-            var converters = new[]
-                             {
-                                 converter
-                             };
-
-            var featureCollection = new FeatureCollection();
-            featureCollection.Features.Add(CreateLineStringFeature());
-
-            var sut = new FeaturesToLinesConverter(converters)
-                      {
-                          FeatureCollection = featureCollection
-                      };
-
             // Act
-            sut.Convert();
-
             // Assert
-            Assert.Equal(0,
-                         sut.Lines.Count());
+            Assert.NotNull(sut.FeatureCollection);
         }
 
         [Theory]
@@ -152,17 +163,6 @@ namespace Selkie.Services.Lines.Tests.GeoJson.XUnit.Importer
             // Act
             // Assert
             Assert.NotNull(sut.Lines);
-        }
-
-        [Theory]
-        [AutoNSubstituteData]
-        public void FeatureCollection_ReturnsDefaultValue_WhenCalled(
-            [NotNull] FeaturesToLinesConverter sut)
-        {
-            // Arrange
-            // Act
-            // Assert
-            Assert.NotNull(sut.FeatureCollection);
         }
 
         private static Feature CreateFeaturePoint()

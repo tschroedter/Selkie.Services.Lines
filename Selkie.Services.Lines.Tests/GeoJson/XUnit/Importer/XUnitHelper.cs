@@ -26,7 +26,7 @@ namespace Selkie.Services.Lines.Tests.GeoJson.XUnit.Importer
         {
             AssertIsEquivalent(value1,
                                value2,
-                               Epsilon,
+                               epsilon,
                                string.Empty);
         }
 

@@ -38,6 +38,20 @@ namespace Selkie.Services.Lines.Tests.GeoJson.XUnit.Importer
 
         [Theory]
         [AutoNSubstituteData]
+        public void Read_CallsReader_WhenCalled(
+            [NotNull, Frozen] ISelkieGeoJsonStringReader reader,
+            [NotNull] GeoJsonStringReader sut)
+        {
+            // Arrange
+            // Act
+            sut.Read(GeoJsonExample);
+
+            // Assert
+            reader.Received().Read <FeatureCollection>(GeoJsonExample);
+        }
+
+        [Theory]
+        [AutoNSubstituteData]
         public void Read_ReturnsFeatureCollection_WhenCalled()
         {
             // Arrange
@@ -50,20 +64,6 @@ namespace Selkie.Services.Lines.Tests.GeoJson.XUnit.Importer
             // Assert
             Assert.Equal(2,
                          actual.Features.Count);
-        }
-
-        [Theory]
-        [AutoNSubstituteData]
-        public void Read_CallsReader_WhenCalled(
-            [NotNull, Frozen] ISelkieGeoJsonStringReader reader,
-            [NotNull] GeoJsonStringReader sut)
-        {
-            // Arrange
-            // Act
-            sut.Read(GeoJsonExample);
-
-            // Assert
-            reader.Received().Read <FeatureCollection>(GeoJsonExample);
         }
     }
 }

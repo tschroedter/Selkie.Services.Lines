@@ -24,6 +24,17 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
             m_Container.Dispose();
         }
 
+        [AfterScenario]
+        public void AfterScenario()
+        {
+            var isExited = ( bool ) ScenarioContext.Current [ "IsExited" ];
+
+            if ( !isExited )
+            {
+                m_SpecFlowService.KillAndWaitForExit();
+            }
+        }
+
         [BeforeScenario]
         public void BeforeScenario()
         {
@@ -39,17 +50,6 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
 
             m_ServiceHandlers = new ServiceHandlers();
             m_ServiceHandlers.Subscribe();
-        }
-
-        [AfterScenario]
-        public void AfterScenario()
-        {
-            var isExited = ( bool ) ScenarioContext.Current [ "IsExited" ];
-
-            if ( !isExited )
-            {
-                m_SpecFlowService.KillAndWaitForExit();
-            }
         }
 
         [Given(@"Service is running")]

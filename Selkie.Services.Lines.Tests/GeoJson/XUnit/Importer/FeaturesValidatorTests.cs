@@ -16,100 +16,24 @@ namespace Selkie.Services.Lines.Tests.GeoJson.XUnit.Importer
     [ExcludeFromCodeCoverage]
     public sealed class FeaturesValidatorTests
     {
-        private static FeatureCollection CreateSelkie()
+        [Theory]
+        [AutoNSubstituteData]
+        public void Features_IsNotNull_ByDefault([NotNull] FeaturesValidator sut)
         {
-            return new FeatureCollection();
+            // Arrange
+            // Act
+            // Assert
+            Assert.NotNull(sut.FeatureCollection);
         }
 
         [Theory]
         [AutoNSubstituteData]
-        public void Validate_AddsValidFeaturesToSupportedWithCorrectLength_ForGivenFeatures(
-            [NotNull] ISelkieLogger logger,
-            [NotNull] FeatureCollection features,
-            [NotNull] FeatureCollection supported,
-            [NotNull] FeatureCollection unsupported)
+        public void FeaturesValid_IsNotNull_ByDefault([NotNull] FeaturesValidator sut)
         {
             // Arrange
-            Feature one = CreateFeatureLineString();
-            Feature two = CreateFeatureLineString();
-            FeatureCollection testFeatures = CreateSelkie();
-
-            var sut = new FeaturesValidator(logger,
-                                            features,
-                                            supported,
-                                            unsupported);
-
-            testFeatures.Add(one);
-            testFeatures.Add(two);
-            sut.FeatureCollection = testFeatures;
-
             // Act
-            sut.Validate();
-
             // Assert
-            Assert.Equal(2,
-                         sut.Supported.Count);
-        }
-
-        [Theory]
-        [AutoNSubstituteData]
-        public void Validate_AddsSupportedFeature_ForGivenFeatures(
-            [NotNull] ISelkieLogger logger,
-            [NotNull] FeatureCollection features,
-            [NotNull] FeatureCollection supported,
-            [NotNull] FeatureCollection unsupported)
-
-        {
-            // Arrange
-            Feature expected = CreateFeatureLineString();
-            FeatureCollection testFeatures = CreateSelkie();
-
-            var sut = new FeaturesValidator(logger,
-                                            features,
-                                            supported,
-                                            unsupported);
-
-            testFeatures.Add(expected);
-            sut.FeatureCollection = testFeatures;
-
-            // Act
-            sut.Validate();
-
-            // Assert
-            Assert.Equal(expected,
-                         sut.Supported [ 0 ]);
-        }
-
-        [Theory]
-        [AutoNSubstituteData]
-        public void Validate_AddsInvalidFeaturesToUnsupportedWithCorrectLength_ForGivenFeatures(
-            [NotNull] ISelkieLogger logger,
-            [NotNull] FeatureCollection features,
-            [NotNull] FeatureCollection supported,
-            [NotNull] FeatureCollection unsupported)
-        {
-            // Arrange
-            Feature one = CreateFeaturePoint();
-            Feature two = CreateFeaturePoint();
-            FeatureCollection testFeatures = CreateSelkie();
-
-            var sut = new FeaturesValidator(logger,
-                                            features,
-                                            supported,
-                                            unsupported);
-
-            testFeatures.Add(one);
-            testFeatures.Add(two);
-            sut.FeatureCollection = testFeatures;
-
-            // Act
-            sut.Validate();
-
-            // Assert
-            Assert.Equal(one,
-                         sut.Unsupported [ 0 ]);
-            Assert.Equal(two,
-                         sut.Unsupported [ 1 ]);
+            Assert.NotNull(sut.Supported);
         }
 
         [Theory]
@@ -182,22 +106,93 @@ namespace Selkie.Services.Lines.Tests.GeoJson.XUnit.Importer
 
         [Theory]
         [AutoNSubstituteData]
-        public void Features_IsNotNull_ByDefault([NotNull] FeaturesValidator sut)
+        public void Validate_AddsInvalidFeaturesToUnsupportedWithCorrectLength_ForGivenFeatures(
+            [NotNull] ISelkieLogger logger,
+            [NotNull] FeatureCollection features,
+            [NotNull] FeatureCollection supported,
+            [NotNull] FeatureCollection unsupported)
         {
             // Arrange
+            Feature one = CreateFeaturePoint();
+            Feature two = CreateFeaturePoint();
+            FeatureCollection testFeatures = CreateSelkie();
+
+            var sut = new FeaturesValidator(logger,
+                                            features,
+                                            supported,
+                                            unsupported);
+
+            testFeatures.Add(one);
+            testFeatures.Add(two);
+            sut.FeatureCollection = testFeatures;
+
             // Act
+            sut.Validate();
+
             // Assert
-            Assert.NotNull(sut.FeatureCollection);
+            Assert.Equal(one,
+                         sut.Unsupported [ 0 ]);
+            Assert.Equal(two,
+                         sut.Unsupported [ 1 ]);
         }
 
         [Theory]
         [AutoNSubstituteData]
-        public void FeaturesValid_IsNotNull_ByDefault([NotNull] FeaturesValidator sut)
+        public void Validate_AddsSupportedFeature_ForGivenFeatures(
+            [NotNull] ISelkieLogger logger,
+            [NotNull] FeatureCollection features,
+            [NotNull] FeatureCollection supported,
+            [NotNull] FeatureCollection unsupported)
+
         {
             // Arrange
+            Feature expected = CreateFeatureLineString();
+            FeatureCollection testFeatures = CreateSelkie();
+
+            var sut = new FeaturesValidator(logger,
+                                            features,
+                                            supported,
+                                            unsupported);
+
+            testFeatures.Add(expected);
+            sut.FeatureCollection = testFeatures;
+
             // Act
+            sut.Validate();
+
             // Assert
-            Assert.NotNull(sut.Supported);
+            Assert.Equal(expected,
+                         sut.Supported [ 0 ]);
+        }
+
+        [Theory]
+        [AutoNSubstituteData]
+        public void Validate_AddsValidFeaturesToSupportedWithCorrectLength_ForGivenFeatures(
+            [NotNull] ISelkieLogger logger,
+            [NotNull] FeatureCollection features,
+            [NotNull] FeatureCollection supported,
+            [NotNull] FeatureCollection unsupported)
+        {
+            // Arrange
+            Feature one = CreateFeatureLineString();
+            Feature two = CreateFeatureLineString();
+            FeatureCollection testFeatures = CreateSelkie();
+
+            var sut = new FeaturesValidator(logger,
+                                            features,
+                                            supported,
+                                            unsupported);
+
+            testFeatures.Add(one);
+            testFeatures.Add(two);
+            sut.FeatureCollection = testFeatures;
+
+            // Act
+            sut.Validate();
+
+            // Assert
+            Assert.Equal(2,
+                         sut.Supported.Count);
         }
 
         [Theory]
@@ -220,31 +215,14 @@ namespace Selkie.Services.Lines.Tests.GeoJson.XUnit.Importer
 
         [Theory]
         [AutoNSubstituteData]
-        public void Validate_LogsWarn_ForPoint([NotNull] [Frozen] ISelkieLogger logger,
-                                               [NotNull] FeaturesValidator sut)
+        public void Validate_LogsWarn_ForGeometryCollection([NotNull] [Frozen] ISelkieLogger logger,
+                                                            [NotNull] FeaturesValidator sut)
         {
             // Arrange
+            Feature feature = CreateFeaturePoint();
             FeatureCollection features = CreateSelkie();
 
-            features.Add(CreateFeaturePoint());
-            sut.FeatureCollection = features;
-
-            // Act
-            sut.Validate();
-
-            // Assert
-            logger.Received().Warn(Arg.Any <string>());
-        }
-
-        [Theory]
-        [AutoNSubstituteData]
-        public void Validate_LogsWarn_ForMultiPoint([NotNull] [Frozen] ISelkieLogger logger,
-                                                    [NotNull] FeaturesValidator sut)
-        {
-            // Arrange
-            FeatureCollection features = CreateSelkie();
-
-            features.Add(CreateFeatureMultiPoint());
+            features.Add(feature);
             sut.FeatureCollection = features;
 
             // Act
@@ -274,32 +252,13 @@ namespace Selkie.Services.Lines.Tests.GeoJson.XUnit.Importer
 
         [Theory]
         [AutoNSubstituteData]
-        public void Validate_LogsWarn_ForPolygon([NotNull] [Frozen] ISelkieLogger logger,
-                                                 [NotNull] FeaturesValidator sut)
+        public void Validate_LogsWarn_ForMultiPoint([NotNull] [Frozen] ISelkieLogger logger,
+                                                    [NotNull] FeaturesValidator sut)
         {
             // Arrange
             FeatureCollection features = CreateSelkie();
 
-            features.Add(CreateFeaturePolygon());
-            sut.FeatureCollection = features;
-
-            // Act
-            sut.Validate();
-
-            // Assert
-            logger.Received().Warn(Arg.Any <string>());
-        }
-
-        [Theory]
-        [AutoNSubstituteData]
-        public void Validate_LogsWarn_ForGeometryCollection([NotNull] [Frozen] ISelkieLogger logger,
-                                                            [NotNull] FeaturesValidator sut)
-        {
-            // Arrange
-            Feature feature = CreateFeaturePoint();
-            FeatureCollection features = CreateSelkie();
-
-            features.Add(feature);
+            features.Add(CreateFeatureMultiPoint());
             sut.FeatureCollection = features;
 
             // Act
@@ -327,6 +286,152 @@ namespace Selkie.Services.Lines.Tests.GeoJson.XUnit.Importer
             logger.Received().Warn(Arg.Any <string>());
         }
 
+        [Theory]
+        [AutoNSubstituteData]
+        public void Validate_LogsWarn_ForPoint([NotNull] [Frozen] ISelkieLogger logger,
+                                               [NotNull] FeaturesValidator sut)
+        {
+            // Arrange
+            FeatureCollection features = CreateSelkie();
+
+            features.Add(CreateFeaturePoint());
+            sut.FeatureCollection = features;
+
+            // Act
+            sut.Validate();
+
+            // Assert
+            logger.Received().Warn(Arg.Any <string>());
+        }
+
+        [Theory]
+        [AutoNSubstituteData]
+        public void Validate_LogsWarn_ForPolygon([NotNull] [Frozen] ISelkieLogger logger,
+                                                 [NotNull] FeaturesValidator sut)
+        {
+            // Arrange
+            FeatureCollection features = CreateSelkie();
+
+            features.Add(CreateFeaturePolygon());
+            sut.FeatureCollection = features;
+
+            // Act
+            sut.Validate();
+
+            // Assert
+            logger.Received().Warn(Arg.Any <string>());
+        }
+
+        private static Feature CreateFeaturePoint()
+        {
+            Point point = CreatePoint();
+
+            var attributesTable = new AttributesTable();
+
+            return new Feature(point,
+                               attributesTable);
+        }
+
+        private static LineString CreateLineString()
+        {
+            var start = new Coordinate(0.0,
+                                       0.0);
+
+            var end = new Coordinate(0.0,
+                                     0.0);
+
+            var coordinates = new[]
+                              {
+                                  start,
+                                  end
+                              };
+
+            var lineString = new LineString(coordinates);
+
+            return lineString;
+        }
+
+        private static ILineString[] CreateListOfLineStrings()
+        {
+            LineString lineString = CreateLineString();
+            ILineString[] lineStrings =
+            {
+                lineString
+            };
+
+            return lineStrings;
+        }
+
+        private static Point CreatePoint()
+        {
+            var coordinate = new Coordinate(0.0,
+                                            0.0);
+
+            var point = new Point(coordinate);
+            return point;
+        }
+
+        private static FeatureCollection CreateSelkie()
+        {
+            return new FeatureCollection();
+        }
+
+        private Coordinate[] CreateCoordinatesForPolygon()
+        {
+            var coordinates = new[]
+                              {
+                                  new Coordinate(1.0,
+                                                 2.0),
+                                  new Coordinate(3.0,
+                                                 4.0),
+                                  new Coordinate(5.0,
+                                                 6.0),
+                                  new Coordinate(1.0,
+                                                 2.0)
+                              };
+
+            return coordinates;
+        }
+
+        private Feature CreateFeatureLineString()
+        {
+            LineString lineString = CreateLineString();
+
+            var attributesTable = new AttributesTable();
+
+            return new Feature(lineString,
+                               attributesTable);
+        }
+
+        private Feature CreateFeatureMultiLineString()
+        {
+            ILineString[] lineStrings = CreateListOfLineStrings();
+
+            var multiLineString = new MultiLineString(lineStrings);
+            var attributesTable = new AttributesTable();
+
+            return new Feature(multiLineString,
+                               attributesTable);
+        }
+
+
+        private Feature CreateFeatureMultiPoint()
+        {
+            Point one = CreatePoint();
+            Point two = CreatePoint();
+
+            var multiPoint = new MultiPoint(new IPoint[]
+                                            {
+                                                one,
+                                                two
+                                            });
+
+            var attributesTable = new AttributesTable();
+
+            return new Feature(multiPoint,
+                               attributesTable);
+        }
+
         private Feature CreateFeatureMultiPolygon()
         {
             var linearRing = new LinearRing(CreateCoordinatesForPolygon());
@@ -350,111 +455,6 @@ namespace Selkie.Services.Lines.Tests.GeoJson.XUnit.Importer
             var attributesTable = new AttributesTable();
 
             return new Feature(polygon,
-                               attributesTable);
-        }
-
-        private Coordinate[] CreateCoordinatesForPolygon()
-        {
-            var coordinates = new[]
-                              {
-                                  new Coordinate(1.0,
-                                                 2.0),
-                                  new Coordinate(3.0,
-                                                 4.0),
-                                  new Coordinate(5.0,
-                                                 6.0),
-                                  new Coordinate(1.0,
-                                                 2.0)
-                              };
-
-            return coordinates;
-        }
-
-        private static ILineString[] CreateListOfLineStrings()
-        {
-            LineString lineString = CreateLineString();
-            ILineString[] lineStrings =
-            {
-                lineString
-            };
-
-            return lineStrings;
-        }
-
-        private Feature CreateFeatureMultiLineString()
-        {
-            ILineString[] lineStrings = CreateListOfLineStrings();
-
-            var multiLineString = new MultiLineString(lineStrings);
-            var attributesTable = new AttributesTable();
-
-            return new Feature(multiLineString,
-                               attributesTable);
-        }
-
-        private Feature CreateFeatureLineString()
-        {
-            LineString lineString = CreateLineString();
-
-            var attributesTable = new AttributesTable();
-
-            return new Feature(lineString,
-                               attributesTable);
-        }
-
-        private static LineString CreateLineString()
-        {
-            var start = new Coordinate(0.0,
-                                       0.0);
-
-            var end = new Coordinate(0.0,
-                                     0.0);
-
-            var coordinates = new[]
-                              {
-                                  start,
-                                  end
-                              };
-
-            var lineString = new LineString(coordinates);
-
-            return lineString;
-        }
-
-        private static Feature CreateFeaturePoint()
-        {
-            Point point = CreatePoint();
-
-            var attributesTable = new AttributesTable();
-
-            return new Feature(point,
-                               attributesTable);
-        }
-
-        private static Point CreatePoint()
-        {
-            var coordinate = new Coordinate(0.0,
-                                            0.0);
-
-            var point = new Point(coordinate);
-            return point;
-        }
-
-
-        private Feature CreateFeatureMultiPoint()
-        {
-            Point one = CreatePoint();
-            Point two = CreatePoint();
-
-            var multiPoint = new MultiPoint(new IPoint[]
-                                            {
-                                                one,
-                                                two
-                                            });
-
-            var attributesTable = new AttributesTable();
-
-            return new Feature(multiPoint,
                                attributesTable);
         }
     }

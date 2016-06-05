@@ -10,14 +10,10 @@ using Selkie.Services.Lines.Common.Messages;
 
 namespace Selkie.Services.Lines.Handlers
 {
-    [Interceptor(typeof ( MessageHandlerAspect ))]
+    [Interceptor(typeof( MessageHandlerAspect ))]
     public class TestLineRequestHandlerAsync
         : SelkieMessageHandler <TestLineRequestMessage>
     {
-        private readonly ISelkieBus m_Bus;
-        private readonly ILinesToLineDtosConverter m_Converter;
-        private readonly ILinesSourceManager m_Manager;
-
         public TestLineRequestHandlerAsync(
             [NotNull] ISelkieBus bus,
             [NotNull] ILinesSourceManager manager,
@@ -27,6 +23,10 @@ namespace Selkie.Services.Lines.Handlers
             m_Manager = manager;
             m_Converter = converter;
         }
+
+        private readonly ISelkieBus m_Bus;
+        private readonly ILinesToLineDtosConverter m_Converter;
+        private readonly ILinesSourceManager m_Manager;
 
         public override void Handle(TestLineRequestMessage message)
         {

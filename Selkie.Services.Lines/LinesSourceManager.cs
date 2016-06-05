@@ -12,15 +12,10 @@ using Selkie.Windsor.Extensions;
 
 namespace Selkie.Services.Lines
 {
-    [Interceptor(typeof ( LogAspect ))]
+    [Interceptor(typeof( LogAspect ))]
     [ProjectComponent(Lifestyle.Singleton)]
     public class LinesSourceManager : ILinesSourceManager
     {
-        internal const int NumberOfLines = 10;
-        private readonly ITestLineCreator m_Creator;
-        private readonly ISelkieLogger m_Logger;
-        private readonly ILinesValidator m_Validator;
-
         public LinesSourceManager([NotNull] ISelkieLogger logger,
                                   [NotNull] ITestLineCreator creator,
                                   [NotNull] ILinesValidator validator)
@@ -30,45 +25,28 @@ namespace Selkie.Services.Lines
             m_Validator = validator;
         }
 
+        internal const int NumberOfLines = 10;
+        private readonly ITestLineCreator m_Creator;
+        private readonly ISelkieLogger m_Logger;
+        private readonly ILinesValidator m_Validator;
+
         public IEnumerable <ILine> GetTestLines(IEnumerable <TestLineType.Type> types)
         {
             ILine[] lines = GetAllRequestedTestLines(types).ToArray();
 
-            if ( !m_Validator.ValidateLines(lines) )
+            if ( m_Validator.ValidateLines(lines) )
             {
-                m_Logger.Error("Lines are invalid!");
-
-                return new Line[0];
+                return lines;
             }
 
-            return lines;
+            m_Logger.Error("Lines are invalid!");
+
+            return new Line[0];
         }
 
         public bool ValidateDtos(IEnumerable <LineDto> lineDtos)
         {
             return m_Validator.ValidateDtos(lineDtos);
-        }
-
-        [NotNull]
-        private IEnumerable <ILine> GetAllRequestedTestLines([NotNull] IEnumerable <TestLineType.Type> types)
-        {
-            var lines = new List <ILine>();
-
-            foreach ( TestLineType.Type type in types )
-            {
-                // ReSharper disable MaximumChainedReferences
-                int maxId = lines.Any()
-                                ? lines.Select(x => x.Id).Max() + 1
-                                : 0;
-                // ReSharper restore MaximumChainedReferences
-
-                IEnumerable <ILine> testLines = GetTestLinesForType(type,
-                                                                    maxId);
-
-                lines.AddRange(testLines);
-            }
-
-            return lines;
         }
 
         // ReSharper disable once MethodTooLong
@@ -140,6 +118,28 @@ namespace Selkie.Services.Lines
                 default:
                     throw new ArgumentException("Unknown type '{0}'!".Inject(type));
             }
+        }
+
+        [NotNull]
+        private IEnumerable <ILine> GetAllRequestedTestLines([NotNull] IEnumerable <TestLineType.Type> types)
+        {
+            var lines = new List <ILine>();
+
+            foreach ( TestLineType.Type type in types )
+            {
+                // ReSharper disable MaximumChainedReferences
+                int maxId = lines.Any()
+                                ? lines.Select(x => x.Id).Max() + 1
+                                : 0;
+                // ReSharper restore MaximumChainedReferences
+
+                IEnumerable <ILine> testLines = GetTestLinesForType(type,
+                                                                    maxId);
+
+                lines.AddRange(testLines);
+            }
+
+            return lines;
         }
     }
 }

@@ -11,8 +11,6 @@ namespace Selkie.Services.Lines.Tests.XUnit
     //ncrunch: no coverage start
     public sealed class InstallerTests
     {
-        private readonly IWindsorContainer m_Container;
-
         public InstallerTests()
         {
             m_Container = Substitute.For <IWindsorContainer>();
@@ -23,6 +21,8 @@ namespace Selkie.Services.Lines.Tests.XUnit
             sut.Install(m_Container,
                         store);
         }
+
+        private readonly IWindsorContainer m_Container;
 
         [Fact]
         public void InstallRegistersIServiceTest()

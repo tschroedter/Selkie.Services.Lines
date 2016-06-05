@@ -8,12 +8,12 @@ namespace Selkie.Services.Lines.GeoJson.Importer
     [ProjectComponent(Lifestyle.Transient)]
     public class GeoJsonStringReader : IGeoJsonStringReader
     {
-        private readonly ISelkieGeoJsonStringReader m_Reader;
-
         public GeoJsonStringReader([NotNull] ISelkieGeoJsonStringReader reader)
         {
             m_Reader = reader;
         }
+
+        private readonly ISelkieGeoJsonStringReader m_Reader;
 
         public FeatureCollection Read(string geoJsonText)
         {

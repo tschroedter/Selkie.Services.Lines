@@ -9,14 +9,10 @@ using Selkie.Windsor;
 
 namespace Selkie.Services.Lines.GeoJson.Importer
 {
-    [Interceptor(typeof ( LogAspect ))]
+    [Interceptor(typeof( LogAspect ))]
     [ProjectComponent(Lifestyle.Transient)]
     public class Importer : IImporter
     {
-        private readonly IFeaturesToLinesConverter m_Converter;
-        private readonly IGeoJsonStringReader m_Reader;
-        private readonly IFeaturesValidator m_Validator;
-
         public Importer([NotNull] IGeoJsonStringReader reader,
                         [NotNull] IFeaturesValidator validator,
                         [NotNull] IFeaturesToLinesConverter converter)
@@ -25,6 +21,10 @@ namespace Selkie.Services.Lines.GeoJson.Importer
             m_Validator = validator;
             m_Converter = converter;
         }
+
+        private readonly IFeaturesToLinesConverter m_Converter;
+        private readonly IGeoJsonStringReader m_Reader;
+        private readonly IFeaturesValidator m_Validator;
 
         public FeatureCollection FeatureCollection
         {

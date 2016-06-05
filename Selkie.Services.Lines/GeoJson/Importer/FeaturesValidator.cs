@@ -12,8 +12,6 @@ namespace Selkie.Services.Lines.GeoJson.Importer
     public class FeaturesValidator
         : IFeaturesValidator
     {
-        private readonly ISelkieLogger m_Logger;
-
         public FeaturesValidator([NotNull] ISelkieLogger logger,
                                  [NotNull] FeatureCollection featureCollection,
                                  [NotNull] FeatureCollection supported,
@@ -25,6 +23,8 @@ namespace Selkie.Services.Lines.GeoJson.Importer
             Supported = supported;
             Unsupported = unsupported;
         }
+
+        private readonly ISelkieLogger m_Logger;
 
         public FeatureCollection Unsupported { get; set; }
 
@@ -54,7 +54,7 @@ namespace Selkie.Services.Lines.GeoJson.Importer
         {
             Type type = feature.Geometry.GetType();
 
-            if ( typeof ( LineString ) == type )
+            if ( typeof( LineString ) == type )
             {
                 m_Logger.Info("The GeoJSONObjectType '{0}' is supported!".Inject(type));
                 return true;

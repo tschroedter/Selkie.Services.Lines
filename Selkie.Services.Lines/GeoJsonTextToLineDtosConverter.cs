@@ -12,10 +12,6 @@ namespace Selkie.Services.Lines
     [ProjectComponent(Lifestyle.Transient)]
     public class GeoJsonTextToLineDtosConverter : IGeoJsonTextToLineDtosConverter
     {
-        private readonly ILinesToLineDtosConverter m_Converter;
-        private readonly IImporter m_Importer;
-        private readonly ILinesValidator m_Validator;
-
         public GeoJsonTextToLineDtosConverter(
             [NotNull] IImporter importer,
             [NotNull] ILinesToLineDtosConverter converter,
@@ -28,6 +24,10 @@ namespace Selkie.Services.Lines
             GeoJsonText = string.Empty;
             LineDtos = new LineDto[0];
         }
+
+        private readonly ILinesToLineDtosConverter m_Converter;
+        private readonly IImporter m_Importer;
+        private readonly ILinesValidator m_Validator;
 
         [NotNull]
         public string GeoJsonText { get; set; }
@@ -44,19 +44,19 @@ namespace Selkie.Services.Lines
             LineDtos = ConvertLinesToDtos(lines);
         }
 
-        private IEnumerable <ILine> ImportFromText([NotNull] string text)
-        {
-            m_Importer.FromText(text);
-
-            return m_Importer.Lines;
-        }
-
         private IEnumerable <LineDto> ConvertLinesToDtos([NotNull] IEnumerable <ILine> lines)
         {
             m_Converter.Lines = lines;
             m_Converter.Convert();
 
             return m_Converter.LineDtos;
+        }
+
+        private IEnumerable <ILine> ImportFromText([NotNull] string text)
+        {
+            m_Importer.FromText(text);
+
+            return m_Importer.Lines;
         }
 
         private void ValidateLines(IEnumerable <ILine> lines)

@@ -25,7 +25,7 @@ namespace Selkie.Services.Lines
             var register = container.Resolve <IRegisterMessageHandlers>();
 
             register.Register(container,
-                              Assembly.GetAssembly(typeof ( Installer )));
+                              Assembly.GetAssembly(typeof( Installer )));
 
             container.Release(register);
 
@@ -33,19 +33,19 @@ namespace Selkie.Services.Lines
             container.Register(
                                Classes.FromThisAssembly()
                                       .BasedOn <IService>()
-                                      .WithServiceFromInterface(typeof ( IService ))
+                                      .WithServiceFromInterface(typeof( IService ))
                                       .Configure(c => c.LifeStyle.Is(LifestyleType.Transient)));
             // ReSharper restore MaximumChainedReferences
 
             container.Register(Component.For <IFeatureToLineConverter>()
                                         .ImplementedBy <LineStringToLineConverter>());
 
-            container.Register(Component.For(typeof ( GeoJsonReader ))
-                                        .ImplementedBy(typeof ( GeoJsonReader ))
+            container.Register(Component.For(typeof( GeoJsonReader ))
+                                        .ImplementedBy(typeof( GeoJsonReader ))
                                         .LifeStyle.Transient);
 
-            container.Register(Component.For(typeof ( FeatureCollection ))
-                                        .ImplementedBy(typeof ( FeatureCollection ))
+            container.Register(Component.For(typeof( FeatureCollection ))
+                                        .ImplementedBy(typeof( FeatureCollection ))
                                         .LifeStyle.Transient);
         }
     }

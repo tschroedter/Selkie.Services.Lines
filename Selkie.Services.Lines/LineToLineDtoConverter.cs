@@ -9,7 +9,7 @@ using Selkie.Windsor;
 
 namespace Selkie.Services.Lines
 {
-    [Interceptor(typeof ( LogAspect ))]
+    [Interceptor(typeof( LogAspect ))]
     [ProjectComponent(Lifestyle.Transient)]
     public class LineToLineDtoConverter : ILineToLineDtoConverter
     {
@@ -43,8 +43,8 @@ namespace Selkie.Services.Lines
                                 dto.Y1,
                                 dto.X2,
                                 dto.Y2,
-                                dto.IsUnknown,
-                                direction);
+                                direction,
+                                dto.IsUnknown);
 
             return line;
         }

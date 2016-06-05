@@ -4,17 +4,54 @@ using System.Management.Instrumentation;
 using EasyNetQ.Management.Client;
 using EasyNetQ.Management.Client.Model;
 using JetBrains.Annotations;
+using NLog;
 using TechTalk.SpecFlow;
 
 namespace Selkie.Services.Lines.Specflow.Steps.Common
 {
     public sealed class SpecFlowService : IDisposable
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         private Process m_ExeProcess;
 
         public void Dispose()
         {
             m_ExeProcess.Exited -= ExeProcessOnExited;
+        }
+
+        public void DeleteQueues()
+        {
+            var client = new ManagementClient("http://localhost",
+                                              "selkieAdmin",
+                                              "selkieAdmin");
+
+            foreach ( Queue queue in client.GetQueues() )
+            {
+                if ( queue.Vhost == "selkie" )
+                {
+                    client.DeleteQueue(queue);
+                }
+            }
+        }
+
+        public void KillAndWaitForExit()
+        {
+            try
+            {
+                var exeProcess = ( Process ) ScenarioContext.Current [ "ExeProcess" ];
+
+                exeProcess.Kill();
+                exeProcess.WaitForExit(2000);
+            }
+            catch ( InvalidOperationException exception )
+            {
+                // process already exited, so we can ignore the exception
+                Logger.Error("Couldn't stop service! - {0}",
+                             exception.Message);
+
+                Logger.Error(exception.StackTrace);
+            }
         }
 
         public void Run()
@@ -32,15 +69,33 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
             m_ExeProcess.Exited += ExeProcessOnExited;
         }
 
+        private void ExeProcessOnExited([NotNull] object sender,
+                                        [NotNull] EventArgs eventArgs)
+        {
+            ScenarioContext.Current [ "IsExited" ] = true;
+        }
+
         [CanBeNull]
         private Process StartService()
         {
+            string directoryName = Helper.GetDirectoryName();
+
+            string fullName = Helper.FullnameForServiceName(directoryName,
+                                                            Helper.ExeFilenName);
+
+            string workingFolder = Helper.GetWorkingFolder(fullName);
+
+            Logger.Info("Try to start service: {0} in working folder {1} and fullname {2}...",
+                          Helper.ServiceName,
+                          workingFolder,
+                          fullName);
+
             var startInfo = new ProcessStartInfo
                             {
-                                WorkingDirectory = Helper.WorkingFolder,
+                                WorkingDirectory = workingFolder,
                                 CreateNoWindow = false,
                                 UseShellExecute = false,
-                                FileName = Helper.FilenName,
+                                FileName = fullName,
                                 WindowStyle = ProcessWindowStyle.Normal,
                                 Arguments = ""
                             };
@@ -48,45 +103,6 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
             Process lineService = Process.Start(startInfo);
 
             return lineService;
-        }
-
-        private void ExeProcessOnExited([NotNull] object sender,
-                                        [NotNull] EventArgs eventArgs)
-        {
-            ScenarioContext.Current [ "IsExited" ] = true;
-        }
-
-        public void KillAndWaitForExit()
-        {
-            try
-            {
-                var exeProcess = ( Process ) ScenarioContext.Current [ "ExeProcess" ];
-
-                exeProcess.Kill();
-                exeProcess.WaitForExit(2000);
-            }
-            catch ( InvalidOperationException exception )
-            {
-                // process already exited, so we can ignore the exception
-                Console.WriteLine("Couldn't stop service! - {0}",
-                                  exception.Message);
-                Console.WriteLine(exception.StackTrace);
-            }
-        }
-
-        public void DeleteQueues()
-        {
-            var client = new ManagementClient("http://localhost",
-                                              "selkieAdmin",
-                                              "selkieAdmin");
-
-            foreach ( Queue queue in client.GetQueues() )
-            {
-                if ( queue.Vhost == "selkie" )
-                {
-                    client.DeleteQueue(queue);
-                }
-            }
         }
     }
 }

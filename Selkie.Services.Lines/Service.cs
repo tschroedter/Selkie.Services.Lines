@@ -8,14 +8,12 @@ using Selkie.Windsor;
 
 namespace Selkie.Services.Lines
 {
-    [Interceptor(typeof ( MessageHandlerAspect ))]
+    [Interceptor(typeof( MessageHandlerAspect ))]
     [ProjectComponent(Lifestyle.Singleton)]
     public class Service
         : BaseService,
           IService
     {
-        public const string ServiceName = "Lines Service";
-
         public Service([NotNull] ISelkieBus bus,
                        [NotNull] ISelkieLogger logger,
                        [NotNull] ISelkieManagementClient client)
@@ -23,6 +21,12 @@ namespace Selkie.Services.Lines
                    logger,
                    client,
                    ServiceName)
+        {
+        }
+
+        public const string ServiceName = "Lines Service";
+
+        protected override void ServiceInitialize()
         {
         }
 
@@ -44,10 +48,6 @@ namespace Selkie.Services.Lines
                           };
 
             Bus.Publish(message);
-        }
-
-        protected override void ServiceInitialize()
-        {
         }
     }
 }

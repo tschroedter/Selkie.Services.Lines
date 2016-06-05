@@ -9,16 +9,16 @@ using Selkie.Windsor.Extensions;
 
 namespace Selkie.Services.Lines
 {
-    [Interceptor(typeof ( LogAspect ))]
+    [Interceptor(typeof( LogAspect ))]
     [ProjectComponent(Lifestyle.Transient)]
     public class LinesValidatorLogger : ILinesValidatorLogger
     {
-        private readonly ISelkieLogger m_Logger;
-
         public LinesValidatorLogger([NotNull] ISelkieLogger logger)
         {
             m_Logger = logger;
         }
+
+        private readonly ISelkieLogger m_Logger;
 
         public void LogValidateStatus(bool validateIds)
         {

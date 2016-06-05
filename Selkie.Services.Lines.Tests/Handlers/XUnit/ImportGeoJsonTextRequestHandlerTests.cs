@@ -17,22 +17,6 @@ namespace Selkie.Services.Lines.Tests.Handlers.XUnit
     {
         [Theory]
         [AutoNSubstituteData]
-        public void Handle_SetsGeoJsonText_WhenCalled(
-            [NotNull, Frozen] IGeoJsonTextToLineDtosConverter converter,
-            [NotNull] ImportGeoJsonTextRequestMessage message,
-            [NotNull] ImportGeoJsonTextRequestHandlerAsync sut)
-        {
-            // Arrange
-            // Act
-            sut.Handle(message);
-
-            // Assert
-            Assert.Equal(message.Text,
-                         converter.GeoJsonText);
-        }
-
-        [Theory]
-        [AutoNSubstituteData]
         public void Handle_CallsConvert_WhenCalled(
             [NotNull, Frozen] IGeoJsonTextToLineDtosConverter converter,
             [NotNull] ImportGeoJsonTextRequestMessage message,
@@ -69,6 +53,22 @@ namespace Selkie.Services.Lines.Tests.Handlers.XUnit
             // Assert
             bus.Received()
                .PublishAsync(Arg.Is <ImportGeoJsonTextResponseMessage>(x => x.LineDtos.Length == expected.Length));
+        }
+
+        [Theory]
+        [AutoNSubstituteData]
+        public void Handle_SetsGeoJsonText_WhenCalled(
+            [NotNull, Frozen] IGeoJsonTextToLineDtosConverter converter,
+            [NotNull] ImportGeoJsonTextRequestMessage message,
+            [NotNull] ImportGeoJsonTextRequestHandlerAsync sut)
+        {
+            // Arrange
+            // Act
+            sut.Handle(message);
+
+            // Assert
+            Assert.Equal(message.Text,
+                         converter.GeoJsonText);
         }
     }
 }

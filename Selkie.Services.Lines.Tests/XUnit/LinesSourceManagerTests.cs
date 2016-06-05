@@ -14,10 +14,6 @@ namespace Selkie.Services.Lines.Tests.XUnit
     [ExcludeFromCodeCoverage]
     public class LinesSourceManagerTests
     {
-        private readonly ITestLineCreator m_Creator;
-        private readonly LinesSourceManager m_Sut;
-        private readonly ILinesValidator m_Validator;
-
         public LinesSourceManagerTests()
         {
             var logger = Substitute.For <ISelkieLogger>();
@@ -28,6 +24,10 @@ namespace Selkie.Services.Lines.Tests.XUnit
                                            m_Creator,
                                            m_Validator);
         }
+
+        private readonly ITestLineCreator m_Creator;
+        private readonly LinesSourceManager m_Sut;
+        private readonly ILinesValidator m_Validator;
 
         [Fact]
         public void GetTestLinesCallsGetTestLinesForTypeTest()

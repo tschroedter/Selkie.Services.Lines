@@ -15,33 +15,6 @@ namespace Selkie.Services.Lines.Tests.XUnit
     public sealed class LinesValidatorTests
     {
         [Theory]
-        [AutoNSubstituteData]
-        public void ValidateReturnsFalseForEmptyTest([NotNull] LinesValidator sut)
-        {
-            // assemble
-            var lines = new LineDto[0];
-
-            // act
-            // assert
-            Assert.False(sut.ValidateDtos(lines));
-        }
-
-        [Theory]
-        [AutoNSubstituteData]
-        public void ValidateReturnsFalseForOneLineTest([NotNull] LinesValidator sut)
-        {
-            // assemble
-            LineDto[] lines =
-            {
-                new LineDto()
-            };
-
-            // act
-            // assert
-            Assert.False(sut.ValidateDtos(lines));
-        }
-
-        [Theory]
         [InlineData(0, 1, true)]
         [InlineData(0, 0, false)]
         [InlineData(1, 0, false)]
@@ -108,6 +81,33 @@ namespace Selkie.Services.Lines.Tests.XUnit
             // assert
             Assert.Equal(result,
                          sut.ValidateLines(lines));
+        }
+
+        [Theory]
+        [AutoNSubstituteData]
+        public void ValidateReturnsFalseForEmptyTest([NotNull] LinesValidator sut)
+        {
+            // assemble
+            var lines = new LineDto[0];
+
+            // act
+            // assert
+            Assert.False(sut.ValidateDtos(lines));
+        }
+
+        [Theory]
+        [AutoNSubstituteData]
+        public void ValidateReturnsFalseForOneLineTest([NotNull] LinesValidator sut)
+        {
+            // assemble
+            LineDto[] lines =
+            {
+                new LineDto()
+            };
+
+            // act
+            // assert
+            Assert.False(sut.ValidateDtos(lines));
         }
     }
 }

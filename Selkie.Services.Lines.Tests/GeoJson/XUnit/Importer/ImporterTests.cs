@@ -50,6 +50,23 @@ namespace Selkie.Services.Lines.Tests.GeoJson.XUnit.Importer
 
         [Theory]
         [AutoNSubstituteData]
+        public void FromText_CallsValidate_ForText(
+            [NotNull] [Frozen] IGeoJsonStringReader reader,
+            [NotNull] [Frozen] IFeaturesToLinesConverter converter,
+            [NotNull] Lines.GeoJson.Importer.Importer sut)
+        {
+            // Arrange
+            reader.Read(Arg.Any <string>()).Returns(new FeatureCollection());
+
+            // Act
+            sut.FromText("Some Text");
+
+            // Assert
+            converter.Received().Convert();
+        }
+
+        [Theory]
+        [AutoNSubstituteData]
         public void Lines_ReturnsConvertersLines_WhenCalled(
             [NotNull] [Frozen] IGeoJsonStringReader reader,
             [NotNull] [Frozen] IFeaturesToLinesConverter converter,
@@ -65,23 +82,6 @@ namespace Selkie.Services.Lines.Tests.GeoJson.XUnit.Importer
             // Assert
             Assert.Equal(expected,
                          sut.Lines);
-        }
-
-        [Theory]
-        [AutoNSubstituteData]
-        public void FromText_CallsValidate_ForText(
-            [NotNull] [Frozen] IGeoJsonStringReader reader,
-            [NotNull] [Frozen] IFeaturesToLinesConverter converter,
-            [NotNull] Lines.GeoJson.Importer.Importer sut)
-        {
-            // Arrange
-            reader.Read(Arg.Any <string>()).Returns(new FeatureCollection());
-
-            // Act
-            sut.FromText("Some Text");
-
-            // Assert
-            converter.Received().Convert();
         }
     }
 }

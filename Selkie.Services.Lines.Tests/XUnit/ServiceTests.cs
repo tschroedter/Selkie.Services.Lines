@@ -16,6 +16,19 @@ namespace Selkie.Services.Lines.Tests.XUnit
     {
         [Theory]
         [AutoNSubstituteData]
+        public void ServiceInitializeSubscribesToPingRequestMessageTest([NotNull] [Frozen] ISelkieBus bus,
+                                                                        [NotNull] Service sut)
+        {
+            sut.Initialize();
+
+            string subscriptionId = sut.GetType().ToString();
+
+            bus.Received().SubscribeAsync(subscriptionId,
+                                          Arg.Any <Action <PingRequestMessage>>());
+        }
+
+        [Theory]
+        [AutoNSubstituteData]
         public void ServiceStartSendsMessageTest([NotNull] [Frozen] ISelkieBus bus,
                                                  [NotNull] Service sut)
         {
@@ -32,19 +45,6 @@ namespace Selkie.Services.Lines.Tests.XUnit
             sut.Stop();
 
             bus.Received().Publish(Arg.Is <ServiceStoppedResponseMessage>(x => x.ServiceName == Service.ServiceName));
-        }
-
-        [Theory]
-        [AutoNSubstituteData]
-        public void ServiceInitializeSubscribesToPingRequestMessageTest([NotNull] [Frozen] ISelkieBus bus,
-                                                                        [NotNull] Service sut)
-        {
-            sut.Initialize();
-
-            string subscriptionId = sut.GetType().ToString();
-
-            bus.Received().SubscribeAsync(subscriptionId,
-                                          Arg.Any <Action <PingRequestMessage>>());
         }
     }
 }

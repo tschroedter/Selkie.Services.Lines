@@ -19,24 +19,15 @@ namespace Selkie.Services.Lines.Tests.GeoJson.XUnit.Importer
 
         [Theory]
         [AutoNSubstituteData]
-        public void Feature_ReturnsDefaultValue_WhenCalled(
+        public void CanConvert_ReturnsFalse_ForLineStringWithWrongNumberOfCoordinates(
             [NotNull] LineStringToLineConverter sut)
         {
             // Arrange
-            // Act
-            // Assert
-            Assert.NotNull(sut.Feature);
-        }
+            IFeature feature = CreateLineStringFeatureWithThreeCoordinates();
 
-        [Theory]
-        [AutoNSubstituteData]
-        public void Line_ReturnsDefaultValue_WhenCalled(
-            [NotNull] LineStringToLineConverter sut)
-        {
-            // Arrange
             // Act
             // Assert
-            Assert.NotNull(sut.Line);
+            Assert.False(sut.CanConvert(feature));
         }
 
         [Theory]
@@ -59,19 +50,6 @@ namespace Selkie.Services.Lines.Tests.GeoJson.XUnit.Importer
         {
             // Arrange
             Feature feature = CreateFeaturePoint();
-
-            // Act
-            // Assert
-            Assert.False(sut.CanConvert(feature));
-        }
-
-        [Theory]
-        [AutoNSubstituteData]
-        public void CanConvert_ReturnsFalse_ForLineStringWithWrongNumberOfCoordinates(
-            [NotNull] LineStringToLineConverter sut)
-        {
-            // Arrange
-            IFeature feature = CreateLineStringFeatureWithThreeCoordinates();
 
             // Act
             // Assert
@@ -127,6 +105,42 @@ namespace Selkie.Services.Lines.Tests.GeoJson.XUnit.Importer
                                            "Y2");
         }
 
+        [Theory]
+        [AutoNSubstituteData]
+        public void Feature_ReturnsDefaultValue_WhenCalled(
+            [NotNull] LineStringToLineConverter sut)
+        {
+            // Arrange
+            // Act
+            // Assert
+            Assert.NotNull(sut.Feature);
+        }
+
+        [Theory]
+        [AutoNSubstituteData]
+        public void Line_ReturnsDefaultValue_WhenCalled(
+            [NotNull] LineStringToLineConverter sut)
+        {
+            // Arrange
+            // Act
+            // Assert
+            Assert.NotNull(sut.Line);
+        }
+
+        private static Feature CreateFeaturePoint()
+        {
+            const double latitude = 45.0;
+            const double longitude = 90.0;
+
+            var point = new Point(latitude,
+                                  longitude);
+
+            var attributesTable = new AttributesTable();
+
+            return new Feature(point,
+                               attributesTable);
+        }
+
         private static IFeature CreateLineStringFeature()
         {
             var start = new Coordinate(0.0,
@@ -177,20 +191,6 @@ namespace Selkie.Services.Lines.Tests.GeoJson.XUnit.Importer
                                       attributesTable);
 
             return feature;
-        }
-
-        private static Feature CreateFeaturePoint()
-        {
-            const double latitude = 45.0;
-            const double longitude = 90.0;
-
-            var point = new Point(latitude,
-                                  longitude);
-
-            var attributesTable = new AttributesTable();
-
-            return new Feature(point,
-                               attributesTable);
         }
     }
 }

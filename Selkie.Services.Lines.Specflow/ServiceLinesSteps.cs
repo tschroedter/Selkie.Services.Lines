@@ -20,9 +20,10 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
                                                                     ImportGeoJsonTextResponseHandler);
         }
 
-        private void TestLineResponseHandler([NotNull] TestLineResponseMessage message)
+        private void ImportGeoJsonTextResponseHandler([NotNull] ImportGeoJsonTextResponseMessage message)
         {
-            ScenarioContext.Current [ "IsReceivedTestLineResponse" ] = true;
+            ScenarioContext.Current [ "IsImportGeoJsonTextResponseMessage" ] = true;
+            ScenarioContext.Current [ "ImportGeoJsonTextResponseMessage_ReceivedLineDtos" ] = message.LineDtos;
         }
 
         private void LineValidationResponseHandler([NotNull] LineValidationResponseMessage message)
@@ -30,10 +31,9 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
             ScenarioContext.Current [ "IsReceivedLineValidationResponse" ] = true;
         }
 
-        private void ImportGeoJsonTextResponseHandler([NotNull] ImportGeoJsonTextResponseMessage message)
+        private void TestLineResponseHandler([NotNull] TestLineResponseMessage message)
         {
-            ScenarioContext.Current [ "IsImportGeoJsonTextResponseMessage" ] = true;
-            ScenarioContext.Current [ "ImportGeoJsonTextResponseMessage_ReceivedLineDtos" ] = message.LineDtos;
+            ScenarioContext.Current [ "IsReceivedTestLineResponse" ] = true;
         }
     }
 }

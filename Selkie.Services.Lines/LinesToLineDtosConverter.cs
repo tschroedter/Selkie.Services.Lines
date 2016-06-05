@@ -9,8 +9,6 @@ namespace Selkie.Services.Lines
     [ProjectComponent(Lifestyle.Transient)]
     public class LinesToLineDtosConverter : ILinesToLineDtosConverter
     {
-        private readonly ILineToLineDtoConverter m_Converter;
-
         public LinesToLineDtosConverter([NotNull] ILineToLineDtoConverter converter)
         {
             m_Converter = converter;
@@ -18,6 +16,8 @@ namespace Selkie.Services.Lines
             Lines = new ILine[0];
             LineDtos = new LineDto[0];
         }
+
+        private readonly ILineToLineDtoConverter m_Converter;
 
         [NotNull]
         public IEnumerable <ILine> Lines { get; set; }

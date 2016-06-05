@@ -9,16 +9,16 @@ using Selkie.Windsor;
 
 namespace Selkie.Services.Lines
 {
-    [Interceptor(typeof ( LogAspect ))]
+    [Interceptor(typeof( LogAspect ))]
     [ProjectComponent(Lifestyle.Transient)]
     public class LinesValidator : ILinesValidator
     {
-        private readonly ILinesValidatorLogger m_Logger;
-
         public LinesValidator([NotNull] ILinesValidatorLogger logger)
         {
             m_Logger = logger;
         }
+
+        private readonly ILinesValidatorLogger m_Logger;
 
         public bool ValidateDtos(IEnumerable <LineDto> lineDtos)
         {
@@ -46,6 +46,14 @@ namespace Selkie.Services.Lines
             return validateLines;
         }
 
+        private bool Validate(IEnumerable <int> array)
+        {
+            var expectedId = 0;
+
+            bool validateIds = array.All(id => expectedId++ == id);
+            return validateIds;
+        }
+
         private bool ValidateIds([NotNull] IEnumerable <int> ids)
         {
             int[] array = ids.ToArray();
@@ -61,14 +69,6 @@ namespace Selkie.Services.Lines
 
             m_Logger.LogValidateStatus(validateIds);
 
-            return validateIds;
-        }
-
-        private bool Validate(IEnumerable <int> array)
-        {
-            var expectedId = 0;
-
-            bool validateIds = array.All(id => expectedId++ == id);
             return validateIds;
         }
     }

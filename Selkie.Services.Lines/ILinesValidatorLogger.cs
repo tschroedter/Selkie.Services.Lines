@@ -7,16 +7,17 @@ namespace Selkie.Services.Lines
 {
     public interface ILinesValidatorLogger
     {
-        void LogLines(bool isValid,
-                      [NotNull] IEnumerable <ILine> lines);
+        string LineDtoToString([NotNull] LineDto lineDto);
 
         string LineToString([NotNull] ILine line);
+        void LogIdsAreEmpty();
 
         void LogLineDtos(bool isValid,
                          [NotNull] IEnumerable <LineDto> lineDtos);
 
-        string LineDtoToString([NotNull] LineDto lineDto);
+        void LogLines(bool isValid,
+                      [NotNull] IEnumerable <ILine> lines);
+
         void LogValidateStatus(bool validateIds);
-        void LogIdsAreEmpty();
     }
 }

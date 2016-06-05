@@ -41,8 +41,8 @@ namespace Selkie.Services.Lines.Console.Client
                                 dto.Y1,
                                 dto.X2,
                                 dto.Y2,
-                                dto.IsUnknown,
-                                direction);
+                                direction,
+                                dto.IsUnknown);
 
             return line;
         }

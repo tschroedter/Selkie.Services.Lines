@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using JetBrains.Annotations;
-using Selkie.Common;
+using Selkie.Common.Interfaces;
 using Selkie.EasyNetQ;
 using Selkie.Geometry.Shapes;
 using Selkie.Services.Common.Messages;
@@ -17,6 +17,19 @@ namespace Selkie.Services.Lines.Console.Client
     //ncrunch: no coverage start
     public class LineServiceTestClient : ILineServiceTestClient
     {
+        public LineServiceTestClient([NotNull] ISelkieBus bus,
+                                     [NotNull] ISelkieConsole console)
+        {
+            m_Bus = bus;
+            m_Console = console;
+
+            m_Bus.SubscribeAsync <TestLineResponseMessage>(GetType().ToString(),
+                                                           TestLineResponseHandler);
+
+            m_Bus.SubscribeAsync <ImportGeoJsonTextResponseMessage>(GetType().ToString(),
+                                                                    ImportGeoJsonTextResponseHandler);
+        }
+
         private const string GeoJsonExample =
             "{" +
             "  \"type\": \"FeatureCollection\"," +
@@ -40,19 +53,6 @@ namespace Selkie.Services.Lines.Console.Client
 
         private readonly ISelkieBus m_Bus;
         private readonly ISelkieConsole m_Console;
-
-        public LineServiceTestClient([NotNull] ISelkieBus bus,
-                                     [NotNull] ISelkieConsole console)
-        {
-            m_Bus = bus;
-            m_Console = console;
-
-            m_Bus.SubscribeAsync <TestLineResponseMessage>(GetType().ToString(),
-                                                           TestLineResponseHandler);
-
-            m_Bus.SubscribeAsync <ImportGeoJsonTextResponseMessage>(GetType().ToString(),
-                                                                    ImportGeoJsonTextResponseHandler);
-        }
 
         public void RequestTestLines()
         {
@@ -86,18 +86,13 @@ namespace Selkie.Services.Lines.Console.Client
             m_Bus.Publish(request);
         }
 
-        private void TestLineResponseHandler([NotNull] TestLineResponseMessage message)
+        public void StopService()
         {
-            m_Console.WriteLine("Received <TestLineResponse>...");
-
-            DisplayLineDtos(message.LineDtos);
-        }
-
-        private void ImportGeoJsonTextResponseHandler(ImportGeoJsonTextResponseMessage message)
-        {
-            m_Console.WriteLine("Received <ImportGeoJsonTextResponseMessage>...");
-
-            DisplayLineDtos(message.LineDtos);
+            m_Bus.PublishAsync(new StopServiceRequestMessage
+                               {
+                                   IsStopAllServices = false,
+                                   ServiceName = "Lines Service"
+                               });
         }
 
         private void DisplayLineDtos(IEnumerable <LineDto> lineDtos)
@@ -116,13 +111,18 @@ namespace Selkie.Services.Lines.Console.Client
             }
         }
 
-        public void StopService()
+        private void ImportGeoJsonTextResponseHandler(ImportGeoJsonTextResponseMessage message)
         {
-            m_Bus.PublishAsync(new StopServiceRequestMessage
-                               {
-                                   IsStopAllServices = false,
-                                   ServiceName = "Lines Service"
-                               });
+            m_Console.WriteLine("Received <ImportGeoJsonTextResponseMessage>...");
+
+            DisplayLineDtos(message.LineDtos);
+        }
+
+        private void TestLineResponseHandler([NotNull] TestLineResponseMessage message)
+        {
+            m_Console.WriteLine("Received <TestLineResponse>...");
+
+            DisplayLineDtos(message.LineDtos);
         }
     }
 

@@ -10,16 +10,16 @@ namespace Selkie.Services.Lines.GeoJson.Importer
 {
     public class LineStringToLineConverter : IFeatureToLineConverter
     {
-        private const int StartPointIndex = 0;
-        private const int EndPointIndex = 1;
-
-        internal Type CanConvertType = typeof ( LineString );
-
         public LineStringToLineConverter()
         {
             Feature = CreateFeaturePoint();
             Line = Geometry.Shapes.Line.Unknown;
         }
+
+        private const int StartPointIndex = 0;
+        private const int EndPointIndex = 1;
+
+        internal Type CanConvertType = typeof( LineString );
 
         public bool CanConvert(IFeature feature)
         {
@@ -30,13 +30,7 @@ namespace Selkie.Services.Lines.GeoJson.Importer
 
             IGeometry geometry = feature.Geometry as LineString;
 
-            if ( geometry == null ||
-                 geometry.NumPoints != 2 )
-            {
-                return false;
-            }
-
-            return true;
+            return geometry != null && geometry.NumPoints == 2;
         }
 
         public void Convert(int id)
@@ -55,6 +49,19 @@ namespace Selkie.Services.Lines.GeoJson.Importer
 
         public ILine Line { get; private set; }
 
+        private static Feature CreateFeaturePoint()
+        {
+            var coordinate = new Coordinate(0.0,
+                                            0.0);
+
+            var point = new Point(coordinate);
+
+            var attributesTable = new AttributesTable();
+
+            return new Feature(point,
+                               attributesTable);
+        }
+
         private ILine ConvertFeatureToLine(int id)
         {
             IGeometry geometry = ( LineString ) Feature.Geometry;
@@ -69,19 +76,6 @@ namespace Selkie.Services.Lines.GeoJson.Importer
                                 end.Y);
 
             return line;
-        }
-
-        private static Feature CreateFeaturePoint()
-        {
-            var coordinate = new Coordinate(0.0,
-                                            0.0);
-
-            var point = new Point(coordinate);
-
-            var attributesTable = new AttributesTable();
-
-            return new Feature(point,
-                               attributesTable);
         }
     }
 }

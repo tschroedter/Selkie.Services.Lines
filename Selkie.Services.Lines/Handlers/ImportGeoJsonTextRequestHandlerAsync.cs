@@ -7,13 +7,10 @@ using Selkie.Services.Lines.Common.Messages;
 
 namespace Selkie.Services.Lines.Handlers
 {
-    [Interceptor(typeof ( MessageHandlerAspect ))]
+    [Interceptor(typeof( MessageHandlerAspect ))]
     public class ImportGeoJsonTextRequestHandlerAsync
         : SelkieMessageHandler <ImportGeoJsonTextRequestMessage>
     {
-        private readonly ISelkieBus m_Bus;
-        private readonly IGeoJsonTextToLineDtosConverter m_Converter;
-
         public ImportGeoJsonTextRequestHandlerAsync(
             [NotNull] ISelkieBus bus,
             [NotNull] IGeoJsonTextToLineDtosConverter converter)
@@ -21,6 +18,9 @@ namespace Selkie.Services.Lines.Handlers
             m_Bus = bus;
             m_Converter = converter;
         }
+
+        private readonly ISelkieBus m_Bus;
+        private readonly IGeoJsonTextToLineDtosConverter m_Converter;
 
         public override void Handle([NotNull] ImportGeoJsonTextRequestMessage message)
         {

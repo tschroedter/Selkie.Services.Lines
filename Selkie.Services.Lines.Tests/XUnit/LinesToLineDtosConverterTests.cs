@@ -17,28 +17,6 @@ namespace Selkie.Services.Lines.Tests.XUnit
     {
         [Theory]
         [AutoNSubstituteData]
-        public void Lines_ReturnsDefaultValue_WhenCalled(
-            [NotNull] LinesToLineDtosConverter sut)
-        {
-            // Arrange
-            // Act
-            // Assert
-            Assert.NotNull(sut.Lines);
-        }
-
-        [Theory]
-        [AutoNSubstituteData]
-        public void LineDtos_ReturnsDefaultValue_WhenCalled(
-            [NotNull] LinesToLineDtosConverter sut)
-        {
-            // Arrange
-            // Act
-            // Assert
-            Assert.NotNull(sut.LineDtos);
-        }
-
-        [Theory]
-        [AutoNSubstituteData]
         public void Convert_CallsConvert_WhenCalled(
             [NotNull, Frozen] ILineToLineDtoConverter converter,
             [NotNull] LinesToLineDtosConverter sut)
@@ -77,6 +55,28 @@ namespace Selkie.Services.Lines.Tests.XUnit
                          sut.LineDtos.First());
             Assert.Equal(dtoTwo,
                          sut.LineDtos.Last());
+        }
+
+        [Theory]
+        [AutoNSubstituteData]
+        public void LineDtos_ReturnsDefaultValue_WhenCalled(
+            [NotNull] LinesToLineDtosConverter sut)
+        {
+            // Arrange
+            // Act
+            // Assert
+            Assert.NotNull(sut.LineDtos);
+        }
+
+        [Theory]
+        [AutoNSubstituteData]
+        public void Lines_ReturnsDefaultValue_WhenCalled(
+            [NotNull] LinesToLineDtosConverter sut)
+        {
+            // Arrange
+            // Act
+            // Assert
+            Assert.NotNull(sut.Lines);
         }
 
         private IEnumerable <ILine> CreateTwoLines()

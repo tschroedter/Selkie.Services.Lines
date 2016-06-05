@@ -21,6 +21,21 @@ namespace Selkie.Services.Lines.Tests.Handlers.XUnit
     {
         [Theory]
         [AutoNSubstituteData]
+        public void Handle_CallsConvert_WhenCalled(
+            [NotNull, Frozen] ILinesToLineDtosConverter converter,
+            [NotNull] TestLineRequestMessage message,
+            [NotNull] TestLineRequestHandlerAsync sut)
+        {
+            // Arrange
+            // Act
+            sut.Handle(message);
+
+            // Assert
+            converter.Received().Convert();
+        }
+
+        [Theory]
+        [AutoNSubstituteData]
         public void Handle_SendsReplyMessage_WhenCalled(
             [NotNull, Frozen] ILinesSourceManager manager,
             [NotNull, Frozen] ISelkieBus bus,
@@ -67,21 +82,6 @@ namespace Selkie.Services.Lines.Tests.Handlers.XUnit
             // Assert
             Assert.Equal(expected,
                          converter.Lines);
-        }
-
-        [Theory]
-        [AutoNSubstituteData]
-        public void Handle_CallsConvert_WhenCalled(
-            [NotNull, Frozen] ILinesToLineDtosConverter converter,
-            [NotNull] TestLineRequestMessage message,
-            [NotNull] TestLineRequestHandlerAsync sut)
-        {
-            // Arrange
-            // Act
-            sut.Handle(message);
-
-            // Assert
-            converter.Received().Convert();
         }
     }
 }

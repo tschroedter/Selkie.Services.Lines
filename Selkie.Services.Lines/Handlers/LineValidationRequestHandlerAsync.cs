@@ -6,13 +6,10 @@ using Selkie.Services.Lines.Common.Messages;
 
 namespace Selkie.Services.Lines.Handlers
 {
-    [Interceptor(typeof ( MessageHandlerAspect ))]
+    [Interceptor(typeof( MessageHandlerAspect ))]
     public class LineValidationRequestHandlerAsync
         : SelkieMessageHandler <LineValidationRequestMessage>
     {
-        private readonly ISelkieBus m_Bus;
-        private readonly ILinesSourceManager m_Manager;
-
         public LineValidationRequestHandlerAsync(
             [NotNull] ISelkieBus bus,
             [NotNull] ILinesSourceManager manager)
@@ -20,6 +17,9 @@ namespace Selkie.Services.Lines.Handlers
             m_Bus = bus;
             m_Manager = manager;
         }
+
+        private readonly ISelkieBus m_Bus;
+        private readonly ILinesSourceManager m_Manager;
 
         public override void Handle(LineValidationRequestMessage message)
         {

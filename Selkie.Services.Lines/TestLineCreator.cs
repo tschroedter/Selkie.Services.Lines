@@ -13,7 +13,7 @@ namespace Selkie.Services.Lines
 {
     [ExcludeFromCodeCoverage]
     //ncrunch: no coverage start
-    [Interceptor(typeof ( LogAspect ))]
+    [Interceptor(typeof( LogAspect ))]
     [ProjectComponent(Lifestyle.Transient)]
     public class TestLineCreator : ITestLineCreator
     {
@@ -28,7 +28,7 @@ namespace Selkie.Services.Lines
                                             100.0);
             var line1EndPoint = new Point(200.0,
                                           100.0);
-            var line1 = new Line(0,
+            var line1 = new Line(id++,
                                  line1StartPoint,
                                  line1EndPoint);
 
@@ -36,7 +36,7 @@ namespace Selkie.Services.Lines
                                             80.0);
             var line2EndPoint = new Point(180.0,
                                           80.0);
-            var line2 = new Line(1,
+            var line2 = new Line(id++,
                                  line2StartPoint,
                                  line2EndPoint);
 
@@ -44,7 +44,7 @@ namespace Selkie.Services.Lines
                                             120.0);
             var line3EndPoint = new Point(180.0,
                                           120.0);
-            var line3 = new Line(2,
+            var line3 = new Line(id,
                                  line3StartPoint,
                                  line3EndPoint);
 
@@ -542,37 +542,6 @@ namespace Selkie.Services.Lines
         }
 
         // ReSharper disable once TooManyArguments
-        private static void CreateParallelCrossLineTypeTwo(int idCount,
-                                                           double x2,
-                                                           double y2,
-                                                           double distanceBetweenLines,
-                                                           int i,
-                                                           double length,
-                                                           [NotNull] ICollection <ILine> lines)
-        {
-            double offset = distanceBetweenLines * i;
-
-            var line2StartPoint = new Point(x2 + offset,
-                                            y2);
-            var line2EndPoint = new Point(x2 + offset,
-                                          y2 + length);
-            Constants.LineDirection direction = i % 2 == 0
-                                                    ? Constants.LineDirection.Forward
-                                                    : Constants.LineDirection.Reverse;
-
-            var line2 = new Line(idCount,
-                                 line2StartPoint,
-                                 line2EndPoint);
-
-            if ( direction == Constants.LineDirection.Reverse )
-            {
-                line2 = line2.Reverse() as Line;
-            }
-
-            lines.Add(line2);
-        }
-
-        // ReSharper disable once TooManyArguments
         private static void CreateParallelCrossLineTypeOne(int idCount,
                                                            double x1,
                                                            double y1,
@@ -602,15 +571,86 @@ namespace Selkie.Services.Lines
 
             lines.Add(line);
         }
+
+        // ReSharper disable once TooManyArguments
+        private static void CreateParallelCrossLineTypeTwo(int idCount,
+                                                           double x2,
+                                                           double y2,
+                                                           double distanceBetweenLines,
+                                                           int i,
+                                                           double length,
+                                                           [NotNull] ICollection <ILine> lines)
+        {
+            double offset = distanceBetweenLines * i;
+
+            var line2StartPoint = new Point(x2 + offset,
+                                            y2);
+            var line2EndPoint = new Point(x2 + offset,
+                                          y2 + length);
+            Constants.LineDirection direction = i % 2 == 0
+                                                    ? Constants.LineDirection.Forward
+                                                    : Constants.LineDirection.Reverse;
+
+            var line2 = new Line(idCount,
+                                 line2StartPoint,
+                                 line2EndPoint);
+
+            if ( direction == Constants.LineDirection.Reverse )
+            {
+                line2 = line2.Reverse() as Line;
+            }
+
+            lines.Add(line2);
+        }
     }
 
     public interface ITestLineCreator
     {
         [NotNull]
-        List <ILine> CreateLines(int id);
+        List <ILine> Create45DegreeLines(int numberOfLines,
+                                         int id = 0);
+
+        [NotNull]
+        List <ILine> CreateBox(int numberOfLines,
+                               int id = 0);
+
+        [NotNull]
+        List <ILine> CreateCross(int id = 0);
+
+        [NotNull]
+        List <ILine> CreateCrossForwardReverse(int id = 0);
 
         [NotNull]
         List <ILine> CreateFixedParallelLines(int id);
+
+        [NotNull]
+        List <ILine> CreateLines(int id);
+
+        [NotNull]
+        List <ILine> CreateLinesInRowHorizontal(int numberOfLines,
+                                                int id = 0);
+
+        // ReSharper disable once TooManyArguments
+        [NotNull]
+        List <ILine> CreateParallelCrossLines(int numberOfLines,
+                                              int idCount = 0,
+                                              double x1 = 0.0,
+                                              double y1 = 30.0,
+                                              double x2 = 30.0,
+                                              double y2 = 0);
+
+        // ReSharper disable once TooManyArguments
+        [NotNull]
+        List <ILine> CreateParallelCrossLinesForwardReverse(int numberOfLines,
+                                                            int idCount = 0,
+                                                            double x1 = 0.0,
+                                                            double y1 = 30.0,
+                                                            double x2 = 30.0,
+                                                            double y2 = 0);
+
+        [NotNull]
+        List <ILine> CreateParallelCrossLinesInCorner(int numberOfLines,
+                                                      int id = 0);
 
         // ReSharper disable once TooManyArguments
         [NotNull]
@@ -640,48 +680,8 @@ namespace Selkie.Services.Lines
                                                 double y2 = 0.0);
 
         [NotNull]
-        List <ILine> CreateBox(int numberOfLines,
-                               int id = 0);
-
-        [NotNull]
-        List <ILine> CreateCross(int id = 0);
-
-        [NotNull]
-        List <ILine> CreateCrossForwardReverse(int id = 0);
-
-        [NotNull]
-        List <ILine> CreateParallelCrossLinesInCorner(int numberOfLines,
-                                                      int id = 0);
-
-        // ReSharper disable once TooManyArguments
-        [NotNull]
-        List <ILine> CreateParallelCrossLines(int numberOfLines,
-                                              int idCount = 0,
-                                              double x1 = 0.0,
-                                              double y1 = 30.0,
-                                              double x2 = 30.0,
-                                              double y2 = 0);
-
-        // ReSharper disable once TooManyArguments
-        [NotNull]
-        List <ILine> CreateParallelCrossLinesForwardReverse(int numberOfLines,
-                                                            int idCount = 0,
-                                                            double x1 = 0.0,
-                                                            double y1 = 30.0,
-                                                            double x2 = 30.0,
-                                                            double y2 = 0);
-
-        [NotNull]
-        List <ILine> CreateLinesInRowHorizontal(int numberOfLines,
-                                                int id = 0);
-
-        [NotNull]
         List <ILine> CreateRandomLines(int numberOfLines,
                                        int id = 0);
-
-        [NotNull]
-        List <ILine> Create45DegreeLines(int numberOfLines,
-                                         int id = 0);
 
         [NotNull]
         List <ILine> CreateTestLines(int maxId);

@@ -3,7 +3,7 @@ using Castle.Windsor;
 using Castle.Windsor.Installer;
 using Selkie.EasyNetQ;
 using Selkie.Services.Common;
-using ISelkieConsole = Selkie.Common.ISelkieConsole;
+using ISelkieConsole = Selkie.Common.Interfaces.ISelkieConsole;
 
 namespace Selkie.Services.Lines.Console.Client
 {
@@ -14,6 +14,18 @@ namespace Selkie.Services.Lines.Console.Client
         private static IServicesManager s_Manager;
         private static ISelkieConsole s_Console;
         private static ISelkieBus s_Bus;
+
+        private static void CallService()
+        {
+            var client = new LineServiceTestClient(s_Bus,
+                                                   s_Console);
+
+            client.RequestTestLines();
+
+            client.RequestGeoJsonImportText();
+
+            client.StopService();
+        }
 
         private static void Main()
         {
@@ -40,18 +52,6 @@ namespace Selkie.Services.Lines.Console.Client
         {
             s_Console.WriteLine("Stopping services...");
             s_Manager.StopServices();
-        }
-
-        private static void CallService()
-        {
-            var client = new LineServiceTestClient(s_Bus,
-                                                   s_Console);
-
-            client.RequestTestLines();
-
-            client.RequestGeoJsonImportText();
-
-            client.StopService();
         }
     }
 }
