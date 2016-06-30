@@ -11,10 +11,10 @@ namespace Selkie.Services.Lines.Specflow.Steps
         {
             var step = new WhenISendALineValidationRequestMessageStep();
 
-            SleepWaitAndDo(() => ( bool ) ScenarioContext.Current [ "IsReceivedLineValidationResponse" ],
+            SleepWaitAndDo(() => GetBoolValueForScenarioContext("IsReceivedLineValidationResponse"),
                            step.Do);
 
-            if ( !( bool ) ScenarioContext.Current [ "IsReceivedLineValidationResponse" ] )
+            if ( !GetBoolValueForScenarioContext("IsReceivedLineValidationResponse") )
             {
                 Assert.Fail("Did not receive LineValidationResponseMessage!");
             }

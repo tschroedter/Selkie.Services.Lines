@@ -21,6 +21,7 @@ namespace Selkie.Services.Lines.Specflow
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
+    [NUnit.Framework.Category("LongRunningTest")]
     [NUnit.Framework.DescriptionAttribute("ServiceLines")]
     public partial class ServiceLinesFeature
     {

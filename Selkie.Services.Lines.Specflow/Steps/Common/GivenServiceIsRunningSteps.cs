@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
+using JetBrains.Annotations;
 using NUnit.Framework;
 using Selkie.EasyNetQ;
 using Selkie.Services.Common.Messages;
@@ -27,7 +29,7 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
         [AfterScenario]
         public void AfterScenario()
         {
-            var isExited = ( bool ) ScenarioContext.Current [ "IsExited" ];
+            bool isExited = GetBoolValueForScenarioContext("IsExited");
 
             if ( !isExited )
             {
@@ -57,11 +59,23 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
         {
             ScenarioContext.Current [ "IsReceivedPingResponse" ] = false;
 
-            Helper.SleepWaitAndDo(() => ( bool ) ScenarioContext.Current [ "IsReceivedPingResponse" ],
+            Helper.SleepWaitAndDo(() => GetBoolValueForScenarioContext("IsReceivedPingResponse"),
                                   WhenISendAPingMessage);
 
-            Assert.True(( bool ) ScenarioContext.Current [ "IsReceivedPingResponse" ],
+            Assert.True(GetBoolValueForScenarioContext("IsReceivedPingResponse"),
                         "Didn't receive ping response!");
+        }
+
+        private static bool GetBoolValueForScenarioContext([NotNull] string key)
+        {
+            if ( !ScenarioContext.Current.Keys.Contains(key) )
+            {
+                return false;
+            }
+
+            var result = ( bool ) ScenarioContext.Current [ key ];
+
+            return result;
         }
 
         private void WhenISendAPingMessage()

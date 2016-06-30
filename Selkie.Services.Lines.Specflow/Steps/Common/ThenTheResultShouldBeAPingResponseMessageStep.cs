@@ -8,10 +8,10 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
         [Then(@"the result should be a ping response message")]
         public override void Do()
         {
-            SleepWaitAndDo(() => ( bool ) ScenarioContext.Current [ "IsReceivedPingResponse" ],
+            SleepWaitAndDo(() => GetBoolValueForScenarioContext("IsReceivedPingResponse"),
                            DoNothing);
 
-            Assert.True(( bool ) ScenarioContext.Current [ "IsReceivedPingResponse" ],
+            Assert.True(GetBoolValueForScenarioContext("IsReceivedPingResponse"),
                         "Didn't receive ping response");
         }
     }

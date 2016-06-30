@@ -1,4 +1,5 @@
-﻿Feature: ServiceLines
+﻿@LongRunningTest
+Feature: ServiceLines
 
 Scenario: Ping LineService
 	Given Service is running

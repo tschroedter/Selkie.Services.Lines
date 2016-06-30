@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using JetBrains.Annotations;
 using Selkie.EasyNetQ;
 using TechTalk.SpecFlow;
@@ -22,6 +23,18 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
         }
 
         private readonly ISelkieBus m_Bus;
+
+        public static bool GetBoolValueForScenarioContext([NotNull] string key)
+        {
+            if ( !ScenarioContext.Current.Keys.Contains(key) )
+            {
+                return false;
+            }
+
+            var result = ( bool ) ScenarioContext.Current [ key ];
+
+            return result;
+        }
 
         public abstract void Do();
 

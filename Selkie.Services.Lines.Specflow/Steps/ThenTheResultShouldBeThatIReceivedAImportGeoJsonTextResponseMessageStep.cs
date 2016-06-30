@@ -12,10 +12,10 @@ namespace Selkie.Services.Lines.Specflow.Steps
         {
             var step = new WhenISendALineValidationRequestMessageStep();
 
-            SleepWaitAndDo(() => ( bool ) ScenarioContext.Current [ "IsImportGeoJsonTextResponseMessage" ],
+            SleepWaitAndDo(() => GetBoolValueForScenarioContext("IsImportGeoJsonTextResponseMessage"),
                            step.Do);
 
-            if ( !( bool ) ScenarioContext.Current [ "IsImportGeoJsonTextResponseMessage" ] )
+            if ( !GetBoolValueForScenarioContext("IsImportGeoJsonTextResponseMessage") )
             {
                 Assert.Fail("Did not receive ImportGeoJsonTextResponseMessage!");
             }
