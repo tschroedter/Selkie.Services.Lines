@@ -4,9 +4,9 @@ using NetTopologySuite.Features;
 using NSubstitute;
 using NUnit.Framework;
 using Ploeh.AutoFixture.NUnit3;
-using Selkie.Geometry.Shapes;
+using Selkie.Geometry.Surveying;
 using Selkie.NUnit.Extensions;
-using Selkie.Services.Lines.GeoJson.Importer.Interfaces;
+using Selkie.Services.Lines.Interfaces.GeoJson.Importer;
 
 namespace Selkie.Services.Lines.Tests.GeoJson.Importer
 {
@@ -51,7 +51,7 @@ namespace Selkie.Services.Lines.Tests.GeoJson.Importer
         [AutoNSubstituteData]
         public void FromText_CallsValidate_ForText(
             [NotNull] [Frozen] IGeoJsonStringReader reader,
-            [NotNull] [Frozen] IFeaturesToLinesConverter converter,
+            [NotNull] [Frozen] IFeaturesToISurveyGeoJsonFeaturesConverter converter,
             [NotNull] Lines.GeoJson.Importer.Importer sut)
         {
             // Arrange
@@ -68,19 +68,19 @@ namespace Selkie.Services.Lines.Tests.GeoJson.Importer
         [AutoNSubstituteData]
         public void Lines_ReturnsConvertersLines_WhenCalled(
             [NotNull] [Frozen] IGeoJsonStringReader reader,
-            [NotNull] [Frozen] IFeaturesToLinesConverter converter,
+            [NotNull] [Frozen] IFeaturesToISurveyGeoJsonFeaturesConverter converter,
             [NotNull] Lines.GeoJson.Importer.Importer sut)
         {
             // Arrange
             reader.Read(Arg.Any <string>()).Returns(new FeatureCollection());
 
-            var expected = new ILine[0];
-            converter.Lines.Returns(expected);
+            var expected = new ISurveyGeoJsonFeature[0];
+            converter.Features.Returns(expected);
 
             // Act
             // Assert
             Assert.AreEqual(expected,
-                            sut.Lines);
+                            sut.Features);
         }
     }
 }

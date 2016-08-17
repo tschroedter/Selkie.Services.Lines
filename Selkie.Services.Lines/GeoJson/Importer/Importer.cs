@@ -3,8 +3,8 @@ using Castle.Core;
 using JetBrains.Annotations;
 using NetTopologySuite.Features;
 using Selkie.Aop.Aspects;
-using Selkie.Geometry.Shapes;
-using Selkie.Services.Lines.GeoJson.Importer.Interfaces;
+using Selkie.Geometry.Surveying;
+using Selkie.Services.Lines.Interfaces.GeoJson.Importer;
 using Selkie.Windsor;
 
 namespace Selkie.Services.Lines.GeoJson.Importer
@@ -15,14 +15,14 @@ namespace Selkie.Services.Lines.GeoJson.Importer
     {
         public Importer([NotNull] IGeoJsonStringReader reader,
                         [NotNull] IFeaturesValidator validator,
-                        [NotNull] IFeaturesToLinesConverter converter)
+                        [NotNull] IFeaturesToISurveyGeoJsonFeaturesConverter converter)
         {
             m_Reader = reader;
             m_Validator = validator;
             m_Converter = converter;
         }
 
-        private readonly IFeaturesToLinesConverter m_Converter;
+        private readonly IFeaturesToISurveyGeoJsonFeaturesConverter m_Converter;
         private readonly IGeoJsonStringReader m_Reader;
         private readonly IFeaturesValidator m_Validator;
 
@@ -34,11 +34,11 @@ namespace Selkie.Services.Lines.GeoJson.Importer
             }
         }
 
-        public IEnumerable <ILine> Lines
+        public IEnumerable <ISurveyGeoJsonFeature> Features
         {
             get
             {
-                return m_Converter.Lines;
+                return m_Converter.Features;
             }
         }
 

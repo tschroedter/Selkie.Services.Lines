@@ -6,6 +6,7 @@ using NUnit.Framework;
 using Selkie.Geometry.Shapes;
 using Selkie.Services.Lines.Common;
 using Selkie.Services.Lines.Common.Dto;
+using Selkie.Services.Lines.Interfaces.Validators;
 using Selkie.Windsor;
 
 namespace Selkie.Services.Lines.Tests
@@ -18,7 +19,7 @@ namespace Selkie.Services.Lines.Tests
         {
             var logger = Substitute.For <ISelkieLogger>();
             m_Creator = Substitute.For <ITestLineCreator>();
-            m_Validator = Substitute.For <ILinesValidator>();
+            m_Validator = Substitute.For <IFeatureValidator>();
 
             m_Sut = new LinesSourceManager(logger,
                                            m_Creator,
@@ -27,7 +28,7 @@ namespace Selkie.Services.Lines.Tests
 
         private readonly ITestLineCreator m_Creator;
         private readonly LinesSourceManager m_Sut;
-        private readonly ILinesValidator m_Validator;
+        private readonly IFeatureValidator m_Validator;
 
         [Test]
         public void GetTestLinesCallsGetTestLinesForTypeTest()

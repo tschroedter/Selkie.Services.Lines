@@ -1,6 +1,6 @@
 using JetBrains.Annotations;
 using NetTopologySuite.Features;
-using Selkie.Services.Lines.GeoJson.Importer.Interfaces;
+using Selkie.Services.Lines.Interfaces.GeoJson.Importer;
 using Selkie.Windsor;
 
 namespace Selkie.Services.Lines.GeoJson.Importer

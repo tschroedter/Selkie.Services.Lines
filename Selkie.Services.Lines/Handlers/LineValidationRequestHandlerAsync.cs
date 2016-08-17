@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using Selkie.Aop.Aspects;
 using Selkie.EasyNetQ;
 using Selkie.Services.Lines.Common.Messages;
+using Selkie.Services.Lines.Interfaces;
 
 namespace Selkie.Services.Lines.Handlers
 {

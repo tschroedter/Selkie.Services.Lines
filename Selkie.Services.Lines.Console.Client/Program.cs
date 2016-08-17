@@ -8,7 +8,6 @@ using ISelkieConsole = Selkie.Common.Interfaces.ISelkieConsole;
 namespace Selkie.Services.Lines.Console.Client
 {
     [ExcludeFromCodeCoverage]
-    //ncrunch: no coverage start
     internal class Program
     {
         private static IServicesManager s_Manager;

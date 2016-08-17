@@ -2,7 +2,7 @@ using System;
 using JetBrains.Annotations;
 using NetTopologySuite.Features;
 using NetTopologySuite.Geometries;
-using Selkie.Services.Lines.GeoJson.Importer.Interfaces;
+using Selkie.Services.Lines.Interfaces.GeoJson.Importer;
 using Selkie.Windsor;
 using Selkie.Windsor.Extensions;
 

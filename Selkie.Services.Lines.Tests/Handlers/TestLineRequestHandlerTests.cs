@@ -11,6 +11,8 @@ using Selkie.Services.Lines.Common;
 using Selkie.Services.Lines.Common.Dto;
 using Selkie.Services.Lines.Common.Messages;
 using Selkie.Services.Lines.Handlers;
+using Selkie.Services.Lines.Interfaces;
+using Selkie.Services.Lines.Interfaces.Converters.ToDtos;
 
 namespace Selkie.Services.Lines.Tests.Handlers
 {

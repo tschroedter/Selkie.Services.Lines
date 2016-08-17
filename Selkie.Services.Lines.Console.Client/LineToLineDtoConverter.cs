@@ -8,7 +8,6 @@ using Selkie.Services.Lines.Common.Dto;
 namespace Selkie.Services.Lines.Console.Client
 {
     [ExcludeFromCodeCoverage]
-    //ncrunch: no coverage start
     public class LineToLineDtoConverter
     {
         [NotNull]

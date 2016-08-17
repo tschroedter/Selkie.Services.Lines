@@ -9,6 +9,7 @@ using Selkie.NUnit.Extensions;
 using Selkie.Services.Lines.Common.Dto;
 using Selkie.Services.Lines.Common.Messages;
 using Selkie.Services.Lines.Handlers;
+using Selkie.Services.Lines.Interfaces;
 
 namespace Selkie.Services.Lines.Tests.Handlers
 {

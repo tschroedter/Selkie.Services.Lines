@@ -12,7 +12,6 @@ using Selkie.Windsor;
 namespace Selkie.Services.Lines
 {
     [ExcludeFromCodeCoverage]
-    //ncrunch: no coverage start
     [Interceptor(typeof( LogAspect ))]
     [ProjectComponent(Lifestyle.Transient)]
     public class TestLineCreator : ITestLineCreator

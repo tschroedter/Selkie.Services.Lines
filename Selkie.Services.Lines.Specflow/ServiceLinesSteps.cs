@@ -23,7 +23,7 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
         private void ImportGeoJsonTextResponseHandler([NotNull] ImportGeoJsonTextResponseMessage message)
         {
             ScenarioContext.Current [ "IsImportGeoJsonTextResponseMessage" ] = true;
-            ScenarioContext.Current [ "ImportGeoJsonTextResponseMessage_ReceivedLineDtos" ] = message.LineDtos;
+            ScenarioContext.Current [ "ImportGeoJsonTextResponseMessage_ReceivedDtos" ] = message.Dtos;
         }
 
         private void LineValidationResponseHandler([NotNull] LineValidationResponseMessage message)

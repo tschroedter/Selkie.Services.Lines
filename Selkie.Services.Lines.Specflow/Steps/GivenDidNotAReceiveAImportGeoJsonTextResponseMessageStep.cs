@@ -10,7 +10,7 @@ namespace Selkie.Services.Lines.Specflow.Steps
         public override void Do()
         {
             ScenarioContext.Current [ "IsImportGeoJsonTextResponseMessage" ] = false;
-            ScenarioContext.Current [ "ImportGeoJsonTextResponseMessage_ReceivedLineDtos" ] = new LineDto[0];
+            ScenarioContext.Current [ "ImportGeoJsonTextResponseMessage_ReceivedDtos" ] = new LineDto[0];
         }
     }
 }

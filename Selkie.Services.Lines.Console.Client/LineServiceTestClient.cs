@@ -5,16 +5,17 @@ using JetBrains.Annotations;
 using Selkie.Common.Interfaces;
 using Selkie.EasyNetQ;
 using Selkie.Geometry.Shapes;
+using Selkie.Geometry.Surveying;
+using Selkie.Services.Common.Dto;
 using Selkie.Services.Common.Messages;
 using Selkie.Services.Lines.Common;
-using Selkie.Services.Lines.Common.Dto;
 using Selkie.Services.Lines.Common.Messages;
 using Selkie.Windsor.Extensions;
+using LineDto = Selkie.Services.Lines.Common.Dto.LineDto;
 
 namespace Selkie.Services.Lines.Console.Client
 {
     [ExcludeFromCodeCoverage]
-    //ncrunch: no coverage start
     public class LineServiceTestClient : ILineServiceTestClient
     {
         public LineServiceTestClient([NotNull] ISelkieBus bus,
@@ -95,6 +96,23 @@ namespace Selkie.Services.Lines.Console.Client
                                });
         }
 
+        private void DisplayDtos(IEnumerable <SurveyGeoJsonFeatureDto> dtos)
+        {
+            IEnumerable <ISurveyGeoJsonFeature> features =
+                dtos.Select(SurveyGeoJsonFeatureToSurveyGeoJsonFeatureDtoConverter.ConvertDtoToFeature);
+
+            foreach ( ISurveyGeoJsonFeature feature in features )
+            {
+                string status = feature.IsUnknown
+                                    ? "Unknown"
+                                    : "Known";
+
+                m_Console.WriteLine("Id {0} [{1}]: {2}".Inject(feature.Id,
+                                                               status,
+                                                               feature));
+            }
+        }
+
         private void DisplayLineDtos(IEnumerable <LineDto> lineDtos)
         {
             IEnumerable <ILine> lines = lineDtos.Select(LineToLineDtoConverter.ConvertToLine);
@@ -115,7 +133,7 @@ namespace Selkie.Services.Lines.Console.Client
         {
             m_Console.WriteLine("Received <ImportGeoJsonTextResponseMessage>...");
 
-            DisplayLineDtos(message.LineDtos);
+            DisplayDtos(message.Dtos);
         }
 
         private void TestLineResponseHandler([NotNull] TestLineResponseMessage message)

@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using NetTopologySuite.IO;
-using Selkie.Services.Lines.GeoJson.Importer.Interfaces;
+using Selkie.Services.Lines.Interfaces.GeoJson.Importer;
 using Selkie.Windsor;
 
 namespace Selkie.Services.Lines.GeoJson.Importer

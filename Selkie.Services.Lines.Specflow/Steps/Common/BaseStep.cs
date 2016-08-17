@@ -11,18 +11,10 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
     {
         protected BaseStep()
         {
-            m_Bus = ( ISelkieBus ) ScenarioContext.Current [ "ISelkieBus" ];
+            Bus = ( ISelkieBus ) ScenarioContext.Current [ "ISelkieBus" ];
         }
 
-        protected ISelkieBus Bus
-        {
-            get
-            {
-                return m_Bus;
-            }
-        }
-
-        private readonly ISelkieBus m_Bus;
+        protected ISelkieBus Bus { get; private set; }
 
         public static bool GetBoolValueForScenarioContext([NotNull] string key)
         {

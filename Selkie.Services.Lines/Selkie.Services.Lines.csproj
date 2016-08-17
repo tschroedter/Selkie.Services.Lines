@@ -32,35 +32,39 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="GeoJsonTextToLineDtosConverter.cs" />
-    <Compile Include="GeoJson\Importer\FeaturesToLinesConverter.cs" />
+    <Compile Include="Converters\ToDtos\GeoJsonTextToSurveyGeoJsonFeatureDtosConverter.cs" />
+    <Compile Include="GeoJson\Importer\FeaturesToISurveyGeoJsonFeaturesConverter.cs" />
     <Compile Include="GeoJson\Importer\FeaturesValidator.cs" />
     <Compile Include="GeoJson\Importer\GeoJsonStringReader.cs" />
     <Compile Include="GeoJson\Importer\Importer.cs" />
-    <Compile Include="GeoJson\Importer\Interfaces\IFeaturesToLinesConverter.cs" />
-    <Compile Include="GeoJson\Importer\Interfaces\IFeaturesValidator.cs" />
-    <Compile Include="GeoJson\Importer\Interfaces\IFeatureToLineConverter.cs" />
-    <Compile Include="GeoJson\Importer\Interfaces\IGeoJsonStringReader.cs" />
-    <Compile Include="GeoJson\Importer\Interfaces\IImporter.cs" />
-    <Compile Include="GeoJson\Importer\Interfaces\ISelkieGeoJsonStringReader.cs" />
-    <Compile Include="GeoJson\Importer\LineStringToLineConverter.cs" />
+    <Compile Include="Interfaces\GeoJson\Importer\IFeaturesToISurveyGeoJsonFeaturesConverter.cs" />
+    <Compile Include="Interfaces\GeoJson\Importer\IFeaturesValidator.cs" />
+    <Compile Include="Interfaces\GeoJson\Importer\IFeatureToSurveyGeoJsonFeatureConverter.cs" />
+    <Compile Include="Interfaces\GeoJson\Importer\IGeoJsonStringReader.cs" />
+    <Compile Include="Interfaces\GeoJson\Importer\IImporter.cs" />
+    <Compile Include="Interfaces\GeoJson\Importer\ISelkieGeoJsonStringReader.cs" />
+    <Compile Include="GeoJson\Importer\LineStringToSurveyGeoJsonFeatureConverter.cs" />
     <Compile Include="GeoJson\Importer\SelkieGeoJsonStringReader.cs" />
     <Compile Include="Handlers\ImportGeoJsonTextRequestHandlerAsync.cs" />
-    <Compile Include="IGeoJsonTextToLineDtosConverter.cs" />
-    <Compile Include="ILinesToLineDtosConverter.cs" />
-    <Compile Include="ILinesValidator.cs" />
-    <Compile Include="ILinesSourceManager.cs" />
-    <Compile Include="ILinesValidatorLogger.cs" />
-    <Compile Include="ILineToLineDtoConverter.cs" />
+    <Compile Include="Interfaces\Converters\ToDtos\IGeoJsonTextToSurveyGeoJsonFeatureDtosConverter.cs" />
+    <Compile Include="Interfaces\Converters\ToDtos\ILinesToLineDtosConverter.cs" />
+    <Compile Include="Interfaces\Validators\IFeatureValidator.cs" />
+    <Compile Include="Interfaces\ILinesSourceManager.cs" />
+    <Compile Include="Interfaces\Validators\IFeaturesValidatorLogger.cs" />
+    <Compile Include="Interfaces\Converters\ToDtos\ILineToLineDtoConverter.cs" />
     <Compile Include="Installer.cs" />
+    <Compile Include="Interfaces\Converters\ToDtos\ISurveyGeoJsonFeaturesToDtosConverter.cs" />
+    <Compile Include="Interfaces\Converters\ToDtos\ISurveyGeoJsonFeatureToDtoConverter.cs" />
     <Compile Include="LinesSourceManager.cs" />
-    <Compile Include="LinesToLineDtosConverter.cs" />
-    <Compile Include="LinesValidator.cs" />
-    <Compile Include="LinesValidatorLogger.cs" />
-    <Compile Include="LineToLineDtoConverter.cs" />
+    <Compile Include="Converters\ToDtos\LinesToLineDtosConverter.cs" />
+    <Compile Include="Validators\FeatureValidator.cs" />
+    <Compile Include="Validators\FeaturesValidatorLogger.cs" />
+    <Compile Include="Converters\ToDtos\LineToLineDtoConverter.cs" />
     <Compile Include="Handlers\LineValidationRequestHandlerAsync.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service.cs" />
+    <Compile Include="Converters\ToDtos\SurveyGeoJsonFeaturesToDtosConverter.cs" />
+    <Compile Include="Converters\ToDtos\SurveyGeoJsonFeatureToDtoConverter.cs" />
     <Compile Include="TestLineCreator.cs" />
     <Compile Include="Handlers\TestLineRequestHandlerAsync.cs" />
   </ItemGroup>
@@ -71,9 +75,6 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Castle.Core">
@@ -100,8 +101,8 @@
       <HintPath>..\packages\GeoAPI.1.7.4\lib\net45\GeoAPI.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="JetBrains.Annotations, Version=10.1.4.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
-      <HintPath>..\packages\JetBrains.Annotations.10.1.4\lib\net20\JetBrains.Annotations.dll</HintPath>
+    <Reference Include="JetBrains.Annotations, Version=10.1.5.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.10.1.5\lib\net\JetBrains.Annotations.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NetTopologySuite, Version=1.14.0.0, Culture=neutral, PublicKeyToken=f580a05016ebada1, processorArchitecture=MSIL">
@@ -116,8 +117,8 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NLog, Version=4.1.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.1.0\lib\net45\NLog.dll</HintPath>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.3.6\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PowerCollections, Version=1.0.0.0, Culture=neutral, PublicKeyToken=2573bf8a1bdddcd5, processorArchitecture=MSIL">
@@ -128,32 +129,36 @@
       <HintPath>..\packages\RabbitMQ.Client.3.5.4\lib\net40\RabbitMQ.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Selkie.Aop, Version=0.7.16.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Selkie.Aop.0.7.16.0\lib\net45\Selkie.Aop.dll</HintPath>
+    <Reference Include="Selkie.Aop, Version=0.7.20.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selkie.Aop.0.7.20\lib\net45\Selkie.Aop.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Selkie.Common, Version=0.7.24.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Selkie.Common.0.7.24\lib\net45\Selkie.Common.dll</HintPath>
+    <Reference Include="Selkie.Common, Version=0.7.29.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selkie.Common.0.7.29\lib\net45\Selkie.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Selkie.EasyNetQ, Version=0.7.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Selkie.EasyNetQ.0.7.7\lib\net45\Selkie.EasyNetQ.dll</HintPath>
+    <Reference Include="Selkie.EasyNetQ, Version=0.7.11.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selkie.EasyNetQ.0.7.11\lib\net45\Selkie.EasyNetQ.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Selkie.Geometry, Version=0.7.40.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Selkie.Geometry.0.7.40.0\lib\net45\Selkie.Geometry.dll</HintPath>
+    <Reference Include="Selkie.Geometry, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selkie.Geometry.0.7.60\lib\net45\Selkie.Geometry.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Selkie.Services.Common, Version=0.7.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Selkie.Services.Common.0.7.10.0\lib\net45\Selkie.Services.Common.dll</HintPath>
+    <Reference Include="Selkie.Services.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selkie.Services.Common.0.7.25.0\lib\net45\Selkie.Services.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Selkie.Services.Lines.Common, Version=0.6.40.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Selkie.Services.Lines.Common.0.6.40.0\lib\net45\Selkie.Services.Lines.Common.dll</HintPath>
+    <Reference Include="Selkie.Services.Common.Dto, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selkie.Services.Common.Dto.0.7.8\lib\net45\Selkie.Services.Common.Dto.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Selkie.Windsor, Version=0.7.39.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Selkie.Windsor.0.7.39\lib\net45\Selkie.Windsor.dll</HintPath>
+    <Reference Include="Selkie.Services.Lines.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selkie.Services.Lines.Common.0.7.15\lib\net45\Selkie.Services.Lines.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Selkie.Windsor, Version=0.7.41.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selkie.Windsor.0.7.41\lib\net45\Selkie.Windsor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -161,6 +166,7 @@
       <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.XML.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy $(TargetDir)Selkie.Services.Lines.dll $(SolutionDir)NuGet.Selkie.Services.Lines\lib\net45 /Y /E</PostBuildEvent>

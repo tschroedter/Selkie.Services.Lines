@@ -86,9 +86,9 @@ namespace Selkie.Services.Lines.Specflow.Steps.Common
             string workingFolder = Helper.GetWorkingFolder(fullName);
 
             Logger.Info("Try to start service: {0} in working folder {1} and fullname {2}...",
-                          Helper.ServiceName,
-                          workingFolder,
-                          fullName);
+                        Helper.ServiceName,
+                        workingFolder,
+                        fullName);
 
             var startInfo = new ProcessStartInfo
                             {

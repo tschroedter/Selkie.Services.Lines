@@ -7,6 +7,8 @@ using Selkie.Aop.Aspects;
 using Selkie.Geometry.Shapes;
 using Selkie.Services.Lines.Common;
 using Selkie.Services.Lines.Common.Dto;
+using Selkie.Services.Lines.Interfaces;
+using Selkie.Services.Lines.Interfaces.Validators;
 using Selkie.Windsor;
 using Selkie.Windsor.Extensions;
 
@@ -18,7 +20,7 @@ namespace Selkie.Services.Lines
     {
         public LinesSourceManager([NotNull] ISelkieLogger logger,
                                   [NotNull] ITestLineCreator creator,
-                                  [NotNull] ILinesValidator validator)
+                                  [NotNull] IFeatureValidator validator)
         {
             m_Logger = logger;
             m_Creator = creator;
@@ -28,7 +30,7 @@ namespace Selkie.Services.Lines
         internal const int NumberOfLines = 10;
         private readonly ITestLineCreator m_Creator;
         private readonly ISelkieLogger m_Logger;
-        private readonly ILinesValidator m_Validator;
+        private readonly IFeatureValidator m_Validator;
 
         public IEnumerable <ILine> GetTestLines(IEnumerable <TestLineType.Type> types)
         {

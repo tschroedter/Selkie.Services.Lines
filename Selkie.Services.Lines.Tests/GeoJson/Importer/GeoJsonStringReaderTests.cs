@@ -6,7 +6,7 @@ using NUnit.Framework;
 using Ploeh.AutoFixture.NUnit3;
 using Selkie.NUnit.Extensions;
 using Selkie.Services.Lines.GeoJson.Importer;
-using Selkie.Services.Lines.GeoJson.Importer.Interfaces;
+using Selkie.Services.Lines.Interfaces.GeoJson.Importer;
 
 namespace Selkie.Services.Lines.Tests.GeoJson.Importer
 {

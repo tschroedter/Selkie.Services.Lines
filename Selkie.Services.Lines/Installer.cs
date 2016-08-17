@@ -10,12 +10,11 @@ using Selkie.Common;
 using Selkie.EasyNetQ;
 using Selkie.Services.Common;
 using Selkie.Services.Lines.GeoJson.Importer;
-using Selkie.Services.Lines.GeoJson.Importer.Interfaces;
+using Selkie.Services.Lines.Interfaces.GeoJson.Importer;
 
 namespace Selkie.Services.Lines
 {
     [ExcludeFromCodeCoverage]
-    //ncrunch: no coverage start
     public class Installer : SelkieInstaller <Installer>
     {
         // ReSharper disable once CodeAnnotationAnalyzer
@@ -37,8 +36,8 @@ namespace Selkie.Services.Lines
                                       .Configure(c => c.LifeStyle.Is(LifestyleType.Transient)));
             // ReSharper restore MaximumChainedReferences
 
-            container.Register(Component.For <IFeatureToLineConverter>()
-                                        .ImplementedBy <LineStringToLineConverter>());
+            container.Register(Component.For <IFeatureToSurveyGeoJsonFeatureConverter>()
+                                        .ImplementedBy <LineStringToSurveyGeoJsonFeatureConverter>());
 
             container.Register(Component.For(typeof( GeoJsonReader ))
                                         .ImplementedBy(typeof( GeoJsonReader ))

@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using Selkie.Services.Lines.Common.Dto;
+using Selkie.Services.Common.Dto;
 using Selkie.Services.Lines.Specflow.Steps.Common;
 using TechTalk.SpecFlow;
 
@@ -20,10 +20,12 @@ namespace Selkie.Services.Lines.Specflow.Steps
                 Assert.Fail("Did not receive ImportGeoJsonTextResponseMessage!");
             }
 
-            var lineDtos = ( LineDto[] ) ScenarioContext.Current [ "ImportGeoJsonTextResponseMessage_ReceivedLineDtos" ];
+            var dtos =
+                ( SurveyGeoJsonFeatureDto[] )
+                ScenarioContext.Current [ "ImportGeoJsonTextResponseMessage_ReceivedDtos" ];
 
             Assert.AreEqual(2,
-                            lineDtos.Length);
+                            dtos.Length);
         }
     }
 }

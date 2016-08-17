@@ -6,12 +6,11 @@ using NetTopologySuite.Features;
 using NetTopologySuite.Geometries;
 using NSubstitute;
 using NUnit.Framework;
-using Selkie.Geometry.Shapes;
+using Selkie.Geometry.Surveying;
 using Selkie.NUnit.Extensions;
 using Selkie.Services.Lines.GeoJson.Importer;
-using Selkie.Services.Lines.GeoJson.Importer.Interfaces;
+using Selkie.Services.Lines.Interfaces.GeoJson.Importer;
 using Selkie.Windsor;
-using Point = NetTopologySuite.Geometries.Point;
 
 namespace Selkie.Services.Lines.Tests.GeoJson.Importer
 {
@@ -22,8 +21,8 @@ namespace Selkie.Services.Lines.Tests.GeoJson.Importer
         [Theory]
         [AutoNSubstituteData]
         public void Convert_CallsConvertersConvert_ForCanConvertReturnsTrue(
-            [NotNull] IFeatureToLineConverter converter,
-            [NotNull] IFeatureToLineConverter two)
+            [NotNull] IFeatureToSurveyGeoJsonFeatureConverter converter,
+            [NotNull] IFeatureToSurveyGeoJsonFeatureConverter two)
         {
             // Arrange
             converter.CanConvert(Arg.Any <IFeature>()).Returns(true);
@@ -38,7 +37,7 @@ namespace Selkie.Services.Lines.Tests.GeoJson.Importer
             var featureCollection = new FeatureCollection();
             featureCollection.Features.Add(CreateFeaturePoint());
 
-            var sut = new FeaturesToLinesConverter(converters)
+            var sut = new FeaturesToISurveyGeoJsonFeaturesConverter(converters)
                       {
                           FeatureCollection = featureCollection
                       };
@@ -55,7 +54,7 @@ namespace Selkie.Services.Lines.Tests.GeoJson.Importer
         [AutoNSubstituteData]
         public void Convert_DoesNotAddUnknownLine_ForNoConverterFound(
             [NotNull] ISelkieLogger logger,
-            [NotNull] IFeatureToLineConverter converter)
+            [NotNull] IFeatureToSurveyGeoJsonFeatureConverter converter)
         {
             // Arrange
             converter.CanConvert(Arg.Any <Feature>()).Returns(false);
@@ -68,7 +67,7 @@ namespace Selkie.Services.Lines.Tests.GeoJson.Importer
             var featureCollection = new FeatureCollection();
             featureCollection.Features.Add(CreateLineStringFeature());
 
-            var sut = new FeaturesToLinesConverter(converters)
+            var sut = new FeaturesToISurveyGeoJsonFeaturesConverter(converters)
                       {
                           FeatureCollection = featureCollection
                       };
@@ -78,13 +77,13 @@ namespace Selkie.Services.Lines.Tests.GeoJson.Importer
 
             // Assert
             Assert.AreEqual(0,
-                            sut.Lines.Count());
+                            sut.Features.Count());
         }
 
         [Theory]
         [AutoNSubstituteData]
         public void Convert_SetsFeatureInConverter_ForCanConvertReturnsTrue(
-            [NotNull] IFeatureToLineConverter converter)
+            [NotNull] IFeatureToSurveyGeoJsonFeatureConverter converter)
         {
             // Arrange
             converter.CanConvert(Arg.Any <Feature>()).Returns(true);
@@ -97,7 +96,7 @@ namespace Selkie.Services.Lines.Tests.GeoJson.Importer
             var featureCollection = new FeatureCollection();
             featureCollection.Features.Add(CreateFeaturePoint());
 
-            var sut = new FeaturesToLinesConverter(converters)
+            var sut = new FeaturesToISurveyGeoJsonFeaturesConverter(converters)
                       {
                           FeatureCollection = featureCollection
                       };
@@ -112,15 +111,15 @@ namespace Selkie.Services.Lines.Tests.GeoJson.Importer
 
         [Theory]
         [AutoNSubstituteData]
-        public void Convert_SetsLines_ForConvertersFound(
+        public void Convert_SetsFeatures_ForConvertersFound(
             [NotNull] ISelkieLogger logger,
-            [NotNull] IFeatureToLineConverter converter,
-            [NotNull] ILine expected)
+            [NotNull] IFeatureToSurveyGeoJsonFeatureConverter converter,
+            [NotNull] ISurveyGeoJsonFeature expected)
         {
             // Arrange
             expected.IsUnknown.Returns(false);
             converter.CanConvert(Arg.Any <Feature>()).Returns(true);
-            converter.Line.Returns(expected);
+            converter.SurveyGeoJsonFeature.Returns(expected);
 
             var converters = new[]
                              {
@@ -130,7 +129,7 @@ namespace Selkie.Services.Lines.Tests.GeoJson.Importer
             var featureCollection = new FeatureCollection();
             featureCollection.Features.Add(CreateLineStringFeature());
 
-            var sut = new FeaturesToLinesConverter(converters)
+            var sut = new FeaturesToISurveyGeoJsonFeaturesConverter(converters)
                       {
                           FeatureCollection = featureCollection
                       };
@@ -140,13 +139,13 @@ namespace Selkie.Services.Lines.Tests.GeoJson.Importer
 
             // Assert
             Assert.AreEqual(1,
-                            sut.Lines.Count());
+                            sut.Features.Count());
         }
 
         [Theory]
         [AutoNSubstituteData]
         public void FeatureCollection_ReturnsDefaultValue_WhenCalled(
-            [NotNull] FeaturesToLinesConverter sut)
+            [NotNull] FeaturesToISurveyGeoJsonFeaturesConverter sut)
         {
             // Arrange
             // Act
@@ -156,13 +155,13 @@ namespace Selkie.Services.Lines.Tests.GeoJson.Importer
 
         [Theory]
         [AutoNSubstituteData]
-        public void Lines_ReturnsDefaultValue_WhenCalled(
-            [NotNull] FeaturesToLinesConverter sut)
+        public void Features_ReturnsDefaultValue_WhenCalled(
+            [NotNull] FeaturesToISurveyGeoJsonFeaturesConverter sut)
         {
             // Arrange
             // Act
             // Assert
-            Assert.NotNull(sut.Lines);
+            Assert.NotNull(sut.Features);
         }
 
         private static Feature CreateFeaturePoint()

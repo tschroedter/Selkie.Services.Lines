@@ -5,9 +5,10 @@ using NUnit.Framework;
 using Ploeh.AutoFixture.NUnit3;
 using Selkie.EasyNetQ;
 using Selkie.NUnit.Extensions;
-using Selkie.Services.Lines.Common.Dto;
+using Selkie.Services.Common.Dto;
 using Selkie.Services.Lines.Common.Messages;
 using Selkie.Services.Lines.Handlers;
+using Selkie.Services.Lines.Interfaces.Converters.ToDtos;
 
 namespace Selkie.Services.Lines.Tests.Handlers
 {
@@ -18,7 +19,7 @@ namespace Selkie.Services.Lines.Tests.Handlers
         [Theory]
         [AutoNSubstituteData]
         public void Handle_CallsConvert_WhenCalled(
-            [NotNull, Frozen] IGeoJsonTextToLineDtosConverter converter,
+            [NotNull, Frozen] IGeoJsonTextToSurveyGeoJsonFeatureDtosConverter converter,
             [NotNull] ImportGeoJsonTextRequestMessage message,
             [NotNull] ImportGeoJsonTextRequestHandlerAsync sut)
         {
@@ -34,31 +35,31 @@ namespace Selkie.Services.Lines.Tests.Handlers
         [AutoNSubstituteData]
         public void Handle_SendsReplyMessage_WhenCalled(
             [NotNull, Frozen] ISelkieBus bus,
-            [NotNull, Frozen] IGeoJsonTextToLineDtosConverter converter,
+            [NotNull, Frozen] IGeoJsonTextToSurveyGeoJsonFeatureDtosConverter converter,
             [NotNull] ImportGeoJsonTextRequestMessage message,
             [NotNull] ImportGeoJsonTextRequestHandlerAsync sut)
         {
             // Arrange
             var expected = new[]
                            {
-                               new LineDto(),
-                               new LineDto()
+                               new SurveyGeoJsonFeatureDto(),
+                               new SurveyGeoJsonFeatureDto()
                            };
 
-            converter.LineDtos.Returns(expected);
+            converter.Dtos.Returns(expected);
 
             // Act
             sut.Handle(message);
 
             // Assert
             bus.Received()
-               .PublishAsync(Arg.Is <ImportGeoJsonTextResponseMessage>(x => x.LineDtos.Length == expected.Length));
+               .PublishAsync(Arg.Is <ImportGeoJsonTextResponseMessage>(x => x.Dtos.Length == expected.Length));
         }
 
         [Theory]
         [AutoNSubstituteData]
         public void Handle_SetsGeoJsonText_WhenCalled(
-            [NotNull, Frozen] IGeoJsonTextToLineDtosConverter converter,
+            [NotNull, Frozen] IGeoJsonTextToSurveyGeoJsonFeatureDtosConverter converter,
             [NotNull] ImportGeoJsonTextRequestMessage message,
             [NotNull] ImportGeoJsonTextRequestHandlerAsync sut)
         {
@@ -68,7 +69,7 @@ namespace Selkie.Services.Lines.Tests.Handlers
 
             // Assert
             Assert.AreEqual(message.Text,
-                            converter.GeoJsonText);
+                            converter.GeoJson);
         }
     }
 }
