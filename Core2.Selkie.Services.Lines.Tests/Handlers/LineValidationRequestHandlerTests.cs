@@ -17,7 +17,7 @@ namespace Core2.Selkie.Services.Lines.Tests.Handlers.XUnit
     [TestFixture]
     internal sealed class LineValidationRequestHandlerTests
     {
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void LineValidationRequestHandlerCallsManagerTest([NotNull] [Frozen] ILinesSourceManager manager,
                                                                  [NotNull] [Frozen] ISelkieBus bus,
@@ -34,7 +34,7 @@ namespace Core2.Selkie.Services.Lines.Tests.Handlers.XUnit
             manager.Received().ValidateDtos(Arg.Any <IEnumerable <LineDto>>());
         }
 
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void LineValidationRequestHandlerSendsMessageTest([NotNull] [Frozen] ILinesSourceManager manager,
                                                                  [NotNull] [Frozen] ISelkieBus bus,

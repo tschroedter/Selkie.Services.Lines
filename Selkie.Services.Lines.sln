@@ -14,8 +14,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selkie.Services.Lines.Conso
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selkie.Services.Lines.Console.Client", "Selkie.Services.Lines.Console.Client\Selkie.Services.Lines.Console.Client.csproj", "{A66C7084-8B59-4C0E-9C5F-DF1BD89852C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selkie.Services.Lines.Tests", "Selkie.Services.Lines.Tests\Selkie.Services.Lines.Tests.csproj", "{ECF5F9E5-8735-49AE-BD2D-6FAABD7C6BD0}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selkie.Services.Lines.Specflow", "Selkie.Services.Lines.Specflow\Selkie.Services.Lines.Specflow.csproj", "{F5C2E97D-BFC8-4057-B3A2-BAA4136BA38F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuGet.Selkie.Services.Lines", "NuGet.Selkie.Services.Lines\NuGet.Selkie.Services.Lines.csproj", "{0451BAEF-DF2E-4B98-8644-94EE9415E389}"
@@ -24,11 +22,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selkie.Services.Lines.Windo
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Selkie.Services.Lines.Windows.Service.Setup", "Selkie.Services.Lines.Windows.Service.Setup\Selkie.Services.Lines.Windows.Service.Setup.vdproj", "{170B4B67-EF44-4347-80A6-D92285B301A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core2.Selkie.Services.Lines", "Core2.Selkie.Services.Lines\Core2.Selkie.Services.Lines.csproj", "{C32CD556-7223-476E-B7BC-6FFC534FEDB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core2.Selkie.Services.Lines", "Core2.Selkie.Services.Lines\Core2.Selkie.Services.Lines.csproj", "{C32CD556-7223-476E-B7BC-6FFC534FEDB1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5B34ED2A-6993-45F2-B5E2-710FD3647AC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core2.Selkie.Services.Lines.Tests", "Core2.Selkie.Services.Lines.Tests\Core2.Selkie.Services.Lines.Tests.csproj", "{83997D70-0E54-4F52-BE4B-D877C067A02C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core2.Selkie.Services.Lines.Tests", "Core2.Selkie.Services.Lines.Tests\Core2.Selkie.Services.Lines.Tests.csproj", "{AAAD1857-2FDF-40FE-AD22-16A6D78274FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,10 +46,6 @@ Global
 		{A66C7084-8B59-4C0E-9C5F-DF1BD89852C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A66C7084-8B59-4C0E-9C5F-DF1BD89852C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A66C7084-8B59-4C0E-9C5F-DF1BD89852C2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ECF5F9E5-8735-49AE-BD2D-6FAABD7C6BD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ECF5F9E5-8735-49AE-BD2D-6FAABD7C6BD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ECF5F9E5-8735-49AE-BD2D-6FAABD7C6BD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ECF5F9E5-8735-49AE-BD2D-6FAABD7C6BD0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F5C2E97D-BFC8-4057-B3A2-BAA4136BA38F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F5C2E97D-BFC8-4057-B3A2-BAA4136BA38F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5C2E97D-BFC8-4057-B3A2-BAA4136BA38F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -70,16 +64,16 @@ Global
 		{C32CD556-7223-476E-B7BC-6FFC534FEDB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C32CD556-7223-476E-B7BC-6FFC534FEDB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C32CD556-7223-476E-B7BC-6FFC534FEDB1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{83997D70-0E54-4F52-BE4B-D877C067A02C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83997D70-0E54-4F52-BE4B-D877C067A02C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{83997D70-0E54-4F52-BE4B-D877C067A02C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83997D70-0E54-4F52-BE4B-D877C067A02C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAAD1857-2FDF-40FE-AD22-16A6D78274FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAAD1857-2FDF-40FE-AD22-16A6D78274FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAAD1857-2FDF-40FE-AD22-16A6D78274FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAAD1857-2FDF-40FE-AD22-16A6D78274FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{83997D70-0E54-4F52-BE4B-D877C067A02C} = {5B34ED2A-6993-45F2-B5E2-710FD3647AC3}
+		{AAAD1857-2FDF-40FE-AD22-16A6D78274FB} = {5B34ED2A-6993-45F2-B5E2-710FD3647AC3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {662EDEE7-56C7-4EFD-8146-608ECAC7DF91}

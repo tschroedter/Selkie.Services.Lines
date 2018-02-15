@@ -15,7 +15,7 @@ namespace Core2.Selkie.Services.Lines.Tests
     [TestFixture]
     internal sealed class FeaturesValidatorLoggerTests
     {
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void LogFeatures_CallsLogValidateStatus_WhenCalled(
             [NotNull, Frozen] ISelkieLogger logger,
@@ -30,7 +30,7 @@ namespace Core2.Selkie.Services.Lines.Tests
             logger.Received().Info("Features are valid!");
         }
 
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void LogFeatures_CallsLogger_ForEachFeature(
             [NotNull, Frozen] ISelkieLogger logger,
@@ -53,7 +53,7 @@ namespace Core2.Selkie.Services.Lines.Tests
             logger.Received(3).Info(Arg.Any <string>()); // 3 because of LogValidateStatus calls onces + to features
         }
 
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void LogIdsAreEmpty_CallsLogger_WhenCalled(
             [NotNull, Frozen] ISelkieLogger logger,
@@ -67,7 +67,7 @@ namespace Core2.Selkie.Services.Lines.Tests
             logger.Received().Warn(Arg.Any <string>());
         }
 
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void LogValidateStatus_CallsLogger_ForIdsAreValidate(
             [NotNull, Frozen] ISelkieLogger logger,
@@ -81,7 +81,7 @@ namespace Core2.Selkie.Services.Lines.Tests
             logger.Received().Info(Arg.Any <string>());
         }
 
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void LogValidateStatus_CallsLogger_ForIdsAreInvalidate(
             [NotNull, Frozen] ISelkieLogger logger,
@@ -95,7 +95,7 @@ namespace Core2.Selkie.Services.Lines.Tests
             logger.Received().Warn(Arg.Any <string>());
         }
 
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void LineToString_CallsLogger_WhenCalled(
             [NotNull, Frozen] ISelkieLogger logger,
@@ -110,7 +110,7 @@ namespace Core2.Selkie.Services.Lines.Tests
             Assert.True(actual.StartsWith("[" + line.Id + "]"));
         }
 
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void LogFeatures_CallsLogValidateStatus_ForLines(
             [NotNull, Frozen] ISelkieLogger logger,
@@ -125,7 +125,7 @@ namespace Core2.Selkie.Services.Lines.Tests
             logger.Received().Info("Features are valid!");
         }
 
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void LogFeatures_CallsLogger_ForLines(
             [NotNull, Frozen] ISelkieLogger logger,
@@ -148,7 +148,7 @@ namespace Core2.Selkie.Services.Lines.Tests
             logger.Received(3).Info(Arg.Any <string>()); // 3 because of LogValidateStatus calls onces + to features
         }
 
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void LogFeatures_CallsLogger_ForLines(
             [NotNull, Frozen] ISelkieLogger logger,

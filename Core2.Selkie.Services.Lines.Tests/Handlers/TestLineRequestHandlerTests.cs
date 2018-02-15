@@ -20,7 +20,7 @@ namespace Core2.Selkie.Services.Lines.Tests.Handlers.XUnit
     [TestFixture]
     internal sealed class TestLineRequestHandlerTests
     {
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void Handle_CallsConvert_WhenCalled(
             [NotNull, Frozen] ILinesToLineDtosConverter converter,
@@ -35,7 +35,7 @@ namespace Core2.Selkie.Services.Lines.Tests.Handlers.XUnit
             converter.Received().Convert();
         }
 
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void Handle_SendsReplyMessage_WhenCalled(
             [NotNull, Frozen] ILinesSourceManager manager,
@@ -60,7 +60,7 @@ namespace Core2.Selkie.Services.Lines.Tests.Handlers.XUnit
             bus.Received().PublishAsync(Arg.Is <TestLineResponseMessage>(x => x.LineDtos.Length == expected.Length));
         }
 
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void Handle_SetsLines_WhenCalled(
             [NotNull, Frozen] ILinesSourceManager manager,

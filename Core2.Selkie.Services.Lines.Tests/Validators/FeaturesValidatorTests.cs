@@ -15,7 +15,7 @@ namespace Core2.Selkie.Services.Lines.Tests
     [TestFixture]
     internal sealed class FeaturesValidatorTests
     {
-        [Theory]
+        [Test]
         [TestCase(0, 1, true)]
         [TestCase(0, 0, false)]
         [TestCase(1, 0, false)]
@@ -51,7 +51,7 @@ namespace Core2.Selkie.Services.Lines.Tests
                             sut.ValidateDtos(lines));
         }
 
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void ValidateReturnsFalseForEmptyTest([NotNull] FeatureValidator sut)
         {
@@ -63,7 +63,7 @@ namespace Core2.Selkie.Services.Lines.Tests
             Assert.False(sut.ValidateDtos(lines));
         }
 
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void ValidateReturnsFalseForOneLineTest([NotNull] FeatureValidator sut)
         {

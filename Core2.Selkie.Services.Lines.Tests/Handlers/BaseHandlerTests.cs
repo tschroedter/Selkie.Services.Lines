@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
-using Castle.Core.Logging;
 using EasyNetQ;
 using JetBrains.Annotations;
 using NSubstitute;
@@ -18,7 +17,7 @@ namespace Core2.Selkie.Services.Lines.Tests.Handlers.XUnit
     [TestFixture]
     internal sealed class BaseHandlerTests
     {
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void StartSubscribesToMessageTest([NotNull] [Frozen] IBus bus,
                                                  [NotNull] TestSelkieBaseHandler sut)
@@ -31,7 +30,7 @@ namespace Core2.Selkie.Services.Lines.Tests.Handlers.XUnit
                                           Arg.Any <Func <TestMessage, Task>>());
         }
 
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void HandleCallsHandlerTest([NotNull] TestSelkieBaseHandler sut)
         {

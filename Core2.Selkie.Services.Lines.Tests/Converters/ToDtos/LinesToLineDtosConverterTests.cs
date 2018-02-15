@@ -17,7 +17,7 @@ namespace Core2.Selkie.Services.Lines.Tests
     [TestFixture]
     internal sealed class LinesToLineDtosConverterTests
     {
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void Convert_CallsConvert_WhenCalled(
             [NotNull, Frozen] ILineToLineDtoConverter converter,
@@ -33,7 +33,7 @@ namespace Core2.Selkie.Services.Lines.Tests
             converter.Received(2).ConvertFrom(Arg.Any <ILine>());
         }
 
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void Convert_SetsDtos_WhenCalled(
             [NotNull, Frozen] ILineToLineDtoConverter converter,
@@ -59,7 +59,7 @@ namespace Core2.Selkie.Services.Lines.Tests
                             sut.LineDtos.Last());
         }
 
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void LineDtos_ReturnsDefaultValue_WhenCalled(
             [NotNull] LinesToLineDtosConverter sut)
@@ -70,7 +70,7 @@ namespace Core2.Selkie.Services.Lines.Tests
             Assert.NotNull(sut.LineDtos);
         }
 
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void Lines_ReturnsDefaultValue_WhenCalled(
             [NotNull] LinesToLineDtosConverter sut)

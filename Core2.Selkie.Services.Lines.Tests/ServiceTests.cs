@@ -14,7 +14,7 @@ namespace Core2.Selkie.Services.Lines.Tests.XUnit
     [TestFixture]
     public sealed class ServiceTests
     {
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void ServiceInitializeSubscribesToPingRequestMessageTest(
             [NotNull] ISelkieBus bus,
@@ -36,7 +36,7 @@ namespace Core2.Selkie.Services.Lines.Tests.XUnit
                                           Arg.Any <Action <PingRequestMessage>>());
         }
 
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void ServiceStartSendsMessageTest(
             [NotNull] ISelkieBus bus,
@@ -55,7 +55,7 @@ namespace Core2.Selkie.Services.Lines.Tests.XUnit
             bus.Received().Publish(Arg.Is <ServiceStartedResponseMessage>(x => x.ServiceName == Service.ServiceName));
         }
 
-        [Theory]
+        [Test]
         [AutoNSubstituteData]
         public void ServiceStopSendsMessageTest(
             [NotNull] ISelkieBus bus,
