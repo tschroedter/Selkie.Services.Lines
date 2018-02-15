@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Core2.Selkie.Aop" Version="1.0.1" />
+    <PackageReference Include="Core2.Selkie.Geometry" Version="1.0.1" />
+    <PackageReference Include="Core2.Selkie.Services.Common" Version="1.0.1" />
+    <PackageReference Include="Core2.Selkie.Services.Lines.Common" Version="1.0.1" />
+  </ItemGroup>
+
+</Project>

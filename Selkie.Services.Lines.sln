@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27323.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selkie.Services.Lines", "Selkie.Services.Lines\Selkie.Services.Lines.csproj", "{7B37E070-5D8D-4982-8986-8904F71165EA}"
 EndProject
@@ -23,6 +23,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selkie.Services.Lines.Windows.Service", "Selkie.Services.Lines.Windows.Service\Selkie.Services.Lines.Windows.Service.csproj", "{D8502A32-2117-430D-96DD-F9771498048E}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Selkie.Services.Lines.Windows.Service.Setup", "Selkie.Services.Lines.Windows.Service.Setup\Selkie.Services.Lines.Windows.Service.Setup.vdproj", "{170B4B67-EF44-4347-80A6-D92285B301A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core2.Selkie.Services.Lines", "Core2.Selkie.Services.Lines\Core2.Selkie.Services.Lines.csproj", "{C32CD556-7223-476E-B7BC-6FFC534FEDB1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5B34ED2A-6993-45F2-B5E2-710FD3647AC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core2.Selkie.Services.Lines.Tests", "Core2.Selkie.Services.Lines.Tests\Core2.Selkie.Services.Lines.Tests.csproj", "{83997D70-0E54-4F52-BE4B-D877C067A02C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,8 +66,22 @@ Global
 		{D8502A32-2117-430D-96DD-F9771498048E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{170B4B67-EF44-4347-80A6-D92285B301A3}.Debug|Any CPU.ActiveCfg = Debug
 		{170B4B67-EF44-4347-80A6-D92285B301A3}.Release|Any CPU.ActiveCfg = Release
+		{C32CD556-7223-476E-B7BC-6FFC534FEDB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C32CD556-7223-476E-B7BC-6FFC534FEDB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C32CD556-7223-476E-B7BC-6FFC534FEDB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C32CD556-7223-476E-B7BC-6FFC534FEDB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83997D70-0E54-4F52-BE4B-D877C067A02C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83997D70-0E54-4F52-BE4B-D877C067A02C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83997D70-0E54-4F52-BE4B-D877C067A02C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83997D70-0E54-4F52-BE4B-D877C067A02C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{83997D70-0E54-4F52-BE4B-D877C067A02C} = {5B34ED2A-6993-45F2-B5E2-710FD3647AC3}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {662EDEE7-56C7-4EFD-8146-608ECAC7DF91}
 	EndGlobalSection
 EndGlobal
