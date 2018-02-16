@@ -30,6 +30,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core2.Selkie.Services.Lines
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core2.Selkie.Services.Lines.Console", "Core2.Selkie.Services.Lines.Console\Core2.Selkie.Services.Lines.Console.csproj", "{DDF67CF6-8505-4240-BBF5-6CF3DFEC4F7D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example", "Example", "{D2979840-E934-4DE3-88CC-6A00D3ECD2A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core2.Selkie.Services.Lines.Console.Client", "Core2.Selkie.Services.Lines.Console.Client\Core2.Selkie.Services.Lines.Console.Client.csproj", "{23D116D0-A6CF-4465-829F-B87E905D100A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,12 +78,18 @@ Global
 		{DDF67CF6-8505-4240-BBF5-6CF3DFEC4F7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDF67CF6-8505-4240-BBF5-6CF3DFEC4F7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDF67CF6-8505-4240-BBF5-6CF3DFEC4F7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23D116D0-A6CF-4465-829F-B87E905D100A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23D116D0-A6CF-4465-829F-B87E905D100A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23D116D0-A6CF-4465-829F-B87E905D100A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23D116D0-A6CF-4465-829F-B87E905D100A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{AAAD1857-2FDF-40FE-AD22-16A6D78274FB} = {5B34ED2A-6993-45F2-B5E2-710FD3647AC3}
+		{DDF67CF6-8505-4240-BBF5-6CF3DFEC4F7D} = {D2979840-E934-4DE3-88CC-6A00D3ECD2A6}
+		{23D116D0-A6CF-4465-829F-B87E905D100A} = {D2979840-E934-4DE3-88CC-6A00D3ECD2A6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {662EDEE7-56C7-4EFD-8146-608ECAC7DF91}

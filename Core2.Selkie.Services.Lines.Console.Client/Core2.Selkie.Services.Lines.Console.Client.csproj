@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <!-- true => required to copy Nuget DLLs into output folder, alternative use donet publish  -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="NLog.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Core2.Selkie.Geometry" Version="1.0.1" />
+    <PackageReference Include="Core2.Selkie.Services.Common" Version="1.0.1" />
+    <PackageReference Include="Core2.Selkie.Services.Common.Dto" Version="1.0.1" />
+    <PackageReference Include="Core2.Selkie.Services.Lines.Common" Version="1.0.1" />
+  </ItemGroup>
+
+</Project>
