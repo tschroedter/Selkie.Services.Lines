@@ -10,7 +10,6 @@ using Core2.Selkie.Windsor.Interfaces;
 
 namespace Core2.Selkie.Services.Lines
 {
-    [Interceptor(typeof( MessageHandlerAspect ))]
     [ProjectComponent(Lifestyle.Singleton)]
     public class Service
         : BaseService,

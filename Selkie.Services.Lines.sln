@@ -28,6 +28,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5B34ED2A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core2.Selkie.Services.Lines.Tests", "Core2.Selkie.Services.Lines.Tests\Core2.Selkie.Services.Lines.Tests.csproj", "{AAAD1857-2FDF-40FE-AD22-16A6D78274FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core2.Selkie.Services.Lines.Console", "Core2.Selkie.Services.Lines.Console\Core2.Selkie.Services.Lines.Console.csproj", "{DDF67CF6-8505-4240-BBF5-6CF3DFEC4F7D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +70,10 @@ Global
 		{AAAD1857-2FDF-40FE-AD22-16A6D78274FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAAD1857-2FDF-40FE-AD22-16A6D78274FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAAD1857-2FDF-40FE-AD22-16A6D78274FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDF67CF6-8505-4240-BBF5-6CF3DFEC4F7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDF67CF6-8505-4240-BBF5-6CF3DFEC4F7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDF67CF6-8505-4240-BBF5-6CF3DFEC4F7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDF67CF6-8505-4240-BBF5-6CF3DFEC4F7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
