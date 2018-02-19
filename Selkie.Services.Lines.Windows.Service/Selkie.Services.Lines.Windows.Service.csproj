@@ -141,12 +141,6 @@
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Selkie.Services.Lines\Selkie.Services.Lines.csproj">
-      <Project>{7b37e070-5d8d-4982-8986-8904f71165ea}</Project>
-      <Name>Selkie.Services.Lines</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
